@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v19</title>
+<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v20</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
@@ -34,7 +34,7 @@ body{
   color:var(--ink);
   min-height:100vh;
   /* overflow-x:hidden 완전 제거 — iOS Safari 스크롤 버그 핵심 원인 */
-  touch-action:pan-y; /* 세로 스크롤 명시적 허용 */
+  touch-action:pan-y pinch-zoom; /* 세로 스크롤 + 핀치 줌 허용 */
 }
 
 .page-wrap{
@@ -92,7 +92,7 @@ body{
   text-decoration:none;
   margin-top:12px;
 }
-.seteuk-q{font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:10px;word-break:keep-all;}
+.seteuk-q{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:10px;word-break:keep-all;}
 .seteuk-cta{font-size:14px;font-weight:800;background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;}
 
 /* 오른쪽 브로슈어+자격 박스 — 왼쪽과 완전히 같은 높이 */
@@ -226,7 +226,7 @@ body{
 
 /* ACCORDION */
 .acc-panel{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
-.acc-panel.open{max-height:700px;}
+.acc-panel.open{max-height:2000px;}
 .acc-inner{
   background:#fff;
   border:1px solid rgba(183,156,255,0.45);
@@ -242,19 +242,37 @@ body{
   margin-bottom:12px;
 }
 .acc-title{
-  font-size:15px;font-weight:800;color:var(--ink);
+  font-size:17px;font-weight:800;color:var(--ink);
   letter-spacing:-0.03em;line-height:1.45;
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 .acc-desc{
-  font-size:13px;font-weight:400;color:var(--ink-3);
-  line-height:1.8;letter-spacing:-0.01em;
+  font-size:14px;font-weight:400;color:var(--ink-3);
+  line-height:1.85;letter-spacing:-0.01em;
   white-space:pre-line;
 }
 .acc-desc strong{
-  display:block;font-size:13px;font-weight:700;
-  color:var(--ink-2);margin-top:14px;margin-bottom:5px;
-  letter-spacing:-0.01em;
+  display:block;font-size:14px;font-weight:800;
+  color:var(--ink);
+  margin-top:0;margin-bottom:8px;
+  letter-spacing:-0.02em;
+}
+/* 프로그램 섹션 박스 */
+.acc-section-box{
+  background:rgba(183,156,255,0.06);
+  border:1px solid rgba(183,156,255,0.2);
+  border-radius:14px;
+  padding:16px 16px;
+  margin-bottom:10px;
+  white-space:pre-line;
+  font-size:14px;font-weight:400;
+  color:var(--ink-3);
+  line-height:1.85;letter-spacing:-0.01em;
+}
+.acc-section-box:last-of-type{margin-bottom:0;}
+.acc-section-box strong{
+  display:block;font-size:14px;font-weight:800;
+  color:var(--ink);margin-bottom:8px;letter-spacing:-0.02em;
 }
 
 /* CTA BUTTONS */
@@ -424,11 +442,10 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">학년관리 온·오프라인</div>
           <div class="acc-title">수행평가 공지가 나올 때마다 막막했다면, 이제 달라집니다.</div>
-          <div class="acc-desc">복잡한 절차 없이 수행 보고서, 감상문, 활동지 등 학교 제출 양식 그대로 보내면 끝. 성적 상관없이 누구나 가능합니다.
+          <div class="acc-section-box">복잡한 절차 없이 수행 보고서, 감상문, 활동지 등 학교 제출 양식 그대로 보내면 끝. 성적 상관없이 누구나 가능합니다.
 
-생기부 '상향평준화' 시대, 진정성과 깊이를 드러내는 나만의 '심화 확장 스토리'가 이제 경쟁력의 중심입니다.
-<strong>컨설팅의 핵심 코어 3</strong>
-01 수행 탐구 활동 주제 추천
+생기부 '상향평준화' 시대, 진정성과 깊이를 드러내는 나만의 '심화 확장 스토리'가 이제 경쟁력의 중심입니다.</div>
+          <div class="acc-section-box"><strong>컨설팅의 핵심 코어 3</strong>01 수행 탐구 활동 주제 추천
 힘들다고 느껴지는 '수행 공지' 그대로 올리면 탐구 주제가 추천됩니다. 탐구 주제는 탐구 동기, 학습 과정, 결론 및 고찰점 패키지로 구성된 하나의 '스토리'로 제공됩니다.
 
 02 세특 기재 관리
@@ -458,11 +475,10 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">학년&amp;학기 온라인</div>
           <div class="acc-title">결국 세특 전략이 서류 '합불'을 결정합니다.</div>
-          <div class="acc-desc">10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 대학은 탐구보고서 자체가 아니라, 세특에 기록된 탐구의 흐름과 학습 성장 과정을 평가합니다.
+          <div class="acc-section-box">10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 대학은 탐구보고서 자체가 아니라, 세특에 기록된 탐구의 흐름과 학습 성장 과정을 평가합니다.
 
-고득점 세특은 생성형 AI만으로 해결되지 않습니다.
-
-마이더스K 기재관리 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.
+고득점 세특은 생성형 AI만으로 해결되지 않습니다.</div>
+          <div class="acc-section-box">마이더스K 기재관리 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.
 
 마이더스K는 멘토단 프리랜서가 아닌, 1년 365일 대입 컨설팅에 전념하는 전문 컨설턴트로만 운영됩니다. 온라인 상시 비대면 관리로 진행되므로 대구·경북 외 타 지역 학생도 가능합니다.
 
@@ -489,9 +505,8 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">회당 컨설팅</div>
           <div class="acc-title">생기부 활동, 단 3분짜리 AI 분석으로 정말 충분할까요?</div>
-          <div class="acc-desc">한 학년, 한 학기 단 1회 컨설팅으로 끝나는 세특 전략 컨설팅. 단순 결과 레포트가 아니라, 그 이상의 세특 전략을 제시합니다. '티처스' 의대편 컨설턴트가 진행하는 1:1 코칭과 네 가지 컨설팅이 한 번에 진행됩니다.
-<strong>세특 전략 컨설팅 커리큘럼</strong>
-01 학생부 강점·취약점 분석
+          <div class="acc-section-box">한 학년, 한 학기 단 1회 컨설팅으로 끝나는 세특 전략 컨설팅. 단순 결과 레포트가 아니라, 그 이상의 세특 전략을 제시합니다. '티처스' 의대편 컨설턴트가 진행하는 1:1 코칭과 네 가지 컨설팅이 한 번에 진행됩니다.</div>
+          <div class="acc-section-box"><strong>세특 전략 컨설팅 커리큘럼</strong>01 학생부 강점·취약점 분석
 02 이전 활동에서 심화·확장되는 탐구 주제 추천과 스토리 제시
 03 교과·학종·정시 전형별 지원 가능 대학 라인 제시
 04 문장 단위 분석과 내게 맞춘 학생부 세특 전략 코칭
@@ -521,13 +536,12 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">회당 컨설팅</div>
           <div class="acc-title">나는 어떤 원칙과 전략으로 세특을 디자인하고 있는가?</div>
-          <div class="acc-desc">어차피 비슷한 내신 성적을 가진 학생들 간 경쟁인 학종에서는 결국 학생부 서류가 합격의 핵심 변수입니다. 그러나 세특에 무엇을 기록해야 경쟁력을 갖출 수 있는지, 누구도 제대로 알려주지 않습니다.
+          <div class="acc-section-box">어차피 비슷한 내신 성적을 가진 학생들 간 경쟁인 학종에서는 결국 학생부 서류가 합격의 핵심 변수입니다. 그러나 세특에 무엇을 기록해야 경쟁력을 갖출 수 있는지, 누구도 제대로 알려주지 않습니다.
 
 그래서, 마이더스K가 최상위권부터 하위권까지 누구나 활용할 수 있는 실전 세특 디자인 수업을 열었습니다.
 
-대학은 학생의 보고서를 직접 볼 수 없습니다. 그래서 세특은 단순한 기록을 넘어, 입학사정관에게 깊은 인상을 남길 수 있는 표현과 전략으로 접근해야 합니다.
-<strong>대한민국에서 전무후무한 '학생부 세특 디자인' 수업 커리큘럼</strong>
-01 서류평가 원리
+대학은 학생의 보고서를 직접 볼 수 없습니다. 그래서 세특은 단순한 기록을 넘어, 입학사정관에게 깊은 인상을 남길 수 있는 표현과 전략으로 접근해야 합니다.</div>
+          <div class="acc-section-box"><strong>대한민국에서 전무후무한 '학생부 세특 디자인' 수업 커리큘럼</strong>01 서류평가 원리
 02 심화 탐구 실전 스킬
 03 세특용 보고서 디자인
 
@@ -560,7 +574,7 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">회당 컨설팅</div>
           <div class="acc-title">수시 6장, 감이 아니라 전략으로 설계하세요.</div>
-          <div class="acc-desc"><strong>수시 원서전략 컨설팅</strong>교육청 무허가 업체나 AI가 5분 만에 분석하는 생기부·세특만으로 정말 충분할까요? 마이더스K는 교육청 정식 인가 제5513호 학원으로, 연간 700~800회 이상의 개인·학교 단체 컨설팅 경험을 바탕으로 최종 합격의 길을 제시합니다.
+          <div class="acc-section-box"><strong>수시 원서전략 컨설팅</strong>교육청 무허가 업체나 AI가 5분 만에 분석하는 생기부·세특만으로 정말 충분할까요? 마이더스K는 교육청 정식 인가 제5513호 학원으로, 연간 700~800회 이상의 개인·학교 단체 컨설팅 경험을 바탕으로 최종 합격의 길을 제시합니다.
 
 학생의 내신과 학생부 활동을 종합적으로 분석해 6장의 최적 지원 카드를 설계합니다. 전국 5,700여 개 모집단위 환산점수를 분석합니다.
 
@@ -568,8 +582,8 @@ body{
 02 전형별 서류 타당성 판단
 03 면접 대응력 진단
 
-티처스 컨설턴트 1:1 대면 컨설팅과 최종 지원 레포트 제공. 필요 시 변동사항 관련 전화 상담 1회 추가 가능합니다.
-<strong>정시 원서전략 컨설팅</strong>같은 점수라도 대학별 환산점수와 지원자 상황에 따라 정시 결과는 크게 달라집니다. 마이더스K 정시 컨설팅은 가·나·다 군별 최선의 지원전략을 수립합니다. 강제추합·자연추합까지 고려한 마이더스K만의 노하우로 상향·중립·안정 지원 전략을 제시합니다.
+티처스 컨설턴트 1:1 대면 컨설팅과 최종 지원 레포트 제공. 필요 시 변동사항 관련 전화 상담 1회 추가 가능합니다.</div>
+          <div class="acc-section-box"><strong>정시 원서전략 컨설팅</strong>같은 점수라도 대학별 환산점수와 지원자 상황에 따라 정시 결과는 크게 달라집니다. 마이더스K 정시 컨설팅은 가·나·다 군별 최선의 지원전략을 수립합니다. 강제추합·자연추합까지 고려한 마이더스K만의 노하우로 상향·중립·안정 지원 전략을 제시합니다.
 
 01 나의 점수와 대학별 환산점수 분석
 02 가·나·다 군별 지원 전략 수립
@@ -598,11 +612,10 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">회당 컨설팅</div>
           <div class="acc-title">학생부 기반 면접, 단순 예상 질문이 아니라 전략으로 준비하세요.</div>
-          <div class="acc-desc">티처스 컨설턴트와 함께하는 대입 수시 면접 컨설팅. 학생 탐구 활동의 진위 여부, 활동의 수준과 깊이, 인성 및 리더십 평가를 핵심으로 마이더스K만의 노하우로 준비합니다.
+          <div class="acc-section-box">티처스 컨설턴트와 함께하는 대입 수시 면접 컨설팅. 학생 탐구 활동의 진위 여부, 활동의 수준과 깊이, 인성 및 리더십 평가를 핵심으로 마이더스K만의 노하우로 준비합니다.
 
-마이더스K의 면접 컨설팅은 다릅니다. 학생부 서류 기반 심층 면접을 대비하며, 예상 질문 추출과 실전과 같은 위기 대응 시뮬레이션을 통해 합격 가능성을 높입니다.
-
-01 학생 1명당 컨설턴트 2명
+마이더스K의 면접 컨설팅은 다릅니다. 학생부 서류 기반 심층 면접을 대비하며, 예상 질문 추출과 실전과 같은 위기 대응 시뮬레이션을 통해 합격 가능성을 높입니다.</div>
+          <div class="acc-section-box">01 학생 1명당 컨설턴트 2명
 1:2 컨설팅 방식으로 최상의 면접 전략을 빌드업합니다.
 
 02 예상 질문 추출과 답변 보강
@@ -638,7 +651,7 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">회당 컨설팅</div>
           <div class="acc-title">우리 학생이 지금 학종 준비를 제대로 하고 있는지 의구심이 든다면?</div>
-          <div class="acc-desc">학생부를 기반으로 현재 위치와 보완 방향을 현장에서 즉시 점검합니다.
+          <div class="acc-section-box">학생부를 기반으로 현재 위치와 보완 방향을 현장에서 즉시 점검합니다.
 
 01 생기부 활동의 강점·약점·취약점 분석
 02 현재 내신 및 활동 수준으로 지원 가능한 대학 라인 제시
@@ -667,7 +680,7 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">3–6회 컨설팅</div>
           <div class="acc-title">학생부종합보다 교과와 정시 전략이 우선이라면.</div>
-          <div class="acc-desc">내신 및 모의고사 성적표를 토대로 각 대학별 환산점수를 분석하고, 현재 성적에서 가능한 지원 방향을 구체적으로 제시합니다.
+          <div class="acc-section-box">내신 및 모의고사 성적표를 토대로 각 대학별 환산점수를 분석하고, 현재 성적에서 가능한 지원 방향을 구체적으로 제시합니다.
 
 01 현재 성적으로 지원 가능한 수시·정시 대학 및 학과 분석
 02 부족한 과목에 대한 학습 운영 전략 제시
@@ -698,7 +711,7 @@ body{
         <div class="acc-inner">
           <div class="acc-tag">중3 전용 · 얼리버드</div>
           <div class="acc-title">학생부 준비, 시작부터 달라야 합니다.</div>
-          <div class="acc-desc">진로가 불확실해도, 과목·동아리 선택이 막막해도, 수행평가와 세특 연결이 고민이어도 — 지금 방향을 잡으면 됩니다.
+          <div class="acc-section-box">진로가 불확실해도, 과목·동아리 선택이 막막해도, 수행평가와 세특 연결이 고민이어도 — 지금 방향을 잡으면 됩니다.
 
 학종 얼리버드 컨설팅은 진로 선택, 학생부 디자인 수업, 세특 빌드업 전략, 고1 맞춤 심화 탐구 주제 추천까지 한 번에 설계하는 실속형 프로그램입니다.
 
