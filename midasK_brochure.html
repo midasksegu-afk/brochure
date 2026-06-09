@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.0</title>
+<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.1</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
@@ -673,6 +674,51 @@ body{
   display:block;margin-top:4px;
 }
 
+/* ════════════════════════════
+   공유 버튼
+════════════════════════════ */
+.share-btn {
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;font-family:inherit;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity .15s;flex-shrink:0;
+}
+.share-btn:active { opacity:0.75; }
+
+/* A존 — Hero 우측 상단 (어두운 배경 → 흰 아이콘) */
+.share-btn-hero {
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.18);
+  border:1.5px solid rgba(255,255,255,0.45) !important;
+  color:#fff;font-size:18px;z-index:3;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* B존 — About 우측 상단 (밝은 배경 → 진한 아이콘) */
+.share-btn-about {
+  position:absolute;top:36px;right:28px;
+  width:36px;height:36px;border-radius:50%;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.12) !important;
+  color:var(--ink-2);font-size:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* C존 — 바텀시트 (흰 배경 → 진한 아이콘) */
+.share-btn-bs {
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;
+  border:1.5px solid rgba(0,0,0,0.12) !important;
+  color:var(--ink);font-size:20px;
+  flex-shrink:0;
+  box-shadow:0 1px 4px rgba(0,0,0,0.08);
+}
+
+
+
 @media(min-width:700px){
   .hero-section{padding:72px 48px 52px;}
   .hero-title{font-size:42px;}
@@ -701,6 +747,7 @@ body{
 
   <!-- ════ HERO ════ -->
   <div class="hero-section">
+    <button class="share-btn share-btn-hero" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>
     <div class="hero-content">
       <div class="hero-eyebrow"><span class="eyedot"></span><span class="eyebrow-sub">성적을 부탁해</span><span class="eyebrow-main">티처스 컨설턴트</span></div>
       <div class="hero-top">
@@ -742,12 +789,12 @@ body{
     </div>
   </div>
 
-  <!-- ════ ABOUT ════ -->
-  <div class="about-section">
+  <div class="about-section" style="position:relative;">
     <div class="sec-label">About</div>
     <div class="about-line-muted">평범했던 생기부도</div>
     <div class="about-line-highlight">나만의 심화 확장 STORY로</div>
     <div class="about-line-end">얼마든지 업그레이드될 수 있습니다.</div>
+    <button class="share-btn share-btn-about" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>
   </div>
 
   <!-- ════ NOTICE ════ -->
@@ -1174,6 +1221,8 @@ function renderBSFooter(d) {
   } else {
     html += '<a href="' + d.ctaTel + '" class="' + fillClass + '">' + d.ctaLabel + '</a>';
   }
+  /* ★ 공유 버튼 ★ */
+  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>';
   /* ★ 문자 상담 SMS — 절대 수정 금지 ★ */
   html += '<a href="' + d.sms + '" class="bs-cta outline">문자 상담 ✉</a>';
   html += '</div>';
@@ -1528,6 +1577,34 @@ var PROGRAMS = {
   }
 
 };
+
+/* ════════════════════════
+   공유 기능
+════════════════════════ */
+function shareBrochure() {
+  var shareData = {
+    title: '마이더스K 교육컨설팅',
+    text: '수행평가 주제 선정부터 동아리·진로 활동,\n학생부 세특·자기평가서 제출 관리까지.\n\n입시가 복잡하고 어렵게 느껴지신다면,\n아무것도 모르고 오셔도 괜찮습니다.\n\n최선의 대입전략은 이미 시작되었습니다.\n마이더스K와 함께라면,',
+    url: 'https://midasksegu-afk.github.io/brochure/midasK_brochure.html'
+  };
+  if (navigator.share) {
+    navigator.share(shareData).catch(function() {});
+  } else {
+    navigator.clipboard.writeText(shareData.url).then(function() {
+      showToast('링크가 복사되었습니다!');
+    }).catch(function() {
+      showToast('주소창에서 링크를 복사해주세요.');
+    });
+  }
+}
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:#1A1A2E;color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:30px;z-index:200;white-space:nowrap;pointer-events:none;';
+  document.body.appendChild(t);
+  setTimeout(function() { t.remove(); }, 2000);
+}
 
 /* ════════════════════════
    ESC 키로 닫기
