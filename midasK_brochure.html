@@ -817,7 +817,7 @@ body{
           <div class="cat-name">개별 컨설팅</div>
           <div class="cat-sub">필요한 프로그램만 골라서</div>
         </div>
-        <span class="cat-count">9개</span>
+        <span class="cat-count">10개</span>
         <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-b">
@@ -828,7 +828,7 @@ body{
               <div class="prog-name">세특 기재 관리<span class="hit-badge-wrap"><span class="hit-badge-inner">HIT</span></span></div>
               <div class="prog-desc">학교 제출용 자기평가서 세특 기재 · 온라인</div>
             </div>
-            <div class="prog-price">230~250만</div>
+            <div class="prog-price">220~250만</div>
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('p02')">
@@ -858,8 +858,17 @@ body{
             <div class="prog-price">15만</div>
             <div class="prog-arr">›</div>
           </div>
-          <div class="prog-item" onclick="openBS('p05')">
+          <div class="prog-item" onclick="openBS('p10')">
             <div class="prog-num">05</div>
+            <div class="prog-body">
+              <div class="prog-name">맞춤 &amp; 진로 컨설팅</div>
+              <div class="prog-desc">대입전략 상담 · 진로·학과 선택 및 선택과목 코칭</div>
+            </div>
+            <div class="prog-price">10~15만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p05')">
+            <div class="prog-num">06</div>
             <div class="prog-body">
               <div class="prog-name">RPM 컨설팅</div>
               <div class="prog-desc">세특 역량 강화 · 1:1 대면 인터뷰</div>
@@ -868,7 +877,7 @@ body{
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('p04')">
-            <div class="prog-num">06</div>
+            <div class="prog-num">07</div>
             <div class="prog-body">
               <div class="prog-name">학종 특강</div>
               <div class="prog-desc">학생부 셀프디자인 · 서류평가 원리 · 세특 전략</div>
@@ -877,7 +886,7 @@ body{
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('p07')">
-            <div class="prog-num">07</div>
+            <div class="prog-num">08</div>
             <div class="prog-body">
               <div class="prog-name">교과·정시 전략관리</div>
               <div class="prog-desc">교과 내신 + 수능 통합 전략관리</div>
@@ -886,7 +895,7 @@ body{
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('p06')">
-            <div class="prog-num">08</div>
+            <div class="prog-num">09</div>
             <div class="prog-body">
               <div class="prog-name">비교과 활동 컨설팅</div>
               <div class="prog-desc">고1 전용 · 창체활동 주제 추천 및 기획</div>
@@ -895,7 +904,7 @@ body{
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('p09')">
-            <div class="prog-num">09</div>
+            <div class="prog-num">10</div>
             <div class="prog-body">
               <div class="prog-name">중3 학종 얼리버드</div>
               <div class="prog-desc">학종특강 · 진로컨설팅 · 고1 활동 기획</div>
@@ -914,7 +923,7 @@ body{
           <div class="cat-name">대입 전략 컨설팅</div>
           <div class="cat-sub">원서·면접·최종 합격 전략</div>
         </div>
-        <span class="cat-count">3개</span>
+        <span class="cat-count">4개</span>
         <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-c">
@@ -944,6 +953,15 @@ body{
               <div class="prog-desc">서류기반 심층면접 · 티처스 컨설턴트 협업</div>
             </div>
             <div class="prog-price">35~40만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('c04')">
+            <div class="prog-num">패키지</div>
+            <div class="prog-body">
+              <div class="prog-name">고3 파이널 패키지</div>
+              <div class="prog-desc">세특전략 40만 · 기재관리 220만 · 수시원서 45만</div>
+            </div>
+            <div class="prog-price">275만</div>
             <div class="prog-arr">›</div>
           </div>
         </div>
@@ -1177,7 +1195,7 @@ var PROGRAMS = {
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
       {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
     ],
-    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)'],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
   },
@@ -1201,7 +1219,7 @@ var PROGRAMS = {
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
       {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
     ],
-    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)'],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
   },
@@ -1225,7 +1243,7 @@ var PROGRAMS = {
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
       {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
     ],
-    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)', '3-2학기 관리 희망 시 비용 별도 문의'],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)', '3-2학기 관리 희망 시 비용 별도 문의'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
   },
@@ -1240,7 +1258,7 @@ var PROGRAMS = {
       {title:'학생 보고서 기반 자기평가서 작성', desc:'학교 제출 보고서만 보내주면 끝. 간편하지만 경쟁력 있게! 국/수/영/사/과 교과, 자율·동아리·진로·행특 전 범위 대응. 항목별 BEST 실적 2~3개 선별 제공.'},
       {title:'세특 강화 솔루션', desc:'단순 요약·첨삭이 아닌, 비인지적 역량·교과 회귀·고찰점 강화까지 재구성. 학생의 원본 보고서에 숨어 있는 깊이를 끌어내 세특 완성도를 높입니다.'}
     ],
-    info:['학년별 220~250만원', '전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 (타 지역 가능)'],
+    info:['고1 230만 / 고2 250만 / 고3 220만', '전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 (타 지역 가능)'],
     ctaLabel:'자세히 보기 →', ctaLink:'https://blog.naver.com/cesmidask/223912730799', ctaTarget:true,
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A생기부%20기재%20온라인%20관리에%20관심있어요.%20%0A상담%20신청합니다.'
   },
@@ -1353,6 +1371,21 @@ var PROGRAMS = {
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20현장분석%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
   },
 
+  p10: {
+    tag:'회당 컨설팅 · 10~15만원', tagColor:'b',
+    title:'맞춤 & 진로 컨설팅',
+    subtitle:'현실적인 대입 전략을 세운다! 대입전략 상담 / 진로·학과 선택 및 고교학점제 선택과목 코칭',
+    pointA:'현재 성적과 희망 대학·학과를 기준으로, 현실적인 대입 전략을 설정하는 컨설팅. 진로가 아직 명확하지 않거나 선택과목 구성이 고민인 학생에게도 맞춤 방향을 제시합니다.',
+    currLabel:'프로그램 구성',
+    curriculum:[
+      {title:'학생 맞춤 컨설팅 — 10만원', desc:'목표대학 전형 분석 상담 · 성적 기반 진로 및 대입전략 분석 · 주력 전형·목표 라인 및 후속 전략 상담'},
+      {title:'진로 컨설팅 — 15만원', desc:'진로 미정 시 진로검사 or 상담 진행 · 고교학점제에 맞춘 진로선택과목 방향 코칭 · 1:1 개별 맞춤상담'}
+    ],
+    info:['대입 전문가 1:1 개별 상담 방식으로 진행', '후속 세특·탐구·성적 관리 방향 상담 가능'],
+    ctaLabel:'전화 바로연결 ☎', ctaTel:'tel:053-782-0331',
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A맞춤%26진로%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
   p09: {
     tag:'중3 전용 · 55만원', tagColor:'b',
     title:'중3 학종 얼리버드 컨설팅',
@@ -1418,6 +1451,36 @@ var PROGRAMS = {
     info:['일반학과 1회 35만원 / 2회차부터 30만원', '의치한약수·SKY 1회 40만원', '모범답변 예시 제작 희망 시 10만원 추가'],
     ctaLabel:'자세히 보기 →', ctaLink:'https://midasksegu-afk.github.io/meetcon/', ctaTarget:true,
     sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A대입%20수시%20면접컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  /* ── 고3 파이널 패키지 ── */
+  c04: {
+    tag:'고3 전용 · 패키지', tagColor:'c',
+    title:'고3 파이널 패키지 컨설팅',
+    subtitle:'수시 지원을 앞둔 고3에게 반드시 필요한 3가지 핵심 솔루션!',
+    price:{
+      original:'305만원',
+      final:'275만원',
+      badge:'10% 할인',
+      options:[
+        {label:'세특전략 컨설팅 (개별)', val:'40만원'},
+        {label:'기재관리 컨설팅 (개별)', val:'220만원'},
+        {label:'수시 원서전략 컨설팅 (개별)', val:'45만원'}
+      ]
+    },
+    currLabel:'패키지 구성 3가지',
+    curriculum:[
+      {title:'세특전략 컨설팅', desc:'티처스 컨설턴트 1:1 대면 + 최종레포트 제공. 심화 확장 탐구 주제 5~10개 · 지원가능 대학 라인 · 세특 기재전략 코칭'},
+      {title:'기재관리 컨설팅', desc:'아무리 수준 높은 탐구 활동이라도, 세특에 제대로 드러나지 못한다면? 교과 개념으로의 회귀, 심층 고찰, 비인지적 역량을 찾아 재구성합니다.'},
+      {title:'수시 원서전략 컨설팅', desc:'6장의 최적 지원 카드를 설계합니다. 대학별 내신 환산점수 분석·합불 예측 · 서류 타당성 판단 · 1:1 대면 컨설팅 + 최종 지원 레포트 제공'}
+    ],
+    info:[
+      '개별 가입도 가능 — 패키지 가입 시 10% 할인',
+      '보고서 설계도(세특구원자)는 주제당 5~7천원 별도',
+      '타지역·내방 힘든 경우 화상 & 전화상담 가능'
+    ],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A고3%20파이널%20패키지%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
   },
 
   /* ── 세특구원자 ── */
