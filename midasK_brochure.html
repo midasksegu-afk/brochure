@@ -1600,7 +1600,7 @@ function shareBrochure() {
     navigator.clipboard.writeText(shareData.url).then(function() {
       showToast('링크가 복사되었습니다!');
     }).catch(function() {
-      showToast('주소창에서 링크를 복사해주세요.');
+      window.prompt('아래 링크를 길게 눌러 복사하세요.', shareData.url);
     });
   }
 }
