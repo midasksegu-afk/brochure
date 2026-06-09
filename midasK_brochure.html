@@ -182,13 +182,28 @@ body{
 .cat-c .cat-count{background:var(--cat-c-bg);color:var(--cat-c-text);}
 
 .cat-arrow{
-  flex-shrink:0;width:28px;height:28px;border-radius:50%;
-  background:rgba(0,0,0,0.04);
+  flex-shrink:0;width:36px;height:36px;border-radius:50%;
+  background:#fff;
+  border:1.5px solid rgba(0,0,0,0.10);
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
   display:flex;align-items:center;justify-content:center;
-  font-size:10px;color:var(--ink-4);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);
+  transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .2s;
 }
-.cat-btn.open .cat-arrow{transform:rotate(180deg);}
+.cat-arrow svg{
+  width:16px;height:16px;
+  stroke:var(--ink-2);stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  fill:none;
+  transition:stroke .2s;
+}
+.cat-btn:hover .cat-arrow{box-shadow:0 4px 14px rgba(0,0,0,0.13);}
+.cat-btn.open .cat-arrow{
+  transform:rotate(180deg);
+  background:var(--ink);
+  border-color:var(--ink);
+  box-shadow:0 2px 8px rgba(0,0,0,0.18);
+}
+.cat-btn.open .cat-arrow svg{stroke:#fff;}
 
 /* ════════════════════════════
    카테고리 패널 (프로그램 리스트)
@@ -734,7 +749,7 @@ body{
           <div class="cat-sub">고1·고2·고3 연간 올케어 Membership</div>
         </div>
         <span class="cat-count">3개</span>
-        <div class="cat-arrow">▼</div>
+        <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-a">
         <div class="cat-inner">
@@ -792,7 +807,7 @@ body{
           <div class="cat-sub">필요한 프로그램만 골라서</div>
         </div>
         <span class="cat-count">9개</span>
-        <div class="cat-arrow">▼</div>
+        <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-b">
         <div class="cat-inner cat-b">
@@ -889,7 +904,7 @@ body{
           <div class="cat-sub">원서·면접·최종 합격 전략</div>
         </div>
         <span class="cat-count">3개</span>
-        <div class="cat-arrow">▼</div>
+        <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-c">
         <div class="cat-inner cat-c">
