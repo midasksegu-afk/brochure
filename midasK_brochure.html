@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v20</title>
+<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
+/* ── 변수 ── */
 :root{
   --bg:#F6F4F1;
   --ink:#15151A;--ink-2:#43434A;--ink-3:#86868B;--ink-4:#B8B8BE;
@@ -19,13 +20,19 @@
   --grad-mesh-2:radial-gradient(55% 45% at 95% 18%,rgba(183,156,255,0.35) 0%,rgba(183,156,255,0) 70%);
   --grad-mesh-3:radial-gradient(70% 55% at 50% 95%,rgba(123,194,255,0.30) 0%,rgba(123,194,255,0) 70%);
   --grad-mesh-4:radial-gradient(45% 40% at 80% 65%,rgba(255,143,177,0.25) 0%,rgba(255,143,177,0) 70%);
+  /* 카테고리 색상 */
+  --cat-a-bg:#E6F1FB;--cat-a-text:#0C447C;--cat-a-border:#B5D4F4;--cat-a-mid:#185FA5;
+  --cat-b-bg:#F1EFF8;--cat-b-text:#3C3489;--cat-b-border:#AFA9EC;--cat-b-mid:#534AB7;
+  --cat-c-bg:#FAEEDA;--cat-c-text:#633806;--cat-c-border:#FAC775;--cat-c-mid:#854F0B;
+  /* 세특구원자 민트 */
+  --cat-s-bg:#E4F5EE;--cat-s-text:#0A5740;--cat-s-border:#7ECFB4;--cat-s-mid:#0D7A5A;
+  --cat-s-grad:linear-gradient(120deg,#0D7A5A 0%,#0FA876 100%);
 }
+
+/* ── 리셋 ── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
-html{
-  /* iOS Safari: overflow-x:hidden을 html/body에 쓰면 touch scroll이 죽는 버그 방지 */
-  overflow-x:clip;
-}
-html, body{
+html{overflow-x:clip;}
+html,body{
   font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,sans-serif;
   letter-spacing:-0.01em;
 }
@@ -33,30 +40,29 @@ body{
   background:var(--bg);
   color:var(--ink);
   min-height:100vh;
-  /* overflow-x:hidden 완전 제거 — iOS Safari 스크롤 버그 핵심 원인 */
-  touch-action:pan-y pinch-zoom; /* 세로 스크롤 + 핀치 줌 허용 */
+  touch-action:pan-y pinch-zoom;
 }
 
+/* ── 페이지 래퍼 ── */
 .page-wrap{
   position:relative;
   max-width:680px;
   margin:0 auto;
   padding-bottom:60px;
-  overflow-x:clip; /* body 대신 여기서 가로 넘침 차단 — 스크롤에 무해 */
-  /* animation(transform) 제거 — iOS Safari touch scroll 차단의 핵심 원인 */
+  overflow-x:clip;
   background:var(--grad-mesh-1),var(--grad-mesh-2),var(--grad-mesh-3),var(--grad-mesh-4),var(--bg);
 }
 
-/* ── HERO ── */
+/* ════════════════════════════
+   HERO (v20에서 그대로 유지)
+════════════════════════════ */
 .hero-section{
   padding:56px 28px 40px;
   background:linear-gradient(160deg,#1A1A2E 0%,#16213E 60%,#0F3460 100%);
-  position:relative;
-  overflow:hidden;
+  position:relative;overflow:hidden;
 }
 .hero-section::before{
-  content:'';
-  position:absolute;inset:0;
+  content:'';position:absolute;inset:0;
   background:
     radial-gradient(ellipse at 75% 15%,rgba(255,160,120,0.28),transparent 55%),
     radial-gradient(ellipse at 8% 85%,rgba(160,120,255,0.22),transparent 55%);
@@ -65,45 +71,29 @@ body{
 .hero-content{position:relative;z-index:2;}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
   border-radius:30px;padding:6px 14px;
-  font-size:11px;font-weight:700;
-  color:rgba(255,255,255,0.75);letter-spacing:0.08em;
+  font-size:11px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:0.08em;
   margin-bottom:24px;
 }
 .eyedot{width:8px;height:8px;border-radius:50%;background:var(--grad-1);}
 .hero-line1{font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.03em;margin-bottom:10px;}
 .hero-title{font-size:34px;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.04em;}
 .hero-title .acc{background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent;}
-
-/* ── HERO INNER LAYOUT ── */
-/* 상단: 좌우 동일 높이 */
 .hero-top{display:flex;gap:12px;align-items:stretch;margin-bottom:12px;}
 .hero-left{flex:1;display:flex;flex-direction:column;}
-
-/* 세특구원자 박스 — 타이틀 아래 남은 공간 꽉 채움 */
 .seteuk-box{
   display:block;flex:1;
   background:linear-gradient(135deg,rgba(255,184,154,0.15) 0%,rgba(183,156,255,0.18) 100%);
-  border:1px solid rgba(255,255,255,0.18);
-  border-radius:12px;
-  padding:12px 13px;
-  text-decoration:none;
-  margin-top:12px;
+  border:1px solid rgba(255,255,255,0.18);border-radius:12px;padding:12px 13px;
+  text-decoration:none;margin-top:12px;
 }
 .seteuk-q{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);line-height:1.55;margin-bottom:10px;word-break:keep-all;}
 .seteuk-cta{font-size:14px;font-weight:800;background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em;}
-
-/* 오른쪽 브로슈어+자격 박스 — 왼쪽과 완전히 같은 높이 */
 .hero-right{flex-shrink:0;width:118px;display:flex;}
 .hero-right-box{
-  flex:1;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.18);
-  border-radius:12px;
-  padding:14px 12px;
-  display:flex;flex-direction:column;
+  flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);
+  border-radius:12px;padding:14px 12px;display:flex;flex-direction:column;
 }
 .brochure-area{text-align:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:12px;}
 .b-label{font-size:9px;font-weight:600;color:rgba(255,255,255,0.38);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;}
@@ -112,219 +102,392 @@ body{
 .cred-area{display:flex;flex-direction:column;gap:5px;flex:1;justify-content:center;}
 .cred-item{display:flex;align-items:flex-start;gap:5px;font-size:9.5px;font-weight:600;color:rgba(255,255,255,0.55);line-height:1.35;letter-spacing:-0.01em;word-break:keep-all;}
 .cred-dot{width:4px;height:4px;border-radius:50%;background:var(--grad-1);flex-shrink:0;margin-top:4px;}
-
-/* 하단: stats 3개 균일 */
-.hero-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:0;
-}
-.stat-card{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:18px;
-  padding:18px 12px;
-  text-align:center;
-  line-height:1.55;
-}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:0;}
+.stat-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.13);border-radius:18px;padding:18px 12px;text-align:center;line-height:1.55;}
 .stat-text{font-size:11px;font-weight:500;color:rgba(255,255,255,0.45);letter-spacing:-0.01em;word-break:keep-all;}
 .stat-text .big{font-size:24px;font-weight:800;letter-spacing:-0.04em;vertical-align:middle;line-height:1;background:linear-gradient(90deg,#FFB89A,#B79CFF);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .stat-sub{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);margin-top:6px;letter-spacing:-0.01em;}
 
-/* ── ABOUT ── */
+/* ════════════════════════════
+   ABOUT (v20에서 그대로 유지)
+════════════════════════════ */
 .about-section{padding:36px 28px 24px;}
 .sec-label{font-size:10px;font-weight:700;color:var(--ink-4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
 .about-line-muted{font-size:16px;font-weight:500;color:var(--ink-3);line-height:1.55;margin-bottom:2px;}
 .about-line-highlight{font-size:26px;font-weight:800;background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.04em;line-height:1.25;margin-bottom:2px;}
 .about-line-end{font-size:16px;font-weight:500;color:var(--ink-2);line-height:1.55;}
 
-/* ── NOTICE BOX ── */
+/* ════════════════════════════
+   NOTICE BOX (v20에서 그대로 유지)
+════════════════════════════ */
 .notice-box{
-  margin:0 28px 28px;
-  padding:18px 20px;
+  margin:0 28px 28px;padding:18px 20px;
   background:linear-gradient(120deg,rgba(255,184,154,0.15) 0%,rgba(255,143,177,0.12) 35%,rgba(183,156,255,0.12) 68%,rgba(123,194,255,0.12) 100%);
-  border:1px solid rgba(183,156,255,0.3);
-  border-radius:18px;
-  font-size:14px;font-weight:600;
-  color:var(--ink-2);
+  border:1px solid rgba(183,156,255,0.3);border-radius:18px;
+  font-size:14px;font-weight:600;color:var(--ink-2);
   line-height:1.65;letter-spacing:-0.01em;
   position:relative;overflow:hidden;
 }
-.notice-box::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--grad-1);opacity:0.6;
-}
+.notice-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-1);opacity:0.6;}
 
-/* ── LINEUP ── */
+/* ════════════════════════════
+   LINEUP 헤더
+════════════════════════════ */
 .lineup-section{padding:0 28px 36px;}
-.lineup-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.lineup-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
 .lineup-title{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-0.03em;white-space:nowrap;}
 .lineup-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,0,0,0.1),transparent);}
 
-/* SERVICE CARDS */
-.svc-item{margin-bottom:10px;}
-.svc-card{
-  width:100%;
+/* ════════════════════════════
+   카테고리 헤더 버튼
+════════════════════════════ */
+.cat-block{margin-bottom:10px;}
+
+.cat-btn{
+  width:100%;display:flex;align-items:center;gap:10px;
+  padding:18px 18px;
   background:var(--card);
   border:1px solid var(--line);
   border-radius:18px;
-  padding:20px 18px;
-  display:flex;align-items:center;gap:14px;
   cursor:pointer;
-  position:relative;overflow:hidden;
+  text-align:left;font-family:inherit;
+  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset,0 4px 14px rgba(20,20,40,0.04);
   transition:all .2s ease;
-  -webkit-tap-highlight-color:transparent;
-  /* backdrop-filter 제거 — 단색 배경에서 효과 없고 iOS GPU 레이어 낭비 */
-  text-align:left;
-  font-family:inherit;
-  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 14px rgba(20,20,40,0.04);
+  position:relative;overflow:hidden;
 }
-.svc-card::before{
+.cat-btn::before{
   content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
-  background:var(--grad-1);opacity:0;transition:opacity .2s;
-  border-radius:18px 0 0 18px;
+  opacity:0;transition:opacity .2s;border-radius:18px 0 0 18px;
 }
-.svc-card:hover{background:#fff;border-color:rgba(183,156,255,0.4);box-shadow:0 8px 28px -6px rgba(183,156,255,0.22);}
-.svc-card:hover::before{opacity:1;}
-.svc-card.active{
-  background:#fff;
-  border-color:rgba(183,156,255,0.45);
-  border-bottom-color:transparent;
+.cat-btn.cat-a::before{background:var(--grad-1);}
+.cat-btn.cat-b::before{background:linear-gradient(180deg,#B79CFF,#7BC2FF);}
+.cat-btn.cat-c::before{background:linear-gradient(180deg,#FFB89A,#FF8FB1);}
+.cat-btn.open{
   border-radius:18px 18px 0 0;
-  box-shadow:0 4px 20px -4px rgba(183,156,255,0.2);
+  border-bottom-color:transparent;
+  background:#fff;
 }
-.svc-card.active::before{opacity:1;}
+.cat-btn.open::before{opacity:1;}
 
-.card-body{flex:1;min-width:0;}
-.card-pill{
-  display:inline-block;font-size:9px;font-weight:700;
-  color:#E8845A;background:rgba(255,184,154,0.15);
-  border:1px solid rgba(255,184,154,0.4);
-  padding:3px 9px;border-radius:30px;
-  margin-bottom:8px;letter-spacing:0.03em;
+.cat-info{flex:1;min-width:0;}
+.cat-name{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-0.04em;line-height:1.2;margin-bottom:4px;}
+.cat-sub{font-size:12px;font-weight:500;color:var(--ink-3);letter-spacing:-0.01em;}
+
+.cat-count{
+  font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:20px;flex-shrink:0;
 }
-.card-name{
-  font-size:16px;font-weight:800;color:var(--ink);
-  letter-spacing:-0.035em;line-height:1.28;
-  margin-bottom:5px;transition:color .2s;
-}
-.svc-card:hover .card-name,
-.svc-card.active .card-name{
-  background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.card-short{font-size:13px;font-weight:500;color:var(--ink-3);line-height:1.45;letter-spacing:-0.01em;}
-.card-arrow{
-  flex-shrink:0;width:30px;height:30px;border-radius:50%;
+.cat-a .cat-count{background:var(--cat-a-bg);color:var(--cat-a-text);}
+.cat-b .cat-count{background:var(--cat-b-bg);color:var(--cat-b-text);}
+.cat-c .cat-count{background:var(--cat-c-bg);color:var(--cat-c-text);}
+
+.cat-arrow{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;
   background:rgba(0,0,0,0.04);
   display:flex;align-items:center;justify-content:center;
-  font-size:11px;color:var(--ink-4);
-  transition:transform .25s cubic-bezier(.4,0,.2,1),background .2s,color .2s;
+  font-size:10px;color:var(--ink-4);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
 }
-.svc-card:hover .card-arrow{background:rgba(183,156,255,0.12);color:#B79CFF;}
-.svc-card.active .card-arrow{transform:rotate(180deg);background:rgba(183,156,255,0.15);color:#B79CFF;}
+.cat-btn.open .cat-arrow{transform:rotate(180deg);}
 
-/* ACCORDION */
-.acc-panel{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
-.acc-panel.open{max-height:2000px;}
-.acc-inner{
+/* ════════════════════════════
+   카테고리 패널 (프로그램 리스트)
+════════════════════════════ */
+.cat-panel{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1);
+}
+.cat-panel.open{max-height:3000px;}
+
+.cat-inner{
   background:#fff;
-  border:1px solid rgba(183,156,255,0.45);
+  border:1px solid rgba(183,156,255,0.3);
   border-top:none;
   border-radius:0 0 18px 18px;
-  padding:20px 20px 22px;
-}
-.acc-tag{
-  display:inline-block;font-size:9px;font-weight:700;
-  letter-spacing:0.06em;color:#B79CFF;
-  background:rgba(183,156,255,0.1);
-  padding:3px 10px;border-radius:30px;
-  margin-bottom:12px;
-}
-.acc-title{
-  font-size:17px;font-weight:800;color:var(--ink);
-  letter-spacing:-0.03em;line-height:1.45;
-  margin-bottom:14px;
-}
-.acc-desc{
-  font-size:14px;font-weight:400;color:var(--ink-3);
-  line-height:1.85;letter-spacing:-0.01em;
-  white-space:pre-line;
-}
-.acc-desc strong{
-  display:block;font-size:14px;font-weight:800;
-  color:var(--ink);
-  margin-top:0;margin-bottom:8px;
-  letter-spacing:-0.02em;
-}
-/* 프로그램 섹션 박스 */
-.acc-section-box{
-  background:rgba(183,156,255,0.06);
-  border:1px solid rgba(183,156,255,0.2);
-  border-radius:14px;
-  padding:16px 16px;
-  margin-bottom:10px;
-  white-space:pre-line;
-  font-size:14px;font-weight:400;
-  color:var(--ink-3);
-  line-height:1.85;letter-spacing:-0.01em;
-}
-.acc-section-box:last-of-type{margin-bottom:0;}
-.acc-section-box strong{
-  display:block;font-size:14px;font-weight:800;
-  color:var(--ink);margin-bottom:8px;letter-spacing:-0.02em;
+  overflow:hidden;
 }
 
-/* CTA BUTTONS */
-.acc-btns{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
-.acc-cta{
-  display:inline-flex;align-items:center;justify-content:center;gap:5px;
-  font-size:13px;font-weight:700;color:#fff;
-  background:var(--grad-1);
-  padding:11px 18px;border-radius:30px;
-  cursor:pointer;letter-spacing:-0.01em;
+/* ── 학년 관리 로드맵 전용: 가격 카드형 ── */
+.grade-item{
+  display:flex;flex-direction:column;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  cursor:pointer;
+  transition:background .15s;
+}
+.grade-item:last-child{border-bottom:none;}
+.grade-item:active{background:rgba(0,0,0,0.02);}
+
+.grade-row{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 18px 10px;
+}
+.grade-pill{
+  font-size:11px;font-weight:700;
+  padding:5px 13px;border-radius:20px;flex-shrink:0;
+}
+.grade-g1{background:var(--cat-a-bg);color:var(--cat-a-text);}
+.grade-g2{background:var(--cat-b-bg);color:var(--cat-b-text);}
+.grade-g3{background:var(--cat-c-bg);color:var(--cat-c-text);}
+
+.grade-name{flex:1;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.03em;}
+.grade-arr{font-size:11px;color:var(--ink-4);flex-shrink:0;}
+
+.grade-price-row{
+  display:flex;align-items:baseline;gap:8px;
+  padding:0 18px 14px;
+  flex-wrap:wrap;
+}
+.grade-original{font-size:13px;font-weight:500;color:var(--ink-4);text-decoration:line-through;}
+.grade-arrow-txt{font-size:13px;color:var(--ink-4);}
+.grade-discounted{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-0.04em;line-height:1;}
+.grade-badge{
+  font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;
+}
+.grade-badge-g1{background:var(--cat-a-bg);color:var(--cat-a-text);}
+.grade-badge-g2{background:var(--cat-b-bg);color:var(--cat-b-text);}
+.grade-badge-g3{background:var(--cat-c-bg);color:var(--cat-c-text);}
+
+/* ── 개별 / 대입 프로그램 리스트형 ── */
+.prog-item{
+  display:flex;align-items:center;gap:12px;
+  padding:15px 18px;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  cursor:pointer;transition:background .15s;
+}
+.prog-item:last-child{border-bottom:none;}
+.prog-item:active{background:rgba(0,0,0,0.02);}
+
+.prog-num{
+  font-size:10px;font-weight:700;
+  width:24px;height:24px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cat-b .prog-num{background:var(--cat-b-bg);color:var(--cat-b-text);}
+.cat-c .prog-num{background:var(--cat-c-bg);color:var(--cat-c-text);}
+
+.prog-body{flex:1;min-width:0;}
+.prog-name{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.03em;line-height:1.3;margin-bottom:3px;}
+.prog-desc{font-size:12px;font-weight:500;color:var(--ink-3);letter-spacing:-0.01em;}
+.prog-price{font-size:12px;font-weight:600;color:var(--ink-3);flex-shrink:0;white-space:nowrap;}
+.prog-arr{font-size:11px;color:var(--ink-4);flex-shrink:0;margin-left:4px;}
+
+/* ════════════════════════════
+   바텀시트 오버레이
+════════════════════════════ */
+.bs-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0);
+  z-index:100;
+  pointer-events:none;
+  transition:background .3s ease;
+}
+.bs-overlay.active{
+  background:rgba(0,0,0,0.45);
+  pointer-events:auto;
+}
+
+/* ── 바텀시트 패널 ── */
+.bs-panel{
+  position:fixed;
+  bottom:0;left:50%;
+  transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:680px;
+  max-height:88vh;
+  background:#fff;
+  border-radius:24px 24px 0 0;
+  z-index:101;
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.32,0,.67,0);
+  display:flex;flex-direction:column;
+}
+.bs-panel.active{
+  transform:translateX(-50%) translateY(0);
+  transition:transform .35s cubic-bezier(.33,1,.68,1);
+}
+
+/* 핸들 */
+.bs-handle-row{padding:12px 0 4px;display:flex;justify-content:center;flex-shrink:0;}
+.bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.12);}
+
+/* 바텀시트 내부 — 스크롤 영역 + 고정 버튼 분리 */
+.bs-body{
+  display:flex;flex-direction:column;
+  max-height:calc(88vh - 32px);
+  overflow:hidden;
+}
+.bs-scroll{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:0 20px 0;
+}
+/* 스크롤 더 있음 표시 — 하단 페이드 */
+.bs-scroll-fade{
+  height:44px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  pointer-events:none;
+  flex-shrink:0;
+  margin-top:-44px;
+  position:relative;
+  z-index:1;
+}
+/* 고정 CTA 영역 */
+.bs-footer{
+  flex-shrink:0;
+  padding:10px 20px 20px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px));
+  background:#fff;
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+
+/* 헤더 */
+.bs-tag{
+  display:inline-block;font-size:11px;font-weight:700;
+  padding:4px 12px;border-radius:20px;
+  margin-bottom:12px;letter-spacing:0.02em;
+}
+.bs-tag-a{background:var(--cat-a-bg);color:var(--cat-a-text);}
+.bs-tag-b{background:var(--cat-b-bg);color:var(--cat-b-text);}
+.bs-tag-c{background:var(--cat-c-bg);color:var(--cat-c-text);}
+
+.bs-title{
+  font-size:20px;font-weight:800;color:var(--ink);
+  letter-spacing:-0.04em;line-height:1.3;margin-bottom:8px;
+}
+.bs-subtitle{
+  font-size:14px;font-weight:500;color:var(--ink-3);
+  line-height:1.65;letter-spacing:-0.01em;margin-bottom:18px;
+}
+
+/* A존 — 파란 박스 */
+.bs-zone-a{
+  background:#EFF6FF;
+  border:1px solid var(--cat-a-border);
+  border-radius:14px;
+  padding:16px 16px;
+  margin-bottom:12px;
+}
+.bs-zone-label{
+  font-size:10px;font-weight:800;letter-spacing:0.1em;
+  margin-bottom:10px;
+}
+.bs-zone-label-a{color:var(--cat-a-mid);}
+.bs-zone-label-b{color:var(--cat-b-mid);}
+
+.bs-zone-a p{
+  font-size:14px;font-weight:500;color:#0C447C;
+  line-height:1.75;letter-spacing:-0.01em;
+}
+.bs-zone-a strong{
+  display:block;font-size:14px;font-weight:800;
+  color:#0C447C;margin-bottom:6px;letter-spacing:-0.02em;
+}
+
+/* 가격 전용 A존 */
+.bs-price-main{
+  display:flex;align-items:baseline;gap:8px;
+  margin-bottom:14px;flex-wrap:wrap;
+}
+.bs-price-original{font-size:14px;font-weight:500;color:var(--cat-a-mid);text-decoration:line-through;}
+.bs-price-arrow{font-size:14px;color:var(--cat-a-mid);}
+.bs-price-final{font-size:26px;font-weight:800;color:#0C447C;letter-spacing:-0.04em;line-height:1;}
+.bs-price-badge{
+  font-size:12px;font-weight:700;
+  background:#B5D4F4;color:#0C447C;
+  padding:4px 10px;border-radius:20px;
+}
+.bs-price-options{display:flex;flex-direction:column;gap:6px;}
+.bs-price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;font-weight:500;color:var(--cat-a-mid);
+  padding:5px 0;border-bottom:1px solid rgba(24,95,165,0.1);
+}
+.bs-price-row:last-child{border-bottom:none;}
+.bs-price-row span:last-child{font-weight:700;}
+
+/* B존 — 보라 박스 */
+.bs-zone-b{
+  background:#ECEAFC;
+  border:1.5px solid #9B95E8;
+  border-radius:14px;
+  padding:16px 16px;
+  margin-bottom:12px;
+}
+.bs-curr-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(130,120,220,0.2);
+}
+.bs-curr-item:last-child{border-bottom:none;}
+.bs-curr-num{
+  font-size:10px;font-weight:800;
+  width:22px;height:22px;border-radius:6px;
+  background:#7B74E0;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.bs-curr-text{flex:1;}
+.bs-curr-title{font-size:14px;font-weight:800;color:#1E1870;line-height:1.4;letter-spacing:-0.025em;}
+.bs-curr-desc{font-size:12px;font-weight:600;color:#4A44A0;margin-top:3px;line-height:1.5;letter-spacing:-0.01em;}
+
+/* 안내 도트 리스트 */
+.bs-info-list{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.bs-info-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;font-weight:500;color:var(--ink-2);
+  line-height:1.55;letter-spacing:-0.01em;
+}
+.bs-info-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--grad-1);flex-shrink:0;margin-top:6px;
+}
+
+/* CTA 버튼 */
+.bs-btns{display:flex;gap:8px;margin-top:4px;}
+.bs-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:1;padding:14px 10px;
+  border-radius:30px;
+  font-size:14px;font-weight:800;
+  cursor:pointer;letter-spacing:-0.02em;
   text-decoration:none;border:none;
-  font-family:inherit;flex:1;
+  font-family:inherit;
   white-space:nowrap;
   transition:opacity .15s;
 }
-.acc-cta:active{opacity:0.85;}
-.acc-cta.outline{
-  background:#fff;
-  color:var(--ink-2);
+.bs-cta:active{opacity:0.85;}
+.bs-cta.fill{
+  background:var(--grad-1);color:#fff;
+}
+.bs-cta.outline{
+  background:#fff;color:var(--ink-2);
   border:1.5px solid var(--line);
 }
 
-/* ── TEL SECTION ── */
+/* ════════════════════════════
+   TEL / CTA (v20에서 그대로 유지)
+════════════════════════════ */
 .tel-section{
-  margin:0 28px 14px;
-  background:var(--card);
-  border:1px solid rgba(255,255,255,0.8);
-  border-radius:20px;
+  margin:0 28px 14px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.8);border-radius:20px;
   padding:18px 20px;
   display:flex;align-items:center;justify-content:space-between;
-  /* backdrop-filter 제거 */
   box-shadow:0 1px 0 rgba(255,255,255,0.8) inset,0 6px 18px rgba(20,20,40,0.05);
 }
 .tel-label{font-size:11px;color:var(--ink-3);font-weight:500;margin-bottom:4px;letter-spacing:0.02em;}
 .tel-num{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-0.04em;}
 .tel-btn{
-  background:var(--grad-1);color:#fff;
-  font-size:13px;font-weight:700;
-  padding:11px 20px;border-radius:30px;
-  white-space:nowrap;letter-spacing:-0.01em;
-  text-decoration:none;
+  background:var(--grad-1);color:#fff;font-size:13px;font-weight:700;
+  padding:11px 20px;border-radius:30px;white-space:nowrap;
+  letter-spacing:-0.01em;text-decoration:none;
 }
-
-/* ── CTA ── */
 .cta-section{margin:0 28px 40px;}
 .cta-btn{
-  display:block;width:100%;
-  background:var(--grad-1);
+  display:block;width:100%;background:var(--grad-1);
   color:#fff;font-size:16px;font-weight:800;
-  padding:20px;border-radius:18px;
-  text-align:center;letter-spacing:-0.025em;
-  border:none;cursor:pointer;
+  padding:20px;border-radius:18px;text-align:center;
+  letter-spacing:-0.025em;border:none;cursor:pointer;
   font-family:inherit;text-decoration:none;
   box-shadow:0 10px 28px -6px rgba(255,143,177,0.45);
   transition:opacity .15s;
@@ -332,8 +495,101 @@ body{
 .cta-btn:active{opacity:0.9;}
 .cta-sub{font-size:12px;color:var(--ink-3);text-align:center;margin-top:12px;font-weight:500;}
 
-/* ── 데스크탑 반응형 ── */
-@media (min-width:700px){
+/* ════════════════════════════
+   세특구원자 카드 (민트 단독)
+════════════════════════════ */
+.segu-block{margin-bottom:10px;}
+
+.segu-card{
+  width:100%;
+  background:linear-gradient(135deg,#E4F5EE 0%,#D4EFE6 100%);
+  border:1.5px solid var(--cat-s-border);
+  border-radius:18px;
+  padding:22px 20px;
+  display:flex;align-items:center;gap:14px;
+  cursor:pointer;text-align:left;font-family:inherit;
+  position:relative;overflow:hidden;
+  transition:all .2s ease;
+  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset,0 4px 14px rgba(13,122,90,0.08);
+}
+.segu-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:var(--cat-s-grad);
+  border-radius:18px 0 0 18px;
+}
+.segu-card:active{opacity:0.9;}
+
+.segu-badge{
+  font-size:10px;font-weight:700;
+  padding:4px 11px;border-radius:20px;
+  background:var(--cat-s-bg);color:var(--cat-s-text);
+  border:1px solid var(--cat-s-border);
+  white-space:nowrap;flex-shrink:0;
+}
+.segu-info{flex:1;min-width:0;}
+.segu-name{
+  font-size:19px;font-weight:800;
+  color:var(--cat-s-text);
+  letter-spacing:-0.04em;line-height:1.2;margin-bottom:4px;
+}
+.segu-sub{font-size:12px;font-weight:500;color:#2A7A5F;letter-spacing:-0.01em;}
+.segu-arr{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;
+  background:var(--cat-s-grad);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;
+}
+
+/* 바텀시트 세특구원자 전용 — S존 (민트 박스) */
+.bs-zone-s{
+  background:#E4F5EE;
+  border:1.5px solid var(--cat-s-border);
+  border-radius:14px;
+  padding:16px 16px;
+  margin-bottom:12px;
+}
+.bs-zone-label-s{color:var(--cat-s-mid);}
+.bs-zone-s p{
+  font-size:14px;font-weight:500;color:#0A5740;
+  line-height:1.75;letter-spacing:-0.01em;
+}
+.bs-zone-s strong{
+  display:block;font-size:14px;font-weight:800;
+  color:#0A5740;margin-bottom:6px;letter-spacing:-0.02em;
+}
+/* 가격 테이블 — 민트 전용 */
+.segu-price-main{
+  display:flex;align-items:baseline;gap:10px;
+  margin-bottom:14px;flex-wrap:wrap;
+}
+.segu-price-num{
+  font-size:22px;font-weight:800;
+  color:#0A5740;letter-spacing:-0.04em;line-height:1;
+}
+.segu-price-unit{font-size:13px;font-weight:600;color:#0D7A5A;}
+.segu-price-badge{
+  font-size:11px;font-weight:700;
+  background:#B5E4D0;color:#0A5740;
+  padding:3px 9px;border-radius:20px;
+}
+.segu-price-rows{display:flex;flex-direction:column;gap:6px;}
+.segu-price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;font-weight:500;color:#0D7A5A;
+  padding:5px 0;border-bottom:1px solid rgba(13,122,90,0.1);
+}
+.segu-price-row:last-child{border-bottom:none;}
+.segu-price-row span:last-child{font-weight:700;}
+
+.bs-tag-s{background:var(--cat-s-bg);color:var(--cat-s-text);}
+.bs-cta.segu-fill{
+  background:var(--cat-s-grad);color:#fff;border:none;
+}
+
+/* ════════════════════════════
+   데스크탑 반응형
+════════════════════════════ */
+@media(min-width:700px){
   .hero-section{padding:72px 48px 52px;}
   .hero-title{font-size:42px;}
   .hero-line1{font-size:15px;}
@@ -344,28 +600,25 @@ body{
   .notice-box{margin:0 48px 32px;font-size:15px;padding:20px 24px;}
   .lineup-section{padding:0 48px 48px;}
   .lineup-title{font-size:18px;}
-  .svc-card{padding:22px 22px;}
-  .card-name{font-size:17px;}
-  .card-short{font-size:14px;}
-  .acc-inner{padding:24px 24px 26px;}
-  .acc-title{font-size:16px;}
-  .acc-desc{font-size:14px;}
+  .cat-btn{padding:20px 22px;}
+  .cat-name{font-size:17px;}
+  .grade-name{font-size:16px;}
+  .prog-name{font-size:16px;}
   .tel-section{margin:0 48px 16px;padding:20px 24px;}
   .tel-num{font-size:26px;}
   .cta-section{margin:0 48px 60px;}
   .cta-btn{font-size:17px;padding:22px;}
+  .bs-panel{max-width:680px;}
 }
 </style>
 </head>
 <body>
 <div class="page-wrap">
 
-  <!-- HERO -->
+  <!-- ════ HERO ════ -->
   <div class="hero-section">
     <div class="hero-content">
       <div class="hero-eyebrow"><span class="eyedot"></span>MIDAS K · 티처스 컨설턴트</div>
-
-      <!-- 상단: 좌(타이틀+세특) / 우(브로슈어+자격) — 동일 높이 -->
       <div class="hero-top">
         <div class="hero-left">
           <div class="hero-line1">합격하는 생기부 전략, 누구나 가능합니다.</div>
@@ -390,8 +643,6 @@ body{
           </div>
         </div>
       </div>
-
-      <!-- 하단: stats 3개 균일 -->
       <div class="hero-stats">
         <div class="stat-card">
           <div class="stat-text"><span class="big">365</span>일<br>온라인 전용<br>수행 세특관리</div>
@@ -404,11 +655,10 @@ body{
           <div class="stat-text">대입컨설팅<br>교육청 인가<br>제<span class="big"> 5513</span>호</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- ════ ABOUT ════ -->
   <div class="about-section">
     <div class="sec-label">About</div>
     <div class="about-line-muted">평범했던 생기부도</div>
@@ -416,317 +666,231 @@ body{
     <div class="about-line-end">얼마든지 업그레이드될 수 있습니다.</div>
   </div>
 
-  <!-- NOTICE BOX -->
+  <!-- ════ NOTICE ════ -->
   <div class="notice-box">
     무료 내방 상담 후 학생에게 맞는 컨설팅 프로그램을 안내해드립니다.
   </div>
 
-  <!-- LINEUP -->
+  <!-- ════ LINEUP ════ -->
   <div class="lineup-section">
     <div class="lineup-header">
       <span class="lineup-title">컨설팅 라인업</span>
       <div class="lineup-line"></div>
     </div>
 
-    <!-- 01 학생부 연간 관리컨설팅 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('01',this)">
-        <div class="card-body">
-          <div class="card-pill">학년관리 온·오프라인</div>
-          <div class="card-name">학생부 연간 관리컨설팅</div>
-          <div class="card-short">탐구 주제 및 세특관리 올케어</div>
+    <!-- ── A. 학년 관리 로드맵 ── -->
+    <div class="cat-block">
+      <button class="cat-btn cat-a" onclick="toggleCat('cat-a',this)" aria-expanded="false">
+        <div class="cat-info">
+          <div class="cat-name">학년 관리 로드맵</div>
+          <div class="cat-sub">고1·고2·고3 연간 올케어 Membership</div>
         </div>
-        <div class="card-arrow">▼</div>
+        <span class="cat-count">3개</span>
+        <div class="cat-arrow">▼</div>
       </button>
-      <div class="acc-panel" id="acc-01">
-        <div class="acc-inner">
-          <div class="acc-tag">학년관리 온·오프라인</div>
-          <div class="acc-title">수행평가 공지가 나올 때마다 막막했다면, 이제 달라집니다.</div>
-          <div class="acc-section-box">복잡한 절차 없이 수행 보고서, 감상문, 활동지 등 학교 제출 양식 그대로 보내면 끝. 성적 상관없이 누구나 가능합니다.
-
-생기부 '상향평준화' 시대, 진정성과 깊이를 드러내는 나만의 '심화 확장 스토리'가 이제 경쟁력의 중심입니다.</div>
-          <div class="acc-section-box"><strong>컨설팅의 핵심 코어 3</strong>01 수행 탐구 활동 주제 추천
-힘들다고 느껴지는 '수행 공지' 그대로 올리면 탐구 주제가 추천됩니다. 탐구 주제는 탐구 동기, 학습 과정, 결론 및 고찰점 패키지로 구성된 하나의 '스토리'로 제공됩니다.
-
-02 세특 기재 관리
-수행 탐구 결과물을 보내면 끝. 학교 각종 자기평가서에 맞춘 세특 강화 솔루션을 제공합니다. 교과 개념 회귀와 비인지적 역량 강화 시스템으로 질적 수준을 높입니다.
-
-03 심화 확장 주제 후속 추천
-이전 탐구와 연결된 심화 확장 활동으로 '나만의 탐구 스토리'가 자연스럽게 이어집니다. 학생 1명당 최대 3~5명의 전임 컨설턴트가 팀 프레임워크로 관리합니다. 학생의 원본 보고서에 숨어 있는 교과 개념으로의 회귀, 학습 과정의 심층 고찰, 학습 자세와 태도 등 비인지적 평가 요소까지 재설계합니다.</div>
-          <div class="acc-btns">
-            <a href="https://blog.naver.com/cesmidask/224154689417" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
+      <div class="cat-panel" id="cat-a">
+        <div class="cat-inner">
+          <!-- 고1 -->
+          <div class="grade-item" onclick="openBS('g1')">
+            <div class="grade-row">
+              <span class="grade-pill grade-g1">고1</span>
+              <span class="grade-name">학생부 관리 컨설팅</span>
+              <span class="grade-arr">›</span>
+            </div>
+            <div class="grade-price-row">
+              <span class="grade-original">680만원</span>
+              <span class="grade-arrow-txt">›</span>
+              <span class="grade-discounted">374만원</span>
+              <span class="grade-badge grade-badge-g1">45% 할인</span>
+            </div>
+          </div>
+          <!-- 고2 -->
+          <div class="grade-item" onclick="openBS('g2')">
+            <div class="grade-row">
+              <span class="grade-pill grade-g2">고2</span>
+              <span class="grade-name">학생부 관리 컨설팅</span>
+              <span class="grade-arr">›</span>
+            </div>
+            <div class="grade-price-row">
+              <span class="grade-original">720만원</span>
+              <span class="grade-arrow-txt">›</span>
+              <span class="grade-discounted">396만원</span>
+              <span class="grade-badge grade-badge-g2">45% 할인</span>
+            </div>
+          </div>
+          <!-- 고3 -->
+          <div class="grade-item" onclick="openBS('g3')">
+            <div class="grade-row">
+              <span class="grade-pill grade-g3">고3</span>
+              <span class="grade-name">학생부 관리 컨설팅</span>
+              <span class="grade-arr">›</span>
+            </div>
+            <div class="grade-price-row">
+              <span class="grade-original">660만원</span>
+              <span class="grade-arrow-txt">›</span>
+              <span class="grade-discounted">363만원</span>
+              <span class="grade-badge grade-badge-g3">45% 할인</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 02 생기부 기재 온라인 관리 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('02',this)">
-        <div class="card-body">
-          <div class="card-pill">학년&amp;학기 온라인</div>
-          <div class="card-name">생기부 기재 온라인 관리</div>
-          <div class="card-short">학교 제출용 자기평가서 세특 기재</div>
+    <!-- ── B. 개별 컨설팅 ── -->
+    <div class="cat-block">
+      <button class="cat-btn cat-b" onclick="toggleCat('cat-b',this)" aria-expanded="false">
+        <div class="cat-info">
+          <div class="cat-name">개별 컨설팅</div>
+          <div class="cat-sub">필요한 프로그램만 골라서</div>
         </div>
-        <div class="card-arrow">▼</div>
+        <span class="cat-count">9개</span>
+        <div class="cat-arrow">▼</div>
       </button>
-      <div class="acc-panel" id="acc-02">
-        <div class="acc-inner">
-          <div class="acc-tag">학년&amp;학기 온라인</div>
-          <div class="acc-title">결국 세특 전략이 서류 '합불'을 결정합니다.</div>
-          <div class="acc-section-box">10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 대학은 탐구보고서 자체가 아니라, 세특에 기록된 탐구의 흐름과 학습 성장 과정을 평가합니다.
-
-고득점 세특은 생성형 AI만으로 해결되지 않습니다.</div>
-          <div class="acc-section-box">마이더스K 기재관리 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.
-
-마이더스K는 멘토단 프리랜서가 아닌, 1년 365일 대입 컨설팅에 전념하는 전문 컨설턴트로만 운영됩니다. 온라인 상시 비대면 관리로 진행되므로 대구·경북 외 타 지역 학생도 가능합니다.
-
-세특을 어떻게 써야 할지 막막하다면, 지금 기재관리 컨설팅을 시작해보세요.</div>
-          <div class="acc-btns">
-            <a href="https://blog.naver.com/cesmidask/223912730799" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A생기부%20기재%20온라인%20관리에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
+      <div class="cat-panel" id="cat-b">
+        <div class="cat-inner cat-b">
+          <div class="prog-item" onclick="openBS('p01')">
+            <div class="prog-num">01</div>
+            <div class="prog-body">
+              <div class="prog-name">세특 기재 관리</div>
+              <div class="prog-desc">학교 제출용 자기평가서 세특 기재 · 온라인</div>
+            </div>
+            <div class="prog-price">230~250만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p02')">
+            <div class="prog-num">02</div>
+            <div class="prog-body">
+              <div class="prog-name">수행 관리</div>
+              <div class="prog-desc">수행 방향성 코칭 · 보고서 설계도 제공 · 온라인</div>
+            </div>
+            <div class="prog-price">210~240만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p03')">
+            <div class="prog-num">03</div>
+            <div class="prog-body">
+              <div class="prog-name">세특전략 컨설팅</div>
+              <div class="prog-desc">심화 확장 주제 및 스토리 제공</div>
+            </div>
+            <div class="prog-price">40만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p04')">
+            <div class="prog-num">04</div>
+            <div class="prog-body">
+              <div class="prog-name">학종 특강</div>
+              <div class="prog-desc">학생부 셀프디자인 · 서류평가 원리 · 세특 전략</div>
+            </div>
+            <div class="prog-price">20만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p05')">
+            <div class="prog-num">05</div>
+            <div class="prog-body">
+              <div class="prog-name">RPM 컨설팅</div>
+              <div class="prog-desc">세특 역량 강화 · 1:1 대면 인터뷰</div>
+            </div>
+            <div class="prog-price">20만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p06')">
+            <div class="prog-num">06</div>
+            <div class="prog-body">
+              <div class="prog-name">비교과 활동 컨설팅</div>
+              <div class="prog-desc">고1 전용 · 창체활동 주제 추천 및 기획</div>
+            </div>
+            <div class="prog-price">30만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p07')">
+            <div class="prog-num">07</div>
+            <div class="prog-body">
+              <div class="prog-name">교과·정시 전략관리</div>
+              <div class="prog-desc">교과 내신 + 수능 통합 전략관리</div>
+            </div>
+            <div class="prog-price">30만~</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p08')">
+            <div class="prog-num">08</div>
+            <div class="prog-body">
+              <div class="prog-name">학생부 현장 분석</div>
+              <div class="prog-desc">종합 분석 및 개선 방향 제시</div>
+            </div>
+            <div class="prog-price">10만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('p09')">
+            <div class="prog-num">00</div>
+            <div class="prog-body">
+              <div class="prog-name">중3 학종 얼리버드</div>
+              <div class="prog-desc">학종특강 · 진로컨설팅 · 고1 활동 기획</div>
+            </div>
+            <div class="prog-price">55만</div>
+            <div class="prog-arr">›</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 03 세특전략 컨설팅 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('03',this)">
-        <div class="card-body">
-          <div class="card-pill">회당 컨설팅</div>
-          <div class="card-name">세특전략 컨설팅</div>
-          <div class="card-short">이전 활동 · 심화 확장 주제 및 스토리 제공</div>
+    <!-- ── C. 대입 전략 컨설팅 ── -->
+    <div class="cat-block">
+      <button class="cat-btn cat-c" onclick="toggleCat('cat-c',this)" aria-expanded="false">
+        <div class="cat-info">
+          <div class="cat-name">대입 전략 컨설팅</div>
+          <div class="cat-sub">원서·면접·최종 합격 전략</div>
         </div>
-        <div class="card-arrow">▼</div>
+        <span class="cat-count">3개</span>
+        <div class="cat-arrow">▼</div>
       </button>
-      <div class="acc-panel" id="acc-03">
-        <div class="acc-inner">
-          <div class="acc-tag">회당 컨설팅</div>
-          <div class="acc-title">생기부 활동, 단 3분짜리 AI 분석으로 정말 충분할까요?</div>
-          <div class="acc-section-box">한 학년, 한 학기 단 1회 컨설팅으로 끝나는 세특 전략 컨설팅. 단순 결과 레포트가 아니라, 그 이상의 세특 전략을 제시합니다. '티처스' 의대편 컨설턴트가 진행하는 1:1 코칭과 네 가지 컨설팅이 한 번에 진행됩니다.</div>
-          <div class="acc-section-box"><strong>세특 전략 컨설팅 커리큘럼</strong>01 학생부 강점·취약점 분석
-02 이전 활동에서 심화·확장되는 탐구 주제 추천과 스토리 제시
-03 교과·학종·정시 전형별 지원 가능 대학 라인 제시
-04 문장 단위 분석과 내게 맞춘 학생부 세특 전략 코칭
-
-특정 학년에서 학생부 출력이 안 되는 경우에도 걱정하지 않으셔도 됩니다. 별도 온라인 리서치를 통해 학생의 활동 내용을 직접 받아 분석합니다.
-
-학생부를 단순히 평가받는 것이 아니라, 앞으로 어떻게 설계할지까지 확인해보세요.</div>
-          <div class="acc-btns">
-            <a href="https://blog.naver.com/cesmidask/223808239836" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A세특전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
+      <div class="cat-panel" id="cat-c">
+        <div class="cat-inner cat-c">
+          <div class="prog-item" onclick="openBS('c01')">
+            <div class="prog-num">수시</div>
+            <div class="prog-body">
+              <div class="prog-name">수시 원서전략 컨설팅</div>
+              <div class="prog-desc">합격 가능성 분석 및 최적 지원 전략 수립</div>
+            </div>
+            <div class="prog-price">45만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('c02')">
+            <div class="prog-num">정시</div>
+            <div class="prog-body">
+              <div class="prog-name">정시 원서전략 컨설팅</div>
+              <div class="prog-desc">군별 합격 전략 · 5,700개 모집단위 분석</div>
+            </div>
+            <div class="prog-price">35만</div>
+            <div class="prog-arr">›</div>
+          </div>
+          <div class="prog-item" onclick="openBS('c03')">
+            <div class="prog-num">면접</div>
+            <div class="prog-body">
+              <div class="prog-name">대입 수시 면접컨설팅</div>
+              <div class="prog-desc">서류기반 심층면접 · 티처스 컨설턴트 협업</div>
+            </div>
+            <div class="prog-price">35만~</div>
+            <div class="prog-arr">›</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 04 학종 특강 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('04',this)">
-        <div class="card-body">
-          <div class="card-pill">회당 컨설팅</div>
-          <div class="card-name">학종 특강</div>
-          <div class="card-short">학생부 셀프디자인 · 서류평가 원리 · 세특 전략</div>
+    <!-- ── S. 세특구원자 ── -->
+    <div class="segu-block">
+      <button class="segu-card" onclick="openBS('segu')">
+        <div class="segu-info">
+          <div class="segu-name">세특구원자</div>
+          <div class="segu-sub">탐구 주제 · 보고서 설계도 · 세특 기재전략 올인원 플랫폼</div>
         </div>
-        <div class="card-arrow">▼</div>
+        <span class="segu-badge">네이버 우수콘텐츠</span>
+        <div class="segu-arr">›</div>
       </button>
-      <div class="acc-panel" id="acc-04">
-        <div class="acc-inner">
-          <div class="acc-tag">회당 컨설팅</div>
-          <div class="acc-title">나는 어떤 원칙과 전략으로 세특을 디자인하고 있는가?</div>
-          <div class="acc-section-box">어차피 비슷한 내신 성적을 가진 학생들 간 경쟁인 학종에서는 결국 학생부 서류가 합격의 핵심 변수입니다. 그러나 세특에 무엇을 기록해야 경쟁력을 갖출 수 있는지, 누구도 제대로 알려주지 않습니다.
-
-그래서, 마이더스K가 최상위권부터 하위권까지 누구나 활용할 수 있는 실전 세특 디자인 수업을 열었습니다.
-
-대학은 학생의 보고서를 직접 볼 수 없습니다. 그래서 세특은 단순한 기록을 넘어, 입학사정관에게 깊은 인상을 남길 수 있는 표현과 전략으로 접근해야 합니다.</div>
-          <div class="acc-section-box"><strong>대한민국에서 전무후무한 '학생부 세특 디자인' 수업 커리큘럼</strong>01 서류평가 원리
-02 심화 탐구 실전 스킬
-03 세특용 보고서 디자인
-
-60~70분 수업에서 주제 선정, 탐구보고서 작성, 세특 구조화 전략까지 한 번에 다룹니다.
-
-· 고교학점제 및 학종을 준비하는 중~고3까지 모두 수강 가능
-· 오프라인·온라인(화상) 모두 가능
-· 학생 수강 시 학부모 1명 무료 수강 가능
-
-단 한 번의 수업으로 임팩트 있는 세특 전략을 스스로 수립하도록 합니다.</div>
-          <div class="acc-btns">
-            <a href="https://blog.naver.com/cesmidask/223353368278" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학종%20특강에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- 05 수시&정시 원서전략 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('05',this)">
-        <div class="card-body">
-          <div class="card-pill">회당 컨설팅</div>
-          <div class="card-name">수시&amp;정시 원서전략 컨설팅</div>
-          <div class="card-short">합격 가능성 분석 및 최적 지원 전략 수립</div>
-        </div>
-        <div class="card-arrow">▼</div>
-      </button>
-      <div class="acc-panel" id="acc-05">
-        <div class="acc-inner">
-          <div class="acc-tag">회당 컨설팅</div>
-          <div class="acc-title">수시 6장, 감이 아니라 전략으로 설계하세요.</div>
-          <div class="acc-section-box"><strong>수시 원서전략 컨설팅</strong>교육청 무허가 업체나 AI가 5분 만에 분석하는 생기부·세특만으로 정말 충분할까요? 마이더스K는 교육청 정식 인가 제5513호 학원으로, 연간 700~800회 이상의 개인·학교 단체 컨설팅 경험을 바탕으로 최종 합격의 길을 제시합니다.
+  </div><!-- /lineup-section -->
 
-학생의 내신과 학생부 활동을 종합적으로 분석해 6장의 최적 지원 카드를 설계합니다. 전국 5,700여 개 모집단위 환산점수를 분석합니다.
-
-01 대학별 내신 환산점수 분석과 합불 예측
-02 전형별 서류 타당성 판단
-03 면접 대응력 진단
-
-티처스 컨설턴트 1:1 대면 컨설팅과 최종 지원 레포트 제공. 필요 시 변동사항 관련 전화 상담 1회 추가 가능합니다.</div>
-          <div class="acc-section-box"><strong>정시 원서전략 컨설팅</strong>같은 점수라도 대학별 환산점수와 지원자 상황에 따라 정시 결과는 크게 달라집니다. 마이더스K 정시 컨설팅은 가·나·다 군별 최선의 지원전략을 수립합니다. 강제추합·자연추합까지 고려한 마이더스K만의 노하우로 상향·중립·안정 지원 전략을 제시합니다.
-
-01 나의 점수와 대학별 환산점수 분석
-02 가·나·다 군별 지원 전략 수립
-03 1:1 대면 컨설팅 100분 진행
-
-점수를 뛰어넘는 최종 전략, 마이더스K가 함께합니다.</div>
-          <div class="acc-btns">
-            <a href="midasK-form.html" class="acc-cta">예약 신청하기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A수시%26정시%20원서전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 대입 수시 면접컨설팅 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('06',this)">
-        <div class="card-body">
-          <div class="card-pill">회당 컨설팅</div>
-          <div class="card-name">대입 수시 면접컨설팅</div>
-          <div class="card-short">서류기반 심층면접 · 티처스 컨설턴트 협업</div>
-        </div>
-        <div class="card-arrow">▼</div>
-      </button>
-      <div class="acc-panel" id="acc-06">
-        <div class="acc-inner">
-          <div class="acc-tag">회당 컨설팅</div>
-          <div class="acc-title">학생부 기반 면접, 단순 예상 질문이 아니라 전략으로 준비하세요.</div>
-          <div class="acc-section-box">티처스 컨설턴트와 함께하는 대입 수시 면접 컨설팅. 학생 탐구 활동의 진위 여부, 활동의 수준과 깊이, 인성 및 리더십 평가를 핵심으로 마이더스K만의 노하우로 준비합니다.
-
-마이더스K의 면접 컨설팅은 다릅니다. 학생부 서류 기반 심층 면접을 대비하며, 예상 질문 추출과 실전과 같은 위기 대응 시뮬레이션을 통해 합격 가능성을 높입니다.</div>
-          <div class="acc-section-box">01 학생 1명당 컨설턴트 2명
-1:2 컨설팅 방식으로 최상의 면접 전략을 빌드업합니다.
-
-02 예상 질문 추출과 답변 보강
-학생부 활동에 기반한 예상 질문을 추출하고, 학생이 작성한 답변을 보강합니다.
-
-03 지원 대학 및 학과 면접 분석 리포트 제공
-회당 1개 학과 기준으로 면접 분석 리포트를 제공합니다.
-
-04 면접 위기 대응 솔루션
-학생이 걱정하는 질문까지 함께 점검하며, 실제 면접에서 발생할 수 있는 위기 상황에 대비합니다.
-
-05 면접 태도·자세·발성 코칭
-면접 태도와 자세, 발성까지 종합적으로 코칭합니다.</div>
-          <div class="acc-btns">
-            <a href="https://midasksegu-afk.github.io/meetcon/" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A대입%20수시%20면접컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 07 학생부 현장 분석 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('07',this)">
-        <div class="card-body">
-          <div class="card-pill">회당 컨설팅</div>
-          <div class="card-name">학생부 현장 분석</div>
-          <div class="card-short">종합 분석 및 개선 방향 제시</div>
-        </div>
-        <div class="card-arrow">▼</div>
-      </button>
-      <div class="acc-panel" id="acc-07">
-        <div class="acc-inner">
-          <div class="acc-tag">회당 컨설팅</div>
-          <div class="acc-title">우리 학생이 지금 학종 준비를 제대로 하고 있는지 의구심이 든다면?</div>
-          <div class="acc-section-box">학생부를 기반으로 현재 위치와 보완 방향을 현장에서 즉시 점검합니다.
-
-01 생기부 활동의 강점·약점·취약점 분석
-02 현재 내신 및 활동 수준으로 지원 가능한 대학 라인 제시
-03 취약점을 보충할 수 있는 활동 방향 코칭
-
-당일 접수부터 당일 상담까지 빠르게 진행하고 싶다면, 생기부 현장분석이 가장 적합합니다. 막연한 불안보다 정확한 진단이 먼저입니다.</div>
-          <div class="acc-btns">
-            <a href="tel:053-782-0331" class="acc-cta">전화 바로연결 ☎</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20현장분석%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 08 교과&정시 전략관리 -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('08',this)">
-        <div class="card-body">
-          <div class="card-pill">2–4회 컨설팅</div>
-          <div class="card-name">교과&amp;정시 전략관리 컨설팅</div>
-          <div class="card-short">교과 내신 + 수능 통합 전략관리</div>
-        </div>
-        <div class="card-arrow">▼</div>
-      </button>
-      <div class="acc-panel" id="acc-08">
-        <div class="acc-inner">
-          <div class="acc-tag">3–6회 컨설팅</div>
-          <div class="acc-title">학생부종합보다 교과와 정시 전략이 우선이라면.</div>
-          <div class="acc-section-box">내신 및 모의고사 성적표를 토대로 각 대학별 환산점수를 분석하고, 현재 성적에서 가능한 지원 방향을 구체적으로 제시합니다.
-
-01 현재 성적으로 지원 가능한 수시·정시 대학 및 학과 분석
-02 부족한 과목에 대한 학습 운영 전략 제시
-03 전국 5,700개 모집단위 기준 유망 학과 추천
-
-중간고사·기말고사·모의고사 이후 학습 동기가 떨어지는 학생에게는 티처스 컨설턴트의 1:1 동기부여와 함께, 데이터에 입각한 명확한 방향성을 제시합니다.
-
-감이 아닌 점수와 전략으로 다음 선택을 준비하세요.</div>
-          <div class="acc-btns">
-            <a href="tel:053-782-0331" class="acc-cta">전화 바로연결 ☎</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A교과%26정시%20전략관리%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 00 중3 학종 얼리버드 (맨 아래) -->
-    <div class="svc-item">
-      <button class="svc-card" onclick="toggle('00',this)">
-        <div class="card-body">
-          <div class="card-pill">중3 전용 · 얼리버드</div>
-          <div class="card-name">중3 학종 얼리버드 컨설팅</div>
-          <div class="card-short">학종특강 · 진로컨설팅 · 고1 활동 기획</div>
-        </div>
-        <div class="card-arrow">▼</div>
-      </button>
-      <div class="acc-panel" id="acc-00">
-        <div class="acc-inner">
-          <div class="acc-tag">중3 전용 · 얼리버드</div>
-          <div class="acc-title">학생부 준비, 시작부터 달라야 합니다.</div>
-          <div class="acc-section-box">진로가 불확실해도, 과목·동아리 선택이 막막해도, 수행평가와 세특 연결이 고민이어도 — 지금 방향을 잡으면 됩니다.
-
-학종 얼리버드 컨설팅은 진로 선택, 학생부 디자인 수업, 세특 빌드업 전략, 고1 맞춤 심화 탐구 주제 추천까지 한 번에 설계하는 실속형 프로그램입니다.
-
-단 2회 집중 컨설팅으로 고1 학생부의 출발선을 바꿔보세요.</div>
-          <div class="acc-btns">
-            <a href="https://blog.naver.com/cesmidask/224094563354" target="_blank" class="acc-cta">자세히 보기 →</a>
-            <a href="sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A중3%20학종%20얼리버드%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다." class="acc-cta outline">문자 상담 ✉</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- TEL -->
+  <!-- ════ TEL ════ -->
   <div class="tel-section">
     <div>
       <div class="tel-label">전화 문의 · AM 10:00 – PM 19:00</div>
@@ -735,36 +899,517 @@ body{
     <a href="tel:053-782-0331" class="tel-btn">전화하기</a>
   </div>
 
-  <!-- CTA -->
+  <!-- ════ CTA ════ -->
   <div class="cta-section">
     <a href="midasK-form.html" class="cta-btn">무료 상담 예약하기 →</a>
     <div class="cta-sub">무료 내방 상담 후 맞춤 프로그램 안내</div>
   </div>
 
+</div><!-- /page-wrap -->
+
+<!-- ════════════════════════════
+     바텀시트 오버레이 + 패널
+════════════════════════════ -->
+<div class="bs-overlay" id="bsOverlay" onclick="closeBS()"></div>
+<div class="bs-panel" id="bsPanel">
+  <div class="bs-handle-row"><div class="bs-handle"></div></div>
+  <div class="bs-body">
+    <div class="bs-scroll" id="bsScroll"><!-- JS로 채워짐 --></div>
+    <div class="bs-scroll-fade"></div>
+    <div class="bs-footer" id="bsFooter"><!-- JS로 채워짐 --></div>
+  </div>
 </div>
 
 <script>
-let current = null;
-function toggle(id, cardEl) {
-  const panel = document.getElementById('acc-' + id);
-  if (current && current !== id) {
-    document.getElementById('acc-' + current).classList.remove('open');
-    const prev = document.querySelector('.svc-card.active');
-    if (prev) prev.classList.remove('active');
-  }
-  if (current === id) {
-    panel.classList.remove('open');
-    cardEl.classList.remove('active');
-    current = null;
-  } else {
-    panel.classList.add('open');
-    cardEl.classList.add('active');
-    current = id;
-    setTimeout(() => {
-      cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  }
+/* ════════════════════════
+   카테고리 토글
+════════════════════════ */
+function toggleCat(id, btn) {
+  const panel = document.getElementById(id);
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
 }
+
+/* ════════════════════════
+   바텀시트 열기 / 닫기
+════════════════════════ */
+function openBS(id) {
+  const data = PROGRAMS[id];
+  if (!data) return;
+  document.getElementById('bsScroll').innerHTML = renderBS(data);
+  document.getElementById('bsFooter').innerHTML = renderBSFooter(data);
+  document.getElementById('bsScroll').scrollTop = 0;
+  document.getElementById('bsOverlay').classList.add('active');
+  document.getElementById('bsPanel').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeBS() {
+  document.getElementById('bsOverlay').classList.remove('active');
+  document.getElementById('bsPanel').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ════════════════════════
+   바텀시트 HTML 렌더러
+════════════════════════ */
+function renderBS(d) {
+  let html = '';
+  /* 태그 */
+  html += '<div class="bs-tag bs-tag-' + d.tagColor + '">' + d.tag + '</div>';
+  /* 제목 */
+  html += '<div class="bs-title">' + d.title + '</div>';
+  /* 부제목 */
+  if (d.subtitle) html += '<div class="bs-subtitle">' + d.subtitle + '</div>';
+
+  /* A존 — 가격형 */
+  if (d.price) {
+    html += '<div class="bs-zone-a">';
+    html += '<div class="bs-zone-label bs-zone-label-a">A · 프로그램 가격</div>';
+    html += '<div class="bs-price-main">';
+    html += '<span class="bs-price-original">' + d.price.original + '</span>';
+    html += '<span class="bs-price-arrow">›</span>';
+    html += '<span class="bs-price-final">' + d.price.final + '</span>';
+    html += '<span class="bs-price-badge">' + d.price.badge + '</span>';
+    html += '</div>';
+    if (d.price.options && d.price.options.length) {
+      html += '<div class="bs-price-options">';
+      d.price.options.forEach(function(o) {
+        html += '<div class="bs-price-row"><span>' + o.label + '</span><span>' + o.val + '</span></div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  /* S존 — 세특구원자 가격형 (민트) */
+  if (d.seguPrice) {
+    html += '<div class="bs-zone-s">';
+    html += '<div class="bs-zone-label bs-zone-label-s">A · 이용 요금</div>';
+    html += '<div class="segu-price-main">';
+    html += '<span class="segu-price-num">' + d.seguPrice.perItem + '</span>';
+    html += '<span class="segu-price-unit">/ 건당</span>';
+    html += '<span class="segu-price-badge">또는 구독</span>';
+    html += '</div>';
+    html += '<div class="segu-price-main" style="margin-bottom:14px;">';
+    html += '<span class="segu-price-num">' + d.seguPrice.monthly + '</span>';
+    html += '<span class="segu-price-unit">/ 월 구독</span>';
+    html += '</div>';
+    if (d.seguPrice.options && d.seguPrice.options.length) {
+      html += '<div class="segu-price-rows">';
+      d.seguPrice.options.forEach(function(o) {
+        html += '<div class="segu-price-row"><span>' + o.label + '</span><span>' + o.val + '</span></div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  /* A존 — 핵심 포인트형 */
+  if (d.pointA) {
+    html += '<div class="bs-zone-a">';
+    html += '<div class="bs-zone-label bs-zone-label-a">A · 핵심 포인트</div>';
+    html += '<p>' + d.pointA + '</p>';
+    html += '</div>';
+  }
+
+  /* B존 — 커리큘럼 */
+  if (d.curriculum && d.curriculum.length) {
+    html += '<div class="bs-zone-b">';
+    html += '<div class="bs-zone-label bs-zone-label-b">B · ' + (d.currLabel || '구성 · 커리큘럼') + '</div>';
+    d.curriculum.forEach(function(c, i) {
+      html += '<div class="bs-curr-item">';
+      html += '<div class="bs-curr-num">' + (String(i + 1).padStart(2, '0')) + '</div>';
+      html += '<div class="bs-curr-text">';
+      html += '<div class="bs-curr-title">' + c.title + '</div>';
+      if (c.desc) html += '<div class="bs-curr-desc">' + c.desc + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  /* 안내 도트 리스트 */
+  if (d.info && d.info.length) {
+    html += '<div class="bs-info-list">';
+    d.info.forEach(function(txt) {
+      html += '<div class="bs-info-item"><div class="bs-info-dot"></div><span>' + txt + '</span></div>';
+    });
+    html += '</div>';
+  }
+
+  /* 버튼은 bs-footer에 고정 — renderBSFooter 참조 */
+  html += '<div style="height:8px;"></div>';
+
+  return html;
+}
+
+/* ════════════════════════
+   바텀시트 고정 푸터 렌더러
+   — CTA 버튼만 담당, SMS 코드 원본 그대로
+════════════════════════ */
+function renderBSFooter(d) {
+  let html = '<div class="bs-btns">';
+  /* CTA 버튼 — 정상 코드 그대로, segu는 민트 버튼 */
+  var fillClass = (d.tagColor === 's') ? 'bs-cta segu-fill' : 'bs-cta fill';
+  if (d.ctaLink) {
+    html += '<a href="' + d.ctaLink + '"' + (d.ctaTarget ? ' target="_blank"' : '') + ' class="' + fillClass + '">' + d.ctaLabel + '</a>';
+  } else {
+    html += '<a href="' + d.ctaTel + '" class="' + fillClass + '">' + d.ctaLabel + '</a>';
+  }
+  /* ★ 문자 상담 SMS — 절대 수정 금지 ★ */
+  html += '<a href="' + d.sms + '" class="bs-cta outline">문자 상담 ✉</a>';
+  html += '</div>';
+  return html;
+}
+
+/* ════════════════════════
+   프로그램 데이터
+════════════════════════ */
+var PROGRAMS = {
+
+  /* ── 학년 관리 로드맵 ── */
+  g1: {
+    tag:'고1 · Membership Program', tagColor:'a',
+    title:'고1 학생부 관리 컨설팅',
+    subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
+    price:{
+      original:'680만원', final:'374만원', badge:'45% 할인',
+      options:[
+        {label:'2학기만', val:'274만원'},
+        {label:'세특 관리 ONLY', val:'299만원'},
+        {label:'수행 관리 ONLY', val:'293만원'}
+      ]
+    },
+    currLabel:'포함 구성',
+    curriculum:[
+      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
+      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+    ],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  g2: {
+    tag:'고2 · Membership Program', tagColor:'b',
+    title:'고2 학생부 관리 컨설팅',
+    subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
+    price:{
+      original:'720만원', final:'396만원', badge:'45% 할인',
+      options:[
+        {label:'2학기만', val:'296만원'},
+        {label:'세특 관리 ONLY', val:'312만원'},
+        {label:'수행 관리 ONLY', val:'306만원'}
+      ]
+    },
+    currLabel:'포함 구성',
+    curriculum:[
+      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
+      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+    ],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  g3: {
+    tag:'고3 · Membership Program', tagColor:'c',
+    title:'고3 학생부 관리 컨설팅',
+    subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
+    price:{
+      original:'660만원', final:'363만원', badge:'45% 할인',
+      options:[
+        {label:'2학기만', val:'263만원'},
+        {label:'세특 관리 ONLY', val:'293만원'},
+        {label:'수행 관리 ONLY', val:'286만원'}
+      ]
+    },
+    currLabel:'포함 구성',
+    curriculum:[
+      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
+      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+    ],
+    info:['전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 관리 (타 지역 가능)', '3-2학기 관리 희망 시 비용 별도 문의'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20연간%20관리컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  /* ── 개별 컨설팅 ── */
+  p01: {
+    tag:'학년&학기 · 온라인', tagColor:'b',
+    title:'세특 기재 관리',
+    subtitle:'결국 세특 전략이 서류 \'합불\'을 결정합니다.',
+    pointA:'10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 마이더스K 기재관리 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.',
+    curriculum:[
+      {title:'학생 보고서 기반 자기평가서 작성', desc:'학교 제출용 세특 or 자기평가서 제공'},
+      {title:'세특 강화 솔루션', desc:'비인지 역량·교과 회귀·고찰점 강화 및 재구성'},
+      {title:'심화 확장 스토리 구축', desc:'이전 활동 연결 N차 심화 탐구 주제 제공'}
+    ],
+    info:['고1 230만 / 고2 250만 / 고3 220만 (학년 관리 기준)', '전담 컨설턴트 3명 이상 프레임워크', '온라인 상시 비대면 (타 지역 가능)'],
+    ctaLabel:'자세히 보기 →', ctaLink:'https://blog.naver.com/cesmidask/223912730799', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A생기부%20기재%20온라인%20관리에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p02: {
+    tag:'학년&학기 · 온라인', tagColor:'b',
+    title:'수행 관리',
+    subtitle:'수행 공지가 나올 때마다 막막했다면, 이제 달라집니다.',
+    pointA:'복잡한 절차 없이 수행 보고서, 감상문, 활동지 등 학교 제출 양식 그대로 보내면 끝. 수행 조건에 따라 방향성 코칭(옵션A) · 보고서 설계도 제공(옵션B) · 혼합형으로 제공합니다. 단, 보고서 대행 및 중간 첨삭 등 수행평가 공정성을 저해하는 지원은 불가합니다.',
+    curriculum:[
+      {title:'수행 분석', desc:'수행 과제 형식·활용 자료 등 주요 정보 분석'},
+      {title:'옵션A — 방향성 코칭', desc:'탐구 주제 선정, 자료 활용 및 탐구 방향 코칭'},
+      {title:'옵션B — 보고서 설계도', desc:'세특구원자 기반 실제 작성 가능 초안 틀 제공'}
+    ],
+    info:['고1 220만 / 고2 240만 / 고3 210만 (학년 관리 기준)', '전담 컨설턴트 전담 배치', '수행 공지를 밴드에 올리면 자동 지원'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A생기부%20기재%20온라인%20관리에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p03: {
+    tag:'회당 컨설팅 · 40만원', tagColor:'b',
+    title:'세특전략 컨설팅',
+    subtitle:'생기부 활동, 단 3분짜리 AI 분석으로 정말 충분할까요?',
+    pointA:'한 학년, 한 학기 단 1회 컨설팅으로 끝나는 세특 전략 컨설팅. 단순 결과 레포트가 아니라, 그 이상의 세특 전략을 제시합니다. \'티처스\' 의대편 컨설턴트가 진행하는 1:1 코칭과 네 가지 컨설팅이 한 번에 진행됩니다.',
+    currLabel:'세특 전략 컨설팅 커리큘럼',
+    curriculum:[
+      {title:'학생부 강점·취약점 분석', desc:''},
+      {title:'심화 확장 탐구 주제 추천', desc:'이전 활동에서 연결되는 5~10개 이내 주제 제공'},
+      {title:'지원 가능 대학 라인 제시', desc:'교과·학종·정시 전형별 분석'},
+      {title:'맞춤 세특 전략 코칭', desc:'문장 단위 분석 + 1:1 대면 + 레포트 제공'}
+    ],
+    info:['학생부 출력 불가 시 온라인 리서치로 대체 가능'],
+    ctaLabel:'자세히 보기 →', ctaLink:'https://blog.naver.com/cesmidask/223808239836', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A세특전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p04: {
+    tag:'회당 컨설팅 · 20만원', tagColor:'b',
+    title:'학종 특강',
+    subtitle:'나는 어떤 원칙과 전략으로 세특을 디자인하고 있는가?',
+    pointA:'어차피 비슷한 내신 성적을 가진 학생들 간 경쟁인 학종에서는 결국 학생부 서류가 합격의 핵심 변수입니다. 그러나 세특에 무엇을 기록해야 경쟁력을 갖출 수 있는지, 누구도 제대로 알려주지 않습니다. 마이더스K가 최상위권부터 하위권까지 누구나 활용할 수 있는 실전 세특 디자인 수업을 열었습니다.',
+    currLabel:'대한민국 유일 \'학생부 세특 디자인\' 수업 커리큘럼',
+    curriculum:[
+      {title:'서류평가 원리', desc:'입학사정관이 보는 실제 평가 메커니즘'},
+      {title:'심화 탐구 실전 스킬', desc:'주제 선정부터 보고서 설계까지'},
+      {title:'세특용 보고서 디자인', desc:'세특 구조화 전략 60~70분 실습'}
+    ],
+    info:['고교학점제 및 학종 준비 중3~고3 모두 수강 가능', '오프라인·온라인(화상) 모두 가능', '학생 수강 시 학부모 1명 무료 수강 가능'],
+    ctaLabel:'자세히 보기 →', ctaLink:'https://blog.naver.com/cesmidask/223353368278', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학종%20특강에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p05: {
+    tag:'회당 컨설팅 · 20만원', tagColor:'b',
+    title:'RPM 컨설팅',
+    subtitle:'Roadmap · Planning · Mentoring — 세특 역량 강화 1:1 대면',
+    pointA:'학생부 활동 실적을 1:1 대면 인터뷰로 직접 점검합니다. 어려움을 겪는 탐구 활동 방향성을 코칭하고, 이전 활동에서 심화 확장되는 주제와 스토리를 세특구원자 기반으로 제공합니다. 학교 단체 컨설팅의 경우 인터뷰 대신 생기부 서류로 대체 가능합니다.',
+    curriculum:[
+      {title:'생기부 활동 1:1 대면 인터뷰', desc:'활동 실적 심층 점검'},
+      {title:'어려움을 겪는 탐구 활동 코칭', desc:'방향성 제시 및 실행 방안'},
+      {title:'심화 확장 주제 + 스토리 제공', desc:'세특구원자 기반 맞춤 제공'}
+    ],
+    info:['단체 컨설팅 별도 문의'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A세특전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p06: {
+    tag:'고1 전용 · 30만원', tagColor:'b',
+    title:'비교과 활동 컨설팅',
+    subtitle:'고1 진로 목표에 맞는 창체활동, 처음부터 제대로 설계하세요.',
+    pointA:'고1 학생을 위한 비교과 활동 기획 컨설팅. 진로 목표 관련 창체활동 주제를 5개 내외로 추천하고, 기획서 제공과 1:1 대면 브리핑으로 실행까지 안내합니다.',
+    curriculum:[
+      {title:'진로 목표 관련 창체활동 주제 추천', desc:'5개 내외 맞춤 제공'},
+      {title:'기획서 제공', desc:'실행 가능한 활동 기획서 제공'},
+      {title:'1:1 대면 브리핑', desc:'화상 및 전화 상담 가능'}
+    ],
+    info:['고1 전용 프로그램'],
+    ctaLabel:'전화 바로연결 ☎', ctaTel:'tel:053-782-0331',
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A세특전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p07: {
+    tag:'2~4회 컨설팅', tagColor:'b',
+    title:'교과·정시 전략관리 컨설팅',
+    subtitle:'학생부종합보다 교과와 정시 전략이 우선이라면.',
+    pointA:'내신 및 모의고사 성적표를 토대로 각 대학별 환산점수를 분석하고, 현재 성적에서 가능한 지원 방향을 구체적으로 제시합니다. 감이 아닌 점수와 전략으로 다음 선택을 준비하세요.',
+    curriculum:[
+      {title:'지원 가능 수시·정시 대학 및 학과 분석', desc:'현재 성적 기준'},
+      {title:'부족 과목 학습 운영 전략 제시', desc:''},
+      {title:'전국 5,700개 모집단위 유망 학과 추천', desc:''}
+    ],
+    info:['1년 관리(대면 4회) 80만원 / 1개 학기(대면 2회) 40만원'],
+    ctaLabel:'전화 바로연결 ☎', ctaTel:'tel:053-782-0331',
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A교과%26정시%20전략관리%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p08: {
+    tag:'회당 컨설팅 · 10만원', tagColor:'b',
+    title:'학생부 현장 분석',
+    subtitle:'우리 학생이 지금 학종 준비를 제대로 하고 있는지 의구심이 든다면?',
+    pointA:'학생부를 기반으로 현재 위치와 보완 방향을 현장에서 즉시 점검합니다. 당일 접수부터 당일 상담까지 빠르게 진행하고 싶다면 가장 적합합니다. 막연한 불안보다 정확한 진단이 먼저입니다.',
+    curriculum:[
+      {title:'생기부 활동 강점·약점·취약점 분석', desc:''},
+      {title:'지원 가능 대학 라인 제시', desc:'현재 내신 및 활동 수준 기준'},
+      {title:'취약점 보충 활동 방향 코칭', desc:''}
+    ],
+    info:['당일 접수·당일 상담 가능'],
+    ctaLabel:'전화 바로연결 ☎', ctaTel:'tel:053-782-0331',
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A학생부%20현장분석%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  p09: {
+    tag:'중3 전용 · 55만원', tagColor:'b',
+    title:'중3 학종 얼리버드 컨설팅',
+    subtitle:'학생부 준비, 시작부터 달라야 합니다.',
+    pointA:'진로가 불확실해도, 과목·동아리 선택이 막막해도, 수행평가와 세특 연결이 고민이어도 — 지금 방향을 잡으면 됩니다. 단 2회 집중 컨설팅으로 고1 학생부의 출발선을 바꿔보세요.',
+    currLabel:'2회 컨설팅 구성',
+    curriculum:[
+      {title:'1회차 — 얼리버드 학종 특강', desc:'고교학점제·학생부 디자인·세특 빌드업'},
+      {title:'1회차 — 진로컨설팅', desc:'진로·학과·선택과목 추천'},
+      {title:'2회차 — 비교과 활동 컨설팅', desc:'고1 선행 탐구 활동 코칭 최대 5개'},
+      {title:'2회차 — 맞춤 질문 답변', desc:'이후 컨설팅 프로그램 추천 포함'}
+    ],
+    info:[],
+    ctaLabel:'자세히 보기 →', ctaLink:'https://blog.naver.com/cesmidask/224094563354', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A중3%20학종%20얼리버드%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  /* ── 대입 전략 컨설팅 ── */
+  c01: {
+    tag:'회당 컨설팅 · 45만원', tagColor:'c',
+    title:'수시 원서전략 컨설팅',
+    subtitle:'수시 6장, 감이 아니라 전략으로 설계하세요.',
+    pointA:'교육청 무허가 업체나 AI가 5분 만에 분석하는 생기부·세특만으로 정말 충분할까요? 마이더스K는 교육청 정식 인가 제5513호 학원으로, 연간 700~800회 이상의 개인·학교 단체 컨설팅 경험을 바탕으로 최종 합격의 길을 제시합니다.',
+    currLabel:'수시 원서전략 커리큘럼',
+    curriculum:[
+      {title:'대학별 내신 환산점수 분석', desc:'합불 예측 및 전국 5,700여 모집단위 분석'},
+      {title:'전형별 서류 타당성 판단', desc:'학종 타당성·비교과활동 vs 지원선 추천'},
+      {title:'면접 대응력 진단', desc:''},
+      {title:'1:1 대면 컨설팅 + 최종 지원 레포트', desc:'필요 시 변동사항 전화 상담 1회 추가 가능'}
+    ],
+    info:[],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A수시%26정시%20원서전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  c02: {
+    tag:'회당 컨설팅 · 35만원', tagColor:'c',
+    title:'정시 원서전략 컨설팅',
+    subtitle:'같은 점수라도 전략에 따라 결과가 달라집니다.',
+    pointA:'같은 점수라도 대학별 환산점수와 지원자 상황에 따라 정시 결과는 크게 달라집니다. 마이더스K 정시 컨설팅은 가·나·다 군별 최선의 지원전략을 수립합니다. 강제추합·자연추합까지 고려한 마이더스K만의 노하우로 상향·중립·안정 지원 전략을 제시합니다.',
+    curriculum:[
+      {title:'나의 점수와 대학별 환산점수 분석', desc:''},
+      {title:'가·나·다 군별 지원 전략 수립', desc:'강제추합·자연추합 고려'},
+      {title:'1:1 대면 컨설팅 100분', desc:'최종진단 레포트 제공'}
+    ],
+    info:['가채점 컨설팅 별도 10만원'],
+    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A수시%26정시%20원서전략%20컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  c03: {
+    tag:'회당 컨설팅 · 35만원~', tagColor:'c',
+    title:'대입 수시 면접컨설팅',
+    subtitle:'학생부 기반 면접, 단순 예상 질문이 아니라 전략으로 준비하세요.',
+    pointA:'티처스 컨설턴트와 함께하는 대입 수시 면접 컨설팅. 학생 탐구 활동의 진위 여부, 활동의 수준과 깊이, 인성 및 리더십 평가를 핵심으로 마이더스K만의 노하우로 준비합니다.',
+    currLabel:'면접 컨설팅 구성',
+    curriculum:[
+      {title:'1:2 컨설팅 (컨설턴트 2명)', desc:'최상의 면접 전략 빌드업'},
+      {title:'예상 질문 추출 + 답변 보강', desc:'학생부 활동 기반 맞춤 질문지 제공'},
+      {title:'지원 대학·학과 면접 분석 리포트', desc:'회당 1개 학과 기준'},
+      {title:'면접 위기 대응 솔루션', desc:'실전 시뮬레이션 · 태도·자세·발성 코칭'}
+    ],
+    info:['일반학과 1회 35만원 / 2회차부터 30만원', '의치한약수·SKY 1회 40만원', '모범답변 예시 제작 희망 시 10만원 추가'],
+    ctaLabel:'자세히 보기 →', ctaLink:'https://midasksegu-afk.github.io/meetcon/', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A대입%20수시%20면접컨설팅에%20관심있어요.%20%0A상담%20신청합니다.'
+  },
+
+  /* ── 세특구원자 ── */
+  segu: {
+    tag:'탐구 주제 · 보고서 플랫폼', tagColor:'s',
+    title:'세특구원자',
+    subtitle:'교과 연계부터 창체·동아리·진로·자율 주제까지. 탐구 주제 + 세특 기재전략 + 탐구자료 올인원.',
+    seguPrice:{
+      perItem:'5,500~7,500원',
+      monthly:'95,000원',
+      options:[
+        {label:'6개월 구독', val:'40% 할인'},
+        {label:'연간 구독', val:'50% 할인'},
+        {label:'로드맵 회원', val:'30% 추가 할인'}
+      ]
+    },
+    curriculum:[
+      {title:'탐구 주제 추천', desc:'교과·창체·동아리·진로·자율 주제 전 범위'},
+      {title:'보고서 설계도 제공', desc:'탐구 동기·과정·참고자료·결과 및 고찰점 ALL 포함'},
+      {title:'세특 기재전략', desc:'생성형 AI 활용 시 실존 논문·도서 기반 작성 가능'},
+      {title:'탐구 메타태그 100,000개', desc:'방대한 DB 기반 즉시 활용 가능'}
+    ],
+    info:['네이버 우수 콘텐츠 선정', '네이버 회원이면 누구나 바로 사용 가능'],
+    ctaLabel:'세특구원자 바로가기 →', ctaLink:'https://naver.me/GfMeckyJ', ctaTarget:true,
+    sms:'sms:010-6280-4410?body=안녕하세요%2C%20컨설팅%20프로그램보고%20문의%20드립니다.%20%0A세특구원자에%20관심있어요.%20%0A상담%20신청합니다.'
+  }
+
+};
+
+/* ════════════════════════
+   ESC 키로 닫기
+════════════════════════ */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeBS();
+});
+
+/* ════════════════════════
+   바텀시트 스와이프 다운 닫기
+   — 기존 openBS/closeBS 건드리지 않음
+════════════════════════ */
+(function() {
+  var panel = document.getElementById('bsPanel');
+  var scrollEl = document.getElementById('bsScroll'); /* 실제 스크롤 요소 */
+  var startY = 0;
+  var startScrollTop = 0;
+  var dragging = false;
+
+  panel.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+    startScrollTop = scrollEl.scrollTop; /* bsScroll 기준으로 측정 */
+    dragging = false;
+  }, { passive: true });
+
+  /* passive:false — 드래그 중 배경 스크롤 차단을 위해 preventDefault() 필요 */
+  panel.addEventListener('touchmove', function(e) {
+    var dy = e.touches[0].clientY - startY;
+    /* bsScroll이 최상단에 있을 때 + 아래로 드래그할 때만 스와이프 발동 */
+    if (startScrollTop <= 0 && dy > 0) {
+      e.preventDefault(); /* 배경 페이지 스크롤 차단 */
+      dragging = true;
+      panel.style.transition = 'none';
+      panel.style.transform = 'translateX(-50%) translateY(' + dy + 'px)';
+    }
+  }, { passive: false });
+
+  panel.addEventListener('touchend', function(e) {
+    if (!dragging) return;
+    var dy = e.changedTouches[0].clientY - startY;
+    panel.style.transition = '';
+    if (dy > 80) {
+      /* 80px 이상 내리면 닫기 */
+      panel.style.transform = '';
+      closeBS();
+    } else {
+      /* 복귀 */
+      panel.style.transform = '';
+    }
+    dragging = false;
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
