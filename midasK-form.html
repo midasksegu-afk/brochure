@@ -9,24 +9,26 @@
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
 :root{
-  --bg:        #F6F4F1;          /* warm cream */
-  --bg-2:      #FFFFFF;
-  --ink:       #15151A;          /* near black, slight warm */
-  --ink-2:     #43434A;
-  --ink-3:     #86868B;          /* apple secondary */
-  --ink-4:     #B8B8BE;
-  --line:      rgba(0,0,0,0.08);
-  --line-2:    rgba(0,0,0,0.05);
-  --card:      rgba(255,255,255,0.72);
-  --card-solid:#FFFFFF;
+  /* ── 다크 베이스 (브로슈어 히어로 톤) ── */
+  --bg:        #1A1A2E;
+  --bg-2:      #16213E;
+  --bg-3:      #0F3460;
+  --ink:       #FFFFFF;
+  --ink-2:     rgba(255,255,255,0.80);
+  --ink-3:     rgba(255,255,255,0.50);
+  --ink-4:     rgba(255,255,255,0.28);
+  --line:      rgba(255,255,255,0.12);
+  --line-2:    rgba(255,255,255,0.07);
+  --card:      rgba(255,255,255,0.07);
+  --card-solid:rgba(255,255,255,0.10);
 
-  /* Fusion accent gradient — peach → coral → lavender → sky */
+  /* Fusion accent gradient — 브로슈어와 동일 */
   --grad-1: linear-gradient(120deg, #FFB89A 0%, #FF8FB1 35%, #B79CFF 68%, #7BC2FF 100%);
-  --grad-soft: linear-gradient(120deg, #FFE3D4 0%, #FFD3E1 35%, #E1D6FF 68%, #D4ECFF 100%);
-  --grad-mesh-1: radial-gradient(60% 50% at 12% 8%,  rgba(255,180,150,0.55) 0%, rgba(255,180,150,0) 70%);
-  --grad-mesh-2: radial-gradient(55% 45% at 95% 18%, rgba(183,156,255,0.45) 0%, rgba(183,156,255,0) 70%);
-  --grad-mesh-3: radial-gradient(70% 55% at 50% 95%, rgba(123,194,255,0.40) 0%, rgba(123,194,255,0) 70%);
-  --grad-mesh-4: radial-gradient(45% 40% at 80% 65%, rgba(255,143,177,0.35) 0%, rgba(255,143,177,0) 70%);
+  --grad-soft: linear-gradient(120deg, rgba(255,184,154,0.25) 0%, rgba(255,143,177,0.22) 35%, rgba(183,156,255,0.22) 68%, rgba(123,194,255,0.20) 100%);
+  --grad-mesh-1: radial-gradient(60% 50% at 12% 8%,  rgba(255,160,120,0.20) 0%, rgba(255,160,120,0) 70%);
+  --grad-mesh-2: radial-gradient(55% 45% at 95% 18%, rgba(160,120,255,0.18) 0%, rgba(160,120,255,0) 70%);
+  --grad-mesh-3: radial-gradient(70% 55% at 50% 95%, rgba(123,194,255,0.15) 0%, rgba(123,194,255,0) 70%);
+  --grad-mesh-4: radial-gradient(45% 40% at 80% 65%, rgba(255,143,177,0.12) 0%, rgba(255,143,177,0) 70%);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
@@ -34,7 +36,7 @@ html,body{font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacS
 
 body{
   min-height:100vh;
-  background:var(--bg);
+  background:linear-gradient(160deg,#1A1A2E 0%,#16213E 60%,#0F3460 100%);
   color:var(--ink);
   padding-bottom:60px;
   overflow-x:hidden;
@@ -77,38 +79,47 @@ body::after{
 
 /* HERO */
 .hero{
-  padding:44px 6px 28px;
+  padding:52px 6px 8px;
   text-align:left;
 }
 .hero-eyebrow{
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  background:rgba(255,255,255,0.7);
-  border:1px solid var(--line);
+  gap:10px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.20);
   border-radius:30px;
-  padding:6px 13px 6px 10px;
-  font-size:11px;
-  font-weight:600;
-  color:var(--ink-2);
-  letter-spacing:0.06em;
-  margin-bottom:22px;
-  backdrop-filter:blur(20px) saturate(1.5);
-  -webkit-backdrop-filter:blur(20px) saturate(1.5);
-  box-shadow:0 1px 0 rgba(255,255,255,0.6) inset, 0 4px 14px rgba(20,20,40,0.04);
+  padding:10px 18px;
+  margin-bottom:0;
 }
 .eyebrow-dot{
-  width:10px;height:10px;border-radius:50%;
+  width:8px;height:8px;border-radius:50%;
   background:var(--grad-1);
-  box-shadow:0 0 0 3px rgba(255,255,255,0.6);
+  flex-shrink:0;
+}
+.eyebrow-sub{
+  font-size:11px;font-weight:600;
+  color:rgba(255,255,255,0.45);
+  letter-spacing:0.06em;
+}
+.eyebrow-sep{
+  color:rgba(255,255,255,0.25);
+  font-weight:300;margin:0 2px;
+}
+.eyebrow-main{
+  font-size:18px;font-weight:800;
+  letter-spacing:-0.03em;
+  background:var(--grad-1);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  white-space:nowrap;
 }
 .hero h1{
   font-size:36px;
   font-weight:800;
   line-height:1.18;
-  letter-spacing:-0.035em;
-  margin-bottom:16px;
-  color:var(--ink);
+  letter-spacing:-0.04em;
+  margin-bottom:8px;
+  color:#fff;
 }
 .hero h1 .hl{
   background:var(--grad-1);
@@ -117,27 +128,43 @@ body::after{
   color:transparent;
 }
 .hero-sub{
-  font-size:15px;
-  font-weight:400;
-  color:var(--ink-3);
+  font-size:14px;
+  font-weight:500;
+  color:rgba(255,255,255,0.50);
   line-height:1.6;
   letter-spacing:-0.01em;
-  max-width:34ch;
 }
 
-/* CARD */
+/* 브로슈어 다시보기 버튼 */
+.hero-top-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.back-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:none;border:none;padding:0;
+  font-size:12px;font-weight:600;
+  color:rgba(255,255,255,0.40);
+  cursor:pointer;text-decoration:none;
+  font-family:inherit;
+  letter-spacing:-0.01em;
+  transition:color .18s ease;
+  -webkit-tap-highlight-color:transparent;
+  white-space:nowrap;
+}
+.back-btn:active{color:rgba(255,255,255,0.70);}
+.back-btn svg{flex-shrink:0;}
 .card{
-  background:var(--card);
-  border:1px solid rgba(255,255,255,0.8);
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13);
   border-radius:24px;
   padding:24px 22px;
   margin-bottom:12px;
-  backdrop-filter:blur(28px) saturate(1.6);
-  -webkit-backdrop-filter:blur(28px) saturate(1.6);
+  backdrop-filter:blur(28px) saturate(1.2);
+  -webkit-backdrop-filter:blur(28px) saturate(1.2);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.9) inset,
-    0 1px 2px rgba(20,20,40,0.04),
-    0 12px 32px -8px rgba(20,20,40,0.07);
+    0 1px 0 rgba(255,255,255,0.10) inset,
+    0 12px 32px -8px rgba(0,0,0,0.35);
   animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;
 }
 .card:nth-child(1){animation-delay:.05s}
@@ -160,10 +187,10 @@ body::after{
 .card-num{
   font-size:11px;
   font-weight:700;
-  color:var(--ink);
+  color:rgba(255,255,255,0.9);
   letter-spacing:0.08em;
   background:var(--grad-soft);
-  border:1px solid rgba(255,255,255,0.7);
+  border:1px solid rgba(255,255,255,0.15);
   padding:5px 11px;
   border-radius:30px;
   position:relative;
@@ -181,6 +208,13 @@ body::after{
   color:var(--ink-3);
   letter-spacing:-0.01em;
 }
+.card-interest{
+  font-size:11px;font-weight:600;
+  background:var(--grad-1);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-0.01em;margin-top:3px;
+  line-height:1.4;
+}
 
 /* FIELDS */
 .field{margin-bottom:14px;}
@@ -196,12 +230,12 @@ body::after{
 .field input{
   width:100%;
   padding:15px 16px;
-  background:rgba(255,255,255,0.85);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:14px;
   font-size:16px;
   font-weight:500;
-  color:var(--ink);
+  color:#fff;
   outline:none;
   transition:all .2s ease;
   -webkit-appearance:none;
@@ -209,16 +243,16 @@ body::after{
   letter-spacing:-0.01em;
 }
 .field input::placeholder{
-  color:var(--ink-4);
+  color:rgba(255,255,255,0.30);
   font-weight:400;
 }
 .field input:focus{
   border-color:rgba(183,156,255,0.7);
-  background:#fff;
+  background:rgba(255,255,255,0.12);
   box-shadow:0 0 0 4px rgba(183,156,255,0.15);
 }
 .field input:hover:not(:focus){
-  border-color:rgba(0,0,0,0.16);
+  border-color:rgba(255,255,255,0.25);
 }
 /* 3칸 전화번호 입력 */
 .phone-row{
@@ -229,35 +263,35 @@ body::after{
 .phone-row .p-seg{
   flex:1;
   padding:15px 0;
-  background:rgba(255,255,255,0.85);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:14px;
   font-size:16px;
   font-weight:500;
-  color:var(--ink);
+  color:#fff;
   outline:none;
   transition:all .2s ease;
   -webkit-appearance:none;
   font-family:inherit;
   letter-spacing:0.05em;
   text-align:center;
-  width:0; /* flex가 균등 분배 */
+  width:0;
   min-width:0;
 }
 .phone-row .p-seg::placeholder{
-  color:var(--ink-4);
+  color:rgba(255,255,255,0.30);
   font-weight:400;
   letter-spacing:0;
 }
 .phone-row .p-seg:focus{
   border-color:rgba(183,156,255,0.7);
-  background:#fff;
+  background:rgba(255,255,255,0.12);
   box-shadow:0 0 0 4px rgba(183,156,255,0.15);
 }
 .phone-sep{
   font-size:18px;
   font-weight:300;
-  color:var(--ink-3);
+  color:rgba(255,255,255,0.40);
   flex-shrink:0;
   user-select:none;
 }
@@ -265,12 +299,12 @@ body::after{
 .field-select{
   width:100%;
   padding:15px 40px 15px 16px;
-  background:rgba(255,255,255,0.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2386868B' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
-  border:1px solid var(--line);
+  background:rgba(255,255,255,0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:14px;
   font-size:16px;
   font-weight:500;
-  color:var(--ink);
+  color:#fff;
   outline:none;
   transition:all .2s ease;
   -webkit-appearance:none;
@@ -281,11 +315,11 @@ body::after{
 }
 .field-select:focus{
   border-color:rgba(183,156,255,0.7);
-  background-color:#fff;
+  background-color:rgba(255,255,255,0.12);
   box-shadow:0 0 0 4px rgba(183,156,255,0.15);
 }
-.field-select option{color:var(--ink);font-weight:500;}
-.field-select optgroup{color:var(--ink-3);font-size:12px;font-weight:600;}
+.field-select option{color:#15151A;font-weight:500;background:#fff;}
+.field-select optgroup{color:#86868B;font-size:12px;font-weight:600;background:#fff;}
 .field-row{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -312,28 +346,29 @@ body::after{
 .sel-label{
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:15px 8px;
-  background:rgba(255,255,255,0.85);
-  border:1px solid var(--line);
+  justify-content:flex-start;
+  padding:13px 14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.13);
   border-radius:14px;
   cursor:pointer;
   font-size:14px;
   font-weight:600;
-  color:var(--ink-2);
-  text-align:center;
+  color:rgba(255,255,255,0.70);
+  text-align:left;
   transition:all .18s ease;
   letter-spacing:-0.02em;
+  width:100%;
 }
 .sel-label:active{transform:scale(0.97);}
 .sel-item input:checked + .sel-label{
-  background:#fff;
+  background:rgba(255,255,255,0.12);
   border-color:transparent;
-  color:var(--ink);
+  color:#fff;
   box-shadow:
     0 0 0 2px transparent,
     0 6px 18px -4px rgba(255,143,177,0.25);
-  background-image:linear-gradient(#fff,#fff),var(--grad-1);
+  background-image:linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10)),var(--grad-1);
   background-origin:border-box;
   background-clip:padding-box,border-box;
   border:1.5px solid transparent;
@@ -350,8 +385,8 @@ body::after{
   align-items:center;
   gap:12px;
   padding:14px 16px;
-  background:rgba(255,255,255,0.85);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:16px;
   cursor:pointer;
   transition:all .18s ease;
@@ -360,17 +395,17 @@ body::after{
 .svc-check{
   width:20px;height:20px;
   border-radius:7px;
-  border:1.5px solid var(--ink-4);
+  border:1.5px solid rgba(255,255,255,0.30);
   flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   transition:all .18s ease;
-  background:#fff;
+  background:rgba(255,255,255,0.06);
 }
 .svc-check svg{opacity:0;transition:opacity .15s;}
 .svc-item input:checked + .svc-label{
-  background:#fff;
+  background:rgba(255,255,255,0.10);
   border-color:transparent;
-  background-image:linear-gradient(#fff,#fff),var(--grad-1);
+  background-image:linear-gradient(rgba(255,255,255,0.08),rgba(255,255,255,0.08)),var(--grad-1);
   background-origin:border-box;
   background-clip:padding-box,border-box;
   border:1.5px solid transparent;
@@ -384,26 +419,26 @@ body::after{
 .svc-badge{
   font-size:10px;
   font-weight:700;
-  color:var(--ink-2);
-  background:var(--grad-soft);
+  color:rgba(255,255,255,0.80);
+  background:rgba(255,255,255,0.12);
   padding:3px 8px;
   border-radius:30px;
   flex-shrink:0;
   letter-spacing:0.05em;
-  border:1px solid rgba(255,255,255,0.7);
+  border:1px solid rgba(255,255,255,0.15);
 }
 .svc-body{flex:1;}
 .svc-name{
   font-size:14px;
   font-weight:600;
-  color:var(--ink);
+  color:#fff;
   line-height:1.35;
   margin-bottom:3px;
   letter-spacing:-0.02em;
 }
 .svc-desc{
   font-size:12px;
-  color:var(--ink-3);
+  color:rgba(255,255,255,0.45);
   font-weight:400;
   line-height:1.45;
   letter-spacing:-0.01em;
@@ -416,16 +451,14 @@ body::after{
   align-items:flex-start;
   gap:12px;
   padding:16px;
-  background:var(--card);
-  border:1px solid rgba(255,255,255,0.8);
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13);
   border-radius:18px;
   cursor:pointer;
   transition:all .18s ease;
-  backdrop-filter:blur(20px);
-  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 14px rgba(20,20,40,0.04);
 }
 .agree-label:has(input:checked){
-  background-image:linear-gradient(rgba(255,255,255,0.85),rgba(255,255,255,0.85)),var(--grad-1);
+  background-image:linear-gradient(rgba(255,255,255,0.08),rgba(255,255,255,0.08)),var(--grad-1);
   background-origin:border-box;
   background-clip:padding-box,border-box;
   border:1.5px solid transparent;
@@ -434,12 +467,12 @@ body::after{
 .agree-check-box{
   width:22px;height:22px;
   border-radius:7px;
-  border:1.5px solid var(--ink-4);
+  border:1.5px solid rgba(255,255,255,0.30);
   flex-shrink:0;
   margin-top:1px;
   display:flex;align-items:center;justify-content:center;
   transition:all .18s ease;
-  background:#fff;
+  background:rgba(255,255,255,0.06);
 }
 .agree-label:has(input:checked) .agree-check-box{
   background:var(--grad-1);
@@ -449,13 +482,13 @@ body::after{
 .agree-label:has(input:checked) .agree-chk{opacity:1;}
 .agree-text{
   font-size:12px;
-  color:var(--ink-3);
+  color:rgba(255,255,255,0.50);
   line-height:1.65;
   letter-spacing:-0.01em;
 }
 .agree-text strong{
   display:block;
-  color:var(--ink);
+  color:#fff;
   font-weight:600;
   margin-bottom:4px;
   font-size:13px;
@@ -468,29 +501,29 @@ body::after{
   justify-content:space-between;
   gap:12px;
   padding:18px 18px 18px 20px;
-  background:var(--card);
-  border:1px solid rgba(255,255,255,0.8);
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13);
   border-radius:20px;
   margin-bottom:12px;
   text-decoration:none;
   color:inherit;
   animation:fadeUp .5s ease .32s both;
-  backdrop-filter:blur(20px) saturate(1.5);
-  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset, 0 6px 18px rgba(20,20,40,0.05);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 rgba(255,255,255,0.08) inset;
   transition:transform .15s ease;
 }
 .tel-banner:active{transform:scale(.99);}
 .tel-tag{
   font-size:11px;
   font-weight:600;
-  color:var(--ink-3);
+  color:rgba(255,255,255,0.45);
   letter-spacing:0.02em;
   margin-bottom:4px;
 }
 .tel-num{
   font-size:24px;
   font-weight:800;
-  color:var(--ink);
+  color:#fff;
   letter-spacing:-0.03em;
   font-feature-settings:"tnum";
 }
@@ -527,6 +560,7 @@ body::after{
     0 6px 16px -8px rgba(123,194,255,0.4);
   transition:transform .15s ease, background-position .6s ease;
   font-family:inherit;
+  margin-bottom:12px;
 }
 .submit-btn:hover{background-position:100% 50%;}
 .submit-btn::after{
@@ -620,19 +654,105 @@ body::after{
 }
 /* 안내 박스 */
 .notice-box{
-  background:linear-gradient(120deg,rgba(56,120,255,0.1),rgba(100,160,255,0.08));
-  border:1px solid rgba(56,120,255,0.2);
+  background:linear-gradient(120deg,rgba(56,120,255,0.15),rgba(100,160,255,0.10));
+  border:1px solid rgba(100,160,255,0.25);
   border-radius:14px;
   padding:14px 16px;
   margin-bottom:20px;
+  margin-top:0;
   font-size:13px;
   font-weight:600;
-  color:#1A5FCC;
+  color:rgba(150,200,255,0.90);
   line-height:1.6;
   letter-spacing:-0.01em;
 }
-/* 기타 문의 입력창 */
-.etc-wrap{
+/* ── sel-label 체크박스 내장 ── */
+.sel-chk-box{
+  width:16px;height:16px;border-radius:5px;
+  border:1.5px solid rgba(255,255,255,0.30);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-right:6px;
+  background:rgba(255,255,255,0.06);
+  transition:all .15s;
+}
+.sel-chk-box svg{opacity:0;transition:opacity .15s;}
+.sel-item input:checked + .sel-label .sel-chk-box{
+  background:var(--grad-1);border-color:transparent;
+}
+.sel-item input:checked + .sel-label .sel-chk-box svg{opacity:1;}
+
+/* ── 그룹 컨테이너 ── */
+.svc-group{
+  margin-bottom:16px;
+}
+.svc-group-label{
+  font-size:11px;font-weight:700;
+  color:rgba(255,255,255,0.40);
+  letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.svc-group-label::after{
+  content:'';flex:1;height:1px;
+  background:rgba(255,255,255,0.10);
+}
+
+/* ── 칩 그리드 ── */
+.svc-chip-grid{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:0;
+}
+.chip-item{position:relative;}
+.chip-item input{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
+.chip-label{
+  display:inline-flex;align-items:center;
+  padding:10px 14px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:30px;
+  font-size:13px;font-weight:600;
+  color:rgba(255,255,255,0.65);
+  cursor:pointer;
+  transition:all .18s ease;
+  white-space:nowrap;
+  letter-spacing:-0.02em;
+}
+.chip-label:active{transform:scale(0.96);}
+.chip-item input:checked + .chip-label{
+  background:rgba(255,255,255,0.12);
+  border-color:transparent;
+  color:#fff;
+  background-image:linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10)),var(--grad-1);
+  background-origin:border-box;
+  background-clip:padding-box,border-box;
+  border:1.5px solid transparent;
+  box-shadow:0 4px 14px -4px rgba(183,156,255,0.30);
+}
+.chip-item input:checked + .chip-label .chip-chk svg{opacity:1;}
+.chip-chk{
+  width:14px;height:14px;border-radius:4px;
+  border:1.5px solid rgba(255,255,255,0.30);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-right:6px;
+  background:rgba(255,255,255,0.06);
+  transition:all .15s;
+}
+.chip-chk svg{opacity:0;transition:opacity .15s;}
+.chip-item input:checked + .chip-label .chip-chk{
+  background:var(--grad-1);border-color:transparent;
+}
+.chip-full .chip-label{border-radius:14px;width:100%;}
+
+/* ── 그룹 textarea ── */
+.group-etc-wrap{
+  display:none;
+  margin-top:8px;
+  padding:12px 14px 14px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:14px;
+}
+.group-etc-wrap.open{display:block;}
   display:none;
   padding:12px 16px 14px;
   border-top:1px solid rgba(0,0,0,0.06);
@@ -643,12 +763,12 @@ body::after{
   width:100%;
   min-height:80px;
   padding:12px 14px;
-  background:rgba(255,255,255,0.85);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
   border-radius:12px;
   font-size:14px;
   font-weight:400;
-  color:var(--ink);
+  color:#fff;
   outline:none;
   resize:none;
   font-family:inherit;
@@ -657,17 +777,17 @@ body::after{
   transition:all .2s;
   -webkit-appearance:none;
 }
-.etc-input::placeholder{ color:var(--ink-4); }
+.etc-input::placeholder{ color:rgba(255,255,255,0.30); }
 .etc-input:focus{
   border-color:rgba(183,156,255,0.7);
-  background:#fff;
+  background:rgba(255,255,255,0.12);
   box-shadow:0 0 0 4px rgba(183,156,255,0.15);
 }
 .etc-count{
   text-align:right;
   font-size:11px;
   font-weight:500;
-  color:var(--ink-3);
+  color:rgba(255,255,255,0.35);
   margin-top:6px;
   letter-spacing:-0.01em;
 }
@@ -677,9 +797,19 @@ body::after{
 <div class="page-wrap">
 
   <div class="hero">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-dot"></span>
-      MIDAS K · 티처스 컨설턴트
+    <div class="hero-top-row">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-sub">성적을 부탁해</span>
+        <span class="eyebrow-sep">|</span>
+        <span class="eyebrow-main">티처스 컨설턴트</span>
+      </div>
+      <button class="back-btn" onclick="goBackToBrochure()">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+          <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        브로슈어 다시보기
+      </button>
     </div>
     <h1>마이더스K <span class="hl">컨설팅 예약하기</span></h1>
   </div>
@@ -790,12 +920,12 @@ body::after{
         <span class="card-req">필수</span>
       </div>
       <div class="route-grid">
-        <div class="sel-item"><input type="radio" name="route" id="r1" value="티처스"><label for="r1" class="sel-label">티처스</label></div>
-        <div class="sel-item"><input type="radio" name="route" id="r2" value="지인 추천"><label for="r2" class="sel-label">지인 추천</label></div>
-        <div class="sel-item"><input type="radio" name="route" id="r3" value="인스타그램"><label for="r3" class="sel-label">인스타그램</label></div>
-        <div class="sel-item"><input type="radio" name="route" id="r4" value="네이버 블로그"><label for="r4" class="sel-label">네이버 블로그</label></div>
-        <div class="sel-item"><input type="radio" name="route" id="r5" value="인터넷 검색"><label for="r5" class="sel-label">인터넷 검색</label></div>
-        <div class="sel-item"><input type="radio" name="route" id="r6" value="기존 상담"><label for="r6" class="sel-label">기존 상담</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r1" value="티처스"><label for="r1" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>티처스</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r2" value="지인 추천"><label for="r2" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>지인 추천</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r3" value="인스타그램"><label for="r3" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>인스타그램</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r4" value="네이버 블로그"><label for="r4" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>네이버 블로그</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r5" value="인터넷 검색"><label for="r5" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>인터넷 검색</label></div>
+        <div class="sel-item"><input type="checkbox" name="route" id="r6" value="기존 상담"><label for="r6" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>기존 상담</label></div>
       </div>
     </div>
 
@@ -803,105 +933,77 @@ body::after{
     <div class="card">
       <div class="card-head">
         <span class="card-num">05</span>
-        <span class="card-title">희망 컨설팅 선택</span>
+        <div>
+          <div class="card-title">희망 컨설팅 선택</div>
+          <div class="card-interest" id="interestLine" style="display:none;"></div>
+        </div>
         <span class="card-req">복수 선택</span>
       </div>
-      <div class="svc-list">
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s00" value="00">
-          <label for="s00" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">중3전용</span>
-            <div class="svc-body"><div class="svc-name">중3 학종 얼리버드 컨설팅</div><div class="svc-desc">학종특강 · 진로컨설팅 · 고1 활동 기획</div></div>
-          </label>
+      <!-- ▶ 학년 관리 로드맵 -->
+      <div class="svc-group">
+        <div class="svc-group-label">학년 관리 로드맵</div>
+        <div class="svc-chip-grid">
+          <div class="chip-item"><input type="checkbox" name="svc" id="sg1" value="g1"><label for="sg1" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고1 학생부관리</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sg2" value="g2"><label for="sg2" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고2 학생부관리</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sg3" value="g3"><label for="sg3" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고3 학생부관리</label></div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s01" value="01">
-          <label for="s01" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">01</span>
-            <div class="svc-body"><div class="svc-name">학생부 연간 관리컨설팅</div><div class="svc-desc">탐구 주제 및 세특관리 올케어</div></div>
-          </label>
+        <div class="group-etc-wrap" id="etcG1">
+          <textarea class="etc-input" name="memo_g1" placeholder="학년관리 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
+          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
+      </div>
 
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s02" value="02">
-          <label for="s02" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">02</span>
-            <div class="svc-body"><div class="svc-name">생기부 기재 온라인 관리</div><div class="svc-desc">학교 제출용 자기평가서 세특 기재</div></div>
-          </label>
+      <!-- ▶ 개별 컨설팅 -->
+      <div class="svc-group">
+        <div class="svc-group-label">개별 컨설팅</div>
+        <div class="svc-chip-grid">
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp01" value="p01"><label for="sp01" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특 기재관리</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp02" value="p02"><label for="sp02" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>수행 관리</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp03" value="p03"><label for="sp03" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특전략</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp08" value="p08"><label for="sp08" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>현장 분석</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp10" value="p10"><label for="sp10" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>맞춤·진로</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp05" value="p05"><label for="sp05" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>RPM</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp04" value="p04"><label for="sp04" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>학종 특강</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp07" value="p07"><label for="sp07" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>교과·정시</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp06" value="p06"><label for="sp06" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>비교과활동</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp09" value="p09"><label for="sp09" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>중3 얼리버드</label></div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s03" value="03">
-          <label for="s03" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">03</span>
-            <div class="svc-body"><div class="svc-name">세특전략 컨설팅</div><div class="svc-desc">이전 활동·심화 확장 주제 및 스토리 제공</div></div>
-          </label>
+        <div class="group-etc-wrap" id="etcG2">
+          <textarea class="etc-input" name="memo_indiv" placeholder="개별 컨설팅 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
+          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
+      </div>
 
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s04" value="04">
-          <label for="s04" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">04</span>
-            <div class="svc-body"><div class="svc-name">학종 특강</div><div class="svc-desc">학생부 셀프디자인 · 서류평가 원리 · 세특 전략 빌드업</div></div>
-          </label>
+      <!-- ▶ 대입 전략 컨설팅 -->
+      <div class="svc-group">
+        <div class="svc-group-label">대입 전략 컨설팅</div>
+        <div class="svc-chip-grid">
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc01" value="c01"><label for="sc01" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>수시 원서전략</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc02" value="c02"><label for="sc02" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>정시 원서전략</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc03" value="c03"><label for="sc03" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>면접컨설팅</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc04" value="c04"><label for="sc04" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>파이널패키지</label></div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s05" value="05">
-          <label for="s05" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">05</span>
-            <div class="svc-body"><div class="svc-name">수시&amp;정시 원서 전략 컨설팅</div><div class="svc-desc">합격 가능성 분석 및 최적 지원 전략 수립</div></div>
-          </label>
+        <div class="group-etc-wrap" id="etcG3">
+          <textarea class="etc-input" name="memo_univ" placeholder="대입 전략 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
+          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
+      </div>
 
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s06" value="06">
-          <label for="s06" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">06</span>
-            <div class="svc-body"><div class="svc-name">대입 수시 면접컨설팅</div><div class="svc-desc">서류기반 심층면접 · 티처스 컨설턴트 협업</div></div>
-          </label>
+      <!-- ▶ 세특구원자 + 기타문의 -->
+      <div class="svc-group" style="margin-bottom:0;">
+        <div class="svc-group-label">기타</div>
+        <div class="svc-chip-grid">
+          <div class="chip-item"><input type="checkbox" name="svc" id="ssegu" value="segu"><label for="ssegu" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특구원자</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="setc" value="etc" onchange="toggleEtc(this)"><label for="setc" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>기타 문의 / 1회 무료내방</label></div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s07" value="07">
-          <label for="s07" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">07</span>
-            <div class="svc-body"><div class="svc-name">학생부 현장 분석</div><div class="svc-desc">종합 분석 및 개선 방향 제시</div></div>
-          </label>
+        <div class="group-etc-wrap" id="etcG4">
+          <textarea class="etc-input" name="memo_segu" placeholder="세특구원자 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
+          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s08" value="08">
-          <label for="s08" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">08</span>
-            <div class="svc-body"><div class="svc-name">교과&amp;정시 전략관리 컨설팅</div><div class="svc-desc">교과 내신 + 수능 통합 전략관리</div></div>
-          </label>
+        <div class="etc-wrap" id="etcWrap">
+          <textarea id="etcText" class="etc-input" placeholder="문의 내용을 자유롭게 입력해주세요. 무료 내방 신청시 '1회 무료 상담 신청' 이라고 남겨주세요." maxlength="100" oninput="updateCount()"></textarea>
+          <div class="etc-count"><span id="etcCount">0</span> / 100자</div>
         </div>
-
-        <div class="svc-item">
-          <input type="checkbox" name="svc" id="s09" value="09" onchange="toggleEtc(this)">
-          <label for="s09" class="svc-label">
-            <div class="svc-check"><svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="svc-badge">09</span>
-            <div class="svc-body"><div class="svc-name">기타 문의 / 1회 무료내방</div><div class="svc-desc">자유롭게 문의 내용을 입력해주세요</div></div>
-          </label>
-          <div class="etc-wrap" id="etcWrap">
-            <textarea id="etcText" class="etc-input" placeholder="문의 내용을 자유롭게 입력해주세요. 무료 내방 신청시 '1회 무료 상담 신청 이라고 남겨주세요' " maxlength="100" oninput="updateCount()"></textarea>
-            <div class="etc-count"><span id="etcCount">0</span> / 100자</div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -921,6 +1023,8 @@ body::after{
       </label>
     </div>
 
+    <button class="submit-btn" onclick="handleSubmit()">컨설팅 예약 신청하기</button>
+
     <!-- 전화 -->
     <a href="tel:053-782-0331" class="tel-banner">
       <div>
@@ -933,8 +1037,6 @@ body::after{
         </svg>
       </div>
     </a>
-
-    <button class="submit-btn" onclick="handleSubmit()">컨설팅 예약 신청하기</button>
 
   </div>
 
@@ -1141,8 +1243,8 @@ function handleSubmit() {
     return;
   }
 
-  const routeEl = document.querySelector('input[name="route"]:checked');
-  if (!routeEl) { showToast('⚠️ 알게 된 경로를 선택해주세요.'); return; }
+  const routeEls = document.querySelectorAll('input[name="route"]:checked');
+  if (!routeEls.length) { showToast('⚠️ 알게 된 경로를 선택해주세요.'); return; }
 
   if (!document.getElementById('agreeChk').checked) {
     showToast('⚠️ 개인정보 수집 이용에 동의해주세요.');
@@ -1158,23 +1260,44 @@ function handleSubmit() {
   const gradeInfo = [gpa, mock].filter(Boolean).join(' / ');
 
   const svcMap = {
-    '00': '예비고1 학종 얼리버드 컨설팅',
-    '01': '학생부 연간 관리컨설팅',
-    '02': '학생부 기재 관리컨설팅',
-    '03': '세특전략 컨설팅',
-    '04': '학종 특강',
-    '05': '수시&정시 원서전략 컨설팅',
-    '06': '대입 수시 면접컨설팅',
-    '07': '학생부 현장 분석',
-    '08': '교과&정시 전략관리 컨설팅',
-    '09': '기타 문의',
+    'g1':   '고1 학생부 관리 컨설팅',
+    'g2':   '고2 학생부 관리 컨설팅',
+    'g3':   '고3 학생부 관리 컨설팅',
+    'p01':  '세특 기재 관리',
+    'p02':  '수행 관리',
+    'p03':  '세특전략 컨설팅',
+    'p08':  '학생부 현장 분석',
+    'p10':  '맞춤 & 진로 컨설팅',
+    'p05':  'RPM 컨설팅',
+    'p04':  '학종 특강',
+    'p07':  '교과·정시 전략관리',
+    'p06':  '비교과 활동 컨설팅',
+    'p09':  '중3 학종 얼리버드',
+    'c01':  '수시 원서전략 컨설팅',
+    'c02':  '정시 원서전략 컨설팅',
+    'c03':  '대입 수시 면접컨설팅',
+    'c04':  '고3 파이널 패키지',
+    'segu': '세특구원자',
+    'etc':  '기타 문의',
   };
 
-  const etcText = document.getElementById('etcText').value.trim();
+    const etcText = document.getElementById('etcText').value.trim();
   const services = Array.from(svcEls).map(el => {
-    if (el.value === '09' && etcText) return `기타 문의: ${etcText}`;
+    if (el.value === 'etc' && etcText) return `기타 문의: ${etcText}`;
     return svcMap[el.value] || el.value;
   }).join(', ');
+
+  /* 그룹별 메모 수집 */
+  const memoG1   = document.querySelector('[name="memo_g1"]')?.value.trim() || '';
+  const memoIndiv= document.querySelector('[name="memo_indiv"]')?.value.trim() || '';
+  const memoUniv = document.querySelector('[name="memo_univ"]')?.value.trim() || '';
+  const memoSegu = document.querySelector('[name="memo_segu"]')?.value.trim() || '';
+  const memoAll  = [
+    memoG1   ? `[학년관리] ${memoG1}`   : '',
+    memoIndiv? `[개별] ${memoIndiv}`     : '',
+    memoUniv ? `[대입전략] ${memoUniv}`  : '',
+    memoSegu ? `[세특구원자] ${memoSegu}`: '',
+  ].filter(Boolean).join(' / ');
 
   /* 버튼 로딩 상태 */
   const btn = document.querySelector('.submit-btn');
@@ -1190,8 +1313,9 @@ function handleSubmit() {
     studentPhone: studentPhone,
     target:       target,
     gradeInfo:    gradeInfo,
-    route:        routeEl.value,
-    services:     services
+    route:        Array.from(routeEls).map(el => el.value).join(', '),
+    services:     services,
+    memo:         memoAll,
   };
 
   fetch(SCRIPT_URL, {
@@ -1213,12 +1337,144 @@ function handleSubmit() {
   });
 }
 
+/* ── 그룹별 textarea 자동 토글 ── */
+function setupGroupToggle(groupIds, wrapId) {
+  groupIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', function() {
+      var anyChecked = groupIds.some(function(gid) {
+        return document.getElementById(gid) && document.getElementById(gid).checked;
+      });
+      var wrap = document.getElementById(wrapId);
+      if (wrap) wrap.classList.toggle('open', anyChecked);
+    });
+  });
+}
+
+/* ── 그룹 글자수 카운트 ── */
+function updateGroupCount(el) {
+  var counter = el.parentElement.querySelector('.etc-count span');
+  if (counter) counter.textContent = el.value.length;
+}
+
+/* ── 입력값 저장 ── */
+function saveFormData() {
+  try {
+    var data = {
+      studentName:  document.getElementById('studentName').value,
+      grade:        document.getElementById('grade').value,
+      schoolName:   document.getElementById('schoolName').value,
+      p1: document.getElementById('p1').value,
+      p2: document.getElementById('p2').value,
+      p3: document.getElementById('p3').value,
+      s1: document.getElementById('s1').value,
+      s2: document.getElementById('s2').value,
+      s3: document.getElementById('s3').value,
+      target:  document.getElementById('target').value,
+      gpa:     document.getElementById('gpa').value,
+      mock:    document.getElementById('mock').value,
+      route:   Array.from(document.querySelectorAll('input[name="route"]:checked')).map(function(e){return e.value;}),
+      svc:     Array.from(document.querySelectorAll('input[name="svc"]:checked')).map(function(e){return e.value;})
+    };
+    localStorage.setItem('midasK_formData', JSON.stringify(data));
+  } catch(e) {}
+}
+
+/* ── 입력값 복원 ── */
+function restoreFormData() {
+  try {
+    var raw = localStorage.getItem('midasK_formData');
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    if (d.studentName) document.getElementById('studentName').value = d.studentName;
+    if (d.grade)       document.getElementById('grade').value       = d.grade;
+    if (d.schoolName)  document.getElementById('schoolName').value  = d.schoolName;
+    if (d.p1) document.getElementById('p1').value = d.p1;
+    if (d.p2) document.getElementById('p2').value = d.p2;
+    if (d.p3) document.getElementById('p3').value = d.p3;
+    if (d.s1) document.getElementById('s1').value = d.s1;
+    if (d.s2) document.getElementById('s2').value = d.s2;
+    if (d.s3) document.getElementById('s3').value = d.s3;
+    if (d.target) document.getElementById('target').value = d.target;
+    if (d.gpa)    document.getElementById('gpa').value    = d.gpa;
+    if (d.mock)   document.getElementById('mock').value   = d.mock;
+    if (d.route && d.route.length) {
+      d.route.forEach(function(v) {
+        var el = document.querySelector('input[name="route"][value="' + v + '"]');
+        if (el) el.checked = true;
+      });
+    }
+    if (d.svc && d.svc.length) {
+      d.svc.forEach(function(v) {
+        var el = document.querySelector('input[name="svc"][value="' + v + '"]');
+        if (el) { el.checked = true; el.dispatchEvent(new Event('change')); }
+      });
+    }
+  } catch(e) {}
+}
+
+/* ── 브로슈어 다시보기 ── */
+function goBackToBrochure() {
+  var hasInput = document.getElementById('studentName').value.trim() ||
+                 document.getElementById('p1').value.trim();
+  if (hasInput) {
+    if (confirm('입력 중인 내용을 저장하고 이동할까요?\n(돌아오면 자동으로 복원됩니다)')) {
+      saveFormData();
+    }
+  }
+  window.location.href = 'midasK_brochure.html';
+}
+
+/* ── localStorage 관심등록 자동체크 ── */
+function applyInterestFromStorage() {
+  var raw = '';
+  try { raw = localStorage.getItem('midasK_interest') || ''; } catch(e) {}
+  if (!raw) return;
+
+  var keys = JSON.parse(raw);
+  if (!keys || !keys.length) return;
+
+  var svcMap2 = {
+    'g1':'고1 학생부관리','g2':'고2 학생부관리','g3':'고3 학생부관리',
+    'p01':'세특 기재관리','p02':'수행 관리','p03':'세특전략',
+    'p08':'현장 분석','p10':'맞춤·진로','p05':'RPM',
+    'p04':'학종 특강','p07':'교과·정시','p06':'비교과활동',
+    'p09':'중3 얼리버드','c01':'수시 원서전략','c02':'정시 원서전략',
+    'c03':'면접컨설팅','c04':'파이널패키지','segu':'세특구원자'
+  };
+
+  var names = [];
+  keys.forEach(function(key) {
+    /* 체크박스 자동 체크 */
+    var el = document.querySelector('input[name="svc"][value="' + key + '"]');
+    if (el) {
+      el.checked = true;
+      el.dispatchEvent(new Event('change'));
+    }
+    if (svcMap2[key]) names.push(svcMap2[key]);
+  });
+
+  /* 헤더 2라인 표시 */
+  if (names.length) {
+    var line = document.getElementById('interestLine');
+    if (line) {
+      line.textContent = '관심등록 컨설팅: ' + names.join(', ');
+      line.style.display = 'block';
+    }
+  }
+}
+
 /* ── 초기화 ── */
 document.addEventListener('DOMContentLoaded', function () {
-  // 보호자 전화 3칸
   setupPhoneRow(['p1','p2','p3'], [3, 4, 4]);
-  // 학생 전화 3칸
   setupPhoneRow(['s1','s2','s3'], [3, 4, 4]);
+  setupGroupToggle(['sg1','sg2','sg3'],          'etcG1');
+  setupGroupToggle(['sp01','sp02','sp03','sp08','sp10','sp05','sp04','sp07','sp06','sp09'], 'etcG2');
+  setupGroupToggle(['sc01','sc02','sc03','sc04'], 'etcG3');
+  setupGroupToggle(['ssegu'],                    'etcG4');
+  restoreFormData();
+  applyInterestFromStorage();
 });
 </script>
 </body>
