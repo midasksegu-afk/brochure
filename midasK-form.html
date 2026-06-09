@@ -1241,7 +1241,7 @@ function handleSubmit() {
 
   const svcEls = document.querySelectorAll('input[name="svc"]:checked');
   if (!svcEls.length) {
-    document.querySelector('.svc-list').scrollIntoView({ behavior:'smooth', block:'center' });
+    document.querySelector('.svc-group').scrollIntoView({ behavior:'smooth', block:'center' });
     showToast('⚠️ 희망 컨설팅을 1개 이상 선택해주세요.');
     return;
   }
