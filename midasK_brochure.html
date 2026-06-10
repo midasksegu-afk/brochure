@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.4</title>
+<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.5</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="마이더스K 교육컨설팅">
 <meta property="og:description" content="[마이더스K 교육컨설팅 프로그램 안내서] 수행평가 주제 선정부터 동아리·진로 활동, 학생부 세특·자기평가서 제출 관리까지. 입시가 복잡하고 어렵게 느껴지신다면, 아무것도 모르고 오셔도 괜찮습니다. 최선의 대입전략은 이미 시작되었습니다. 마이더스K와 함께라면,">
@@ -1106,16 +1106,15 @@ var interestKeys = (function(){
   try { return JSON.parse(localStorage.getItem('midasK_interest') || '[]'); } catch(e){ return []; }
 })();
 
-function toggleInterest(title, btn) {
-  var idx = interestKeys.indexOf(title);
-  var isSegu = btn.closest('.bs-title-row') &&
-               document.querySelector('#bsScroll .bs-tag-s') !== null;
+function toggleInterest(id, btn) {
+  var idx = interestKeys.indexOf(id);
+  var isSegu = document.querySelector('#bsScroll .bs-tag-s') !== null;
   if (idx > -1) {
     interestKeys.splice(idx, 1);
     btn.classList.remove('active','active-s');
     btn.querySelector('span').textContent = '관심등록';
   } else {
-    interestKeys.push(title);
+    interestKeys.push(id);
     btn.classList.add(isSegu ? 'active-s' : 'active');
     btn.querySelector('span').textContent = '관심등록됨';
   }
@@ -1139,12 +1138,12 @@ function toggleCat(id, btn) {
 function openBS(id) {
   const data = PROGRAMS[id];
   if (!data) return;
-  document.getElementById('bsScroll').innerHTML = renderBS(data);
+  document.getElementById('bsScroll').innerHTML = renderBS(data, id);
   document.getElementById('bsFooter').innerHTML = renderBSFooter(data);
   document.getElementById('bsScroll').scrollTop = 0;
   /* 관심등록 버튼 초기 상태 복원 */
   var btn = document.querySelector('.bs-interest-btn');
-  if (btn && interestKeys.indexOf(data.title) > -1) {
+  if (btn && interestKeys.indexOf(id) > -1) {
     btn.classList.add(data.tagColor === 's' ? 'active-s' : 'active');
     btn.querySelector('span').textContent = '관심등록됨';
   }
@@ -1161,7 +1160,7 @@ function closeBS() {
 /* ════════════════════════
    바텀시트 HTML 렌더러
 ════════════════════════ */
-function renderBS(d) {
+function renderBS(d, id) {
   let html = '';
   /* 태그 */
   html += '<div class="bs-tag bs-tag-' + d.tagColor + '">' + d.tag + '</div>';
@@ -1169,8 +1168,8 @@ function renderBS(d) {
   var isSegu = (d.tagColor === 's');
   html += '<div class="bs-title-row">';
   html += '<div class="bs-title">' + d.title + '</div>';
-  html += '<button class="bs-interest-btn" id="intBtn_' + d.title + '" onclick="toggleInterest(\'' + d.title.replace(/'/g,"\\'") + '\',this)">';
-  html += interestKeys.indexOf(d.title) > -1 ? (isSegu ? '<span>관심등록됨</span>' : '<span>관심등록됨</span>') : '<span>관심등록</span>';
+  html += '<button class="bs-interest-btn" data-id="' + id + '" onclick="toggleInterest(\'' + id + '\',this)">';
+  html += interestKeys.indexOf(id) > -1 ? '<span>관심등록됨</span>' : '<span>관심등록</span>';
   html += '</button>';
   html += '</div>';
   /* 부제목 */
