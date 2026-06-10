@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.1</title>
+<title>마이더스K 교육컨설팅 · 컨설팅 라인업 v2.3</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="마이더스K 교육컨설팅">
 <meta property="og:description" content="[마이더스K 교육컨설팅 프로그램 안내서] 수행평가 주제 선정부터 동아리·진로 활동, 학생부 세특·자기평가서 제출 관리까지. 입시가 복잡하고 어렵게 느껴지신다면, 아무것도 모르고 오셔도 괜찮습니다. 최선의 대입전략은 이미 시작되었습니다. 마이더스K와 함께라면,">
@@ -11,11 +11,12 @@
 <meta property="og:url" content="https://midasksegu-afk.github.io/brochure/midasK_brochure.html">
 <meta property="og:site_name" content="마이더스K 교육컨설팅">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
+/* ── 폰트 렌더링 최적화 : font-display swap ── */
+@font-face { font-family:'Pretendard'; font-display:swap; }
 /* ── 변수 ── */
 :root{
   --bg:#F6F4F1;
@@ -754,7 +755,7 @@ body{
 
   <!-- ════ HERO ════ -->
   <div class="hero-section">
-    <button class="share-btn share-btn-hero" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>
+    <button class="share-btn share-btn-hero" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>
     <div class="hero-content">
       <div class="hero-eyebrow"><span class="eyedot"></span><span class="eyebrow-sub">성적을 부탁해</span><span class="eyebrow-main">티처스 컨설턴트</span></div>
       <div class="hero-top">
@@ -801,7 +802,7 @@ body{
     <div class="about-line-muted">평범했던 생기부도</div>
     <div class="about-line-highlight">나만의 심화 확장 STORY로</div>
     <div class="about-line-end">얼마든지 업그레이드될 수 있습니다.</div>
-    <button class="share-btn share-btn-about" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>
+    <button class="share-btn share-btn-about" onclick="shareBrochure()" aria-label="브로슈어 공유하기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>
   </div>
 
   <!-- ════ NOTICE ════ -->
@@ -1229,7 +1230,7 @@ function renderBSFooter(d) {
     html += '<a href="' + d.ctaTel + '" class="' + fillClass + '">' + d.ctaLabel + '</a>';
   }
   /* ★ 공유 버튼 ★ */
-  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><i class="ti ti-share" aria-hidden="true"></i></button>';
+  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
   /* ★ 문자 상담 SMS — 수신번호 고정, 문구만 d.title 동적 생성 ★ */
   var smsBody = encodeURIComponent('안녕하세요, 컨설팅 프로그램보고 문의 드립니다. \n[' + d.title + '] 에 관심있어요. \n상담 신청합니다.');
   html += '<a href="sms:010-6280-4410?body=' + smsBody + '" class="bs-cta outline">문자 상담 ✉</a>';
