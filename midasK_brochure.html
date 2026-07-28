@@ -805,7 +805,7 @@ body{
       </div>
       <div class="hero-stats">
         <div class="stat-card">
-          <div class="stat-text"><span class="big">365</span>일<br>온라인 전용<br>수행 세특관리</div>
+          <div class="stat-text"><span class="big">365</span>일<br>온라인 전용<br>수행 세특전략</div>
         </div>
         <div class="stat-card">
           <div class="stat-text">탐구 메타태그<br><span class="big">100,000</span>개</div>
@@ -838,11 +838,11 @@ body{
       <div class="lineup-line"></div>
     </div>
 
-    <!-- ── A. 학년 관리 로드맵 ── -->
+    <!-- ── A. 학년 전략 로드맵 ── -->
     <div class="cat-block">
       <button class="cat-btn cat-a" onclick="toggleCat('cat-a',this)" aria-expanded="false">
         <div class="cat-info">
-          <div class="cat-name">학년 관리 로드맵</div>
+          <div class="cat-name">학년 전략 로드맵</div>
           <div class="cat-sub">고1·고2·고3 연간 올케어 Membership</div>
         </div>
         <span class="cat-count">3개</span>
@@ -854,7 +854,7 @@ body{
           <div class="grade-item" onclick="openBS('g1')">
             <div class="grade-row">
               <span class="grade-pill grade-g1">고1</span>
-              <span class="grade-name">학생부 학년관리 컨설팅</span>
+              <span class="grade-name">학생부 학년전략 컨설팅</span>
               <span class="grade-arr">›</span>
             </div>
             <div class="grade-price-row">
@@ -868,7 +868,7 @@ body{
           <div class="grade-item" onclick="openBS('g2')">
             <div class="grade-row">
               <span class="grade-pill grade-g2">고2</span>
-              <span class="grade-name">학생부 학년관리 컨설팅</span>
+              <span class="grade-name">학생부 학년전략 컨설팅</span>
               <span class="grade-arr">›</span>
             </div>
             <div class="grade-price-row">
@@ -882,7 +882,7 @@ body{
           <div class="grade-item" onclick="openBS('g3')">
             <div class="grade-row">
               <span class="grade-pill grade-g3">고3</span>
-              <span class="grade-name">학생부 학년관리 컨설팅</span>
+              <span class="grade-name">학생부 학년전략 컨설팅</span>
               <span class="grade-arr">›</span>
             </div>
             <div class="grade-price-row">
@@ -911,7 +911,7 @@ body{
           <div class="prog-item" onclick="openBS('p01')">
             <div class="prog-num">01</div>
             <div class="prog-body">
-              <div class="prog-name">생기부 기재관리<span class="hit-badge-wrap"><span class="hit-badge-inner">HIT</span></span></div>
+              <div class="prog-name">생기부 기재전략<span class="hit-badge-wrap"><span class="hit-badge-inner">HIT</span></span></div>
               <div class="prog-desc">학교 제출용 자기평가서 세특 기재 · 온라인</div>
             </div>
             <div class="prog-price">220~250만</div>
@@ -920,7 +920,7 @@ body{
           <div class="prog-item" onclick="openBS('p02')">
             <div class="prog-num">02</div>
             <div class="prog-body">
-              <div class="prog-name">교과 수행 관리<span class="hit-badge-wrap"><span class="hit-badge-inner">HIT</span></span></div>
+              <div class="prog-name">교과 수행 전략<span class="hit-badge-wrap"><span class="hit-badge-inner">HIT</span></span></div>
               <div class="prog-desc">수행 방향성 코칭 · 보고서 설계도 제공 · 온라인</div>
             </div>
             <div class="prog-price">210~240만</div>
@@ -974,8 +974,8 @@ body{
           <div class="prog-item" onclick="openBS('p07')">
             <div class="prog-num">08</div>
             <div class="prog-body">
-              <div class="prog-name">교과·정시 전략관리</div>
-              <div class="prog-desc">교과 내신 + 수능 통합 전략관리</div>
+              <div class="prog-name">교과·정시 전략</div>
+              <div class="prog-desc">교과 내신 + 수능 통합 전략</div>
             </div>
             <div class="prog-price">40~80만</div>
             <div class="prog-arr">›</div>
@@ -1301,22 +1301,22 @@ var PROGRAMS = {
   /* ── 학년 관리 로드맵 ── */
   g1: {
     tag:'고1 · Membership Program', tagColor:'a',
-    title:'고1 학생부 관리 컨설팅',
+    title:'고1 학생부 전략 컨설팅',
     subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
     price:{
       original:'680만원', final:'374만원', badge:'45% 할인',
       options:[
         {label:'2학기만', val:'274만원'},
-        {label:'세특 관리 ONLY', val:'299만원'},
-        {label:'수행 관리 ONLY', val:'293만원'}
+        {label:'세특 전략 ONLY', val:'299만원'},
+        {label:'수행 전략 ONLY', val:'293만원'}
       ]
     },
     currLabel:'포함 구성',
     curriculum:[
-      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
-      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'세특 전략', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 전략', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
-      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+      {title:'기본전략', desc:'학종특강 · 행정관리 포함'}
     ],
     info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
@@ -1324,22 +1324,22 @@ var PROGRAMS = {
 
   g2: {
     tag:'고2 · Membership Program', tagColor:'b',
-    title:'고2 학생부 관리 컨설팅',
+    title:'고2 학생부 전략 컨설팅',
     subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
     price:{
       original:'720만원', final:'396만원', badge:'45% 할인',
       options:[
         {label:'2학기만', val:'296만원'},
-        {label:'세특 관리 ONLY', val:'312만원'},
-        {label:'수행 관리 ONLY', val:'306만원'}
+        {label:'세특 전략 ONLY', val:'312만원'},
+        {label:'수행 전략 ONLY', val:'306만원'}
       ]
     },
     currLabel:'포함 구성',
     curriculum:[
-      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
-      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'세특 전략', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 전략', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
-      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+      {title:'기본전략', desc:'학종특강 · 행정관리 포함'}
     ],
     info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
@@ -1347,22 +1347,22 @@ var PROGRAMS = {
 
   g3: {
     tag:'고3 · Membership Program', tagColor:'c',
-    title:'고3 학생부 관리 컨설팅',
+    title:'고3 학생부 전략 컨설팅',
     subtitle:'세특·수행·대면·입시행정 올케어. 복잡한 입시, 아무것도 모르고 오셔도 괜찮습니다.',
     price:{
       original:'660만원', final:'363만원', badge:'45% 할인',
       options:[
         {label:'2학기만', val:'263만원'},
-        {label:'세특 관리 ONLY', val:'293만원'},
-        {label:'수행 관리 ONLY', val:'286만원'}
+        {label:'세특 전략 ONLY', val:'293만원'},
+        {label:'수행 전략 ONLY', val:'286만원'}
       ]
     },
     currLabel:'포함 구성',
     curriculum:[
-      {title:'세특 관리', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
-      {title:'수행 관리', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
+      {title:'세특 전략', desc:'자기평가서 작성 · 비인지 역량 강화 · 심화 확장 스토리 구축'},
+      {title:'수행 전략', desc:'수행 분석 · 방향성 코칭 · 보고서 설계도 제공'},
       {title:'대면 컨설팅', desc:'RPM · 성적 누적 분석 · 맞춤 상담'},
-      {title:'기본관리', desc:'학종특강 · 행정관리 포함'}
+      {title:'기본전략', desc:'학종특강 · 행정관리 포함'}
     ],
     info:['전담 컨설턴트 3명 이상 프레임워크', '온-오프라인 관리 (타 지역 가능)', '3-2학기 관리 희망 시 비용 별도 문의'],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
@@ -1371,9 +1371,9 @@ var PROGRAMS = {
   /* ── 개별 컨설팅 ── */
   p01: {
     tag:'학년&학기 · 온라인', tagColor:'b',
-    title:'생기부 기재관리',
+    title:'생기부 기재전략',
     subtitle:'결국 세특 전략이 서류 \'합불\'을 결정합니다.',
-    pointA:'10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 마이더스K 기재관리 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.',
+    pointA:'10페이지 이상의 수준 높은 활동 보고서 자체보다 중요한 것은, 그 활동이 생활기록부 세특에 어떻게 구조화되어 담겼는가입니다. 마이더스K 기재전략 컨설팅은 단순 세특 첨삭이 아니라, 학생의 원본 보고서에 숨어 있는 교과 개념, 학습 과정의 심층 고찰, 학습 자세와 태도까지 재설계하여 세특의 완성도를 높입니다.',
     curriculum:[
       {title:'학생 보고서 기반 자기평가서 작성', desc:'학교 제출 보고서만 보내주면 끝. 간편하지만 경쟁력 있게! 국/수/영/사/과 교과, 자율·동아리·진로·행특 전 범위 대응. 항목별 BEST 실적 2~3개 선별 제공.'},
       {title:'세특 강화 솔루션', desc:'단순 요약·첨삭이 아닌, 비인지적 역량·교과 회귀·고찰점 강화까지 재구성. 학생의 원본 보고서에 숨어 있는 깊이를 끌어내 세특 완성도를 높입니다.'}
@@ -1384,7 +1384,7 @@ var PROGRAMS = {
 
   p02: {
     tag:'학년&학기 · 온라인', tagColor:'b',
-    title:'교과 수행 관리',
+    title:'교과 수행 전략',
     subtitle:'수행 공지가 나올 때마다 막막했다면, 이제 달라집니다.',
     pointA:'복잡한 절차 없이 수행 보고서, 감상문, 활동지 등 학교 제출 양식 그대로 보내면 끝. 수행 조건에 따라 방향성 코칭(옵션A) · 보고서 설계도 제공(옵션B) · 혼합형으로 제공합니다. 단, 보고서 대행 및 중간 첨삭 등 수행평가 공정성을 저해하는 지원은 불가합니다.',
     curriculum:[
@@ -1457,7 +1457,7 @@ var PROGRAMS = {
 
   p07: {
     tag:'2~4회 컨설팅', tagColor:'b',
-    title:'교과·정시 전략관리 컨설팅',
+    title:'교과·정시 전략 컨설팅',
     subtitle:'학생부종합보다 교과와 정시 전략이 우선이라면.',
     pointA:'내신 및 모의고사 성적표를 토대로 각 대학별 환산점수를 분석하고, 현재 성적에서 가능한 지원 방향을 구체적으로 제시합니다. 감이 아닌 점수와 전략으로 다음 선택을 준비하세요.',
     curriculum:[
@@ -1571,14 +1571,14 @@ var PROGRAMS = {
       badge:'10% 할인',
       options:[
         {label:'세특전략 컨설팅 (개별)', val:'40만원'},
-        {label:'기재관리 컨설팅 (개별)', val:'220만원'},
+        {label:'기재전략 컨설팅 (개별)', val:'220만원'},
         {label:'수시 원서전략 컨설팅 (개별)', val:'45만원'}
       ]
     },
     currLabel:'패키지 구성 3가지',
     curriculum:[
       {title:'세특전략 컨설팅', desc:'티처스 컨설턴트 1:1 대면 + 최종레포트 제공. 심화 확장 탐구 주제 5~10개 · 지원가능 대학 라인 · 세특 기재전략 코칭'},
-      {title:'기재관리 컨설팅', desc:'아무리 수준 높은 탐구 활동이라도, 세특에 제대로 드러나지 못한다면? 교과 개념으로의 회귀, 심층 고찰, 비인지적 역량을 찾아 재구성합니다.'},
+      {title:'기재전략 컨설팅', desc:'아무리 수준 높은 탐구 활동이라도, 세특에 제대로 드러나지 못한다면? 교과 개념으로의 회귀, 심층 고찰, 비인지적 역량을 찾아 재구성합니다.'},
       {title:'수시 원서전략 컨설팅', desc:'6장의 최적 지원 카드를 설계합니다. 대학별 내신 환산점수 분석·합불 예측 · 서류 타당성 판단 · 1:1 대면 컨설팅 + 최종 지원 레포트 제공'}
     ],
     info:[
