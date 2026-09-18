@@ -1624,10 +1624,16 @@ var PROGRAMS = {
 
 };
 
-/* 주소 끝 #상품번호 → 그 상세판 바로 열기 (예: #p03 세특전략 — 추천 문자 링크) · 없으면 종전대로 맨 위 */
+/* 주소 끝 #상품번호 → 그 상세판 바로 열기 (예: #p03 세특전략 — 추천 문자 링크) · 없으면 종전대로 맨 위
+   #cat-a·#cat-b·#cat-c → 그 묶음을 펼쳐서 거기까지 내려간다 (예: #cat-a 학년 전략 로드맵 — 세구자료실 카드) */
 (function () {
   var h = (location.hash || '').slice(1);
   if (h && PROGRAMS[h]) setTimeout(function () { openBS(h); }, 350);
+  var panel = h && h.indexOf('cat-') === 0 ? document.getElementById(h) : null;
+  if (panel && panel.previousElementSibling && !panel.classList.contains('open')) setTimeout(function () {
+    toggleCat(h, panel.previousElementSibling);
+    panel.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 350);
 })();
 
 function goToForm(e) {
