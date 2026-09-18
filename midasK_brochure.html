@@ -1624,6 +1624,12 @@ var PROGRAMS = {
 
 };
 
+/* 주소 끝 #상품번호 → 그 상세판 바로 열기 (예: #p03 세특전략 — 추천 문자 링크) · 없으면 종전대로 맨 위 */
+(function () {
+  var h = (location.hash || '').slice(1);
+  if (h && PROGRAMS[h]) setTimeout(function () { openBS(h); }, 350);
+})();
+
 function goToForm(e) {
   try { localStorage.setItem('midasK_interest', JSON.stringify(interestKeys)); } catch(ex){}
 }
