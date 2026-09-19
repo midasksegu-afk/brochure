@@ -985,6 +985,8 @@ body::after{
           <div class="chip-item"><input type="checkbox" name="svc" id="sc02" value="c02"><label for="sc02" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>정시 원서전략</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sc03" value="c03"><label for="sc03" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>면접컨설팅</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sc04" value="c04"><label for="sc04" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>파이널패키지</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc05" value="c05"><label for="sc05" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>자소서 기획</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sc06" value="c06"><label for="sc06" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>자소서 첨삭</label></div>
         </div>
         <div class="group-etc-wrap" id="etcG3">
           <textarea class="etc-input" name="memo_univ" placeholder="대입 전략 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
@@ -1291,6 +1293,8 @@ function handleSubmit() {
     'c02':  '정시 원서전략 컨설팅',
     'c03':  '대입 수시 면접컨설팅',
     'c04':  '고3 파이널 패키지',
+    'c05':  '자소서 기획',
+    'c06':  '자소서 첨삭',
     'segu': '세특구원자',
     'etc':  '기타 문의',
   };
@@ -1551,7 +1555,7 @@ function applyInterestFromStorage() {
     'p08':'현장 분석','p10':'맞춤·진로','p05':'RPM',
     'p04':'학종 특강','p07':'교과·정시','p06':'비교과활동',
     'p09':'중3 얼리버드','c01':'수시 원서전략','c02':'정시 원서전략',
-    'c03':'면접컨설팅','c04':'파이널패키지','segu':'세특구원자'
+    'c03':'면접컨설팅','c04':'파이널패키지','c05':'자소서 기획','c06':'자소서 첨삭','segu':'세특구원자'
   };
 
   var names = [];
@@ -1581,7 +1585,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupPhoneRow(['s1','s2','s3'], [3, 4, 4]);
   setupGroupToggle(['sg1','sg2','sg3'],          'etcG1');
   setupGroupToggle(['sp01','sp02','sp03','sp08','sp10','sp05','sp04','sp07','sp06','sp09'], 'etcG2');
-  setupGroupToggle(['sc01','sc02','sc03','sc04'], 'etcG3');
+  setupGroupToggle(['sc01','sc02','sc03','sc04','sc05','sc06'], 'etcG3');
   setupGroupToggle(['ssegu'],                    'etcG4');
   restoreFormData();
   applyInterestFromStorage();
