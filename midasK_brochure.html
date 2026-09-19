@@ -1310,7 +1310,7 @@ function renderBSFooter(d, id) {
   var fillClass = (d.tagColor === 's') ? 'bs-cta segu-fill' : 'bs-cta fill';
   var smsBody = encodeURIComponent('안녕하세요, 컨설팅 프로그램 보고 문의드립니다. \n[' + d.title + ']에 관심 있어요. \n상담 문의드립니다.');
   let html = '<div class="bs-btns">';
-  html += '<a href="midasK-form.html' + staffQ + '#' + id + '" onclick="goToForm()" class="' + fillClass + ' main">상담 문의하기 →</a>';
+  html += '<a href="midasK-form.html#' + id + '" onclick="goToForm()" class="' + fillClass + ' main">상담 문의하기 →</a>';
   html += '<a href="tel:053-782-0331" class="bs-cta outline">전화 상담</a>';
   html += '<a href="sms:010-6280-4410?body=' + smsBody + '" class="bs-cta outline">문자 상담</a>';
   html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
