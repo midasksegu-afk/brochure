@@ -1319,7 +1319,7 @@ function renderBSFooter(d, id) {
   html += '<a href="midasK-form.html#' + id + '" onclick="goToForm()" class="' + fillClass + ' main">상담 문의하기 →</a>';
   html += '<a href="tel:053-782-0331" class="bs-cta outline">전화 상담</a>';
   html += '<a href="sms:010-6280-4410?body=' + smsBody + '" class="bs-cta outline">문자 상담</a>';
-  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
+  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure(\'' + id + '\', \'' + String(d.title).replace(/'/g, '') + '\')" aria-label="이 프로그램 공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
   html += '</div>';
   return html;
 }
@@ -1685,7 +1685,15 @@ function goToForm(e) {
 /* ════════════════════════
    공유 기능
 ════════════════════════ */
-function shareBrochure() {
+/* 상세판에서 누르면 그 프로그램이 열린 채로 뜨는 주소(#키)를 보낸다(대표 09-20) · 맨 위·About 공유는 종전대로 */
+function shareBrochure(key, title) {
+  var base = 'https://midasksegu-afk.github.io/brochure/midasK_brochure.html';
+  if (key) {
+    var d2 = { title: '마이더스K ' + title, text: '[마이더스K 교육컨설팅] ' + title + ' 안내입니다.', url: base + '#' + key };
+    if (navigator.share) { navigator.share(d2).catch(function() {}); return; }
+    navigator.clipboard.writeText(d2.url).then(function() { showToast('이 프로그램 링크가 복사되었습니다!'); }).catch(function() { window.prompt('아래 링크를 길게 눌러 복사하세요.', d2.url); });
+    return;
+  }
   var shareData = {
     title: '마이더스K 교육컨설팅',
     text: '[마이더스K 교육컨설팅 프로그램 안내서]\n수행평가 주제 선정부터 동아리·진로 활동, 학생부 세특·자기평가서 제출 관리까지.\n입시가 복잡하고 어렵게 느껴지신다면, 아무것도 모르고 오셔도 괜찮습니다.\n최선의 대입전략은 이미 시작되었습니다. 마이더스K와 함께라면,',
