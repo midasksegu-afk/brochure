@@ -1026,6 +1026,9 @@ body::after{
       </label>
     </div>
 
+    <!-- 숨은 칸(로봇 거르기) — 사람은 못 보고 채우지 않는다. 지우지 마세요 -->
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+    <div id="sendFail" style="display:none;margin:0 0 14px;padding:16px 18px;border-radius:14px;background:rgba(255,70,100,0.08);border:1px solid rgba(255,70,100,0.35);font-size:14px;line-height:1.7;color:inherit;"></div>
     <button class="submit-btn" onclick="handleSubmit()">컨설팅 예약 신청하기</button>
 
     <!-- 전화 -->
@@ -1077,7 +1080,15 @@ body::after{
 </div>
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8p-Y7z2By-Xr-XNlifzo2GxBtJCuq4QaRYJ7akyyOlvgGihvAsKD-iD81oVcPJdo/exec';
+/* 2026-09-19 — 구글 Apps Script 를 끊고 마이더스K 받는 창구로 보낸다(리서치센터로 바로 모인다).
+   키·열쇠는 없다. 상품 키(value)는 절대 바꾸지 않는다 — 이미 나간 문자 링크와 이어져 있다. */
+const API_BASE     = 'https://midask-manage.vercel.app';
+const INBOUND_URL  = API_BASE + '/api/research/inbound';
+const PROGRAMS_URL = API_BASE + '/api/research/programs';
+const OFFICE_TEL   = '053-782-0331';
+const OFFICE_SMS   = '010-6280-4410';
+/* 체크 칩 묶음 차례 = 표준서랍 묶음 id (학년전략 · 개별 · 대입 · 기타) */
+const GROUP_IDS = ['road', 'indiv', 'univ', 'segu'];
 
 /* ── 기타 문의 토글 ── */
 function toggleEtc(checkbox) {
@@ -1287,7 +1298,7 @@ function handleSubmit() {
     const etcText = document.getElementById('etcText').value.trim();
   const services = Array.from(svcEls).map(el => {
     if (el.value === 'etc' && etcText) return `기타 문의: ${etcText}`;
-    return svcMap[el.value] || el.value;
+    return svcMap[el.value] || (el.labels && el.labels[0] ? el.labels[0].textContent.trim() : '') || el.value;
   }).join(', ');
 
   /* 그룹별 메모 수집 */
@@ -1307,37 +1318,133 @@ function handleSubmit() {
   btn.textContent = '신청 중...';
   btn.disabled = true;
 
-  /* Apps Script 로 전송 */
+  /* 받는 창구로 전송 — 이름=학생, 번호=보호자 휴대폰, 묶음별 메시지는 memo_by_group */
+  const memoByGroup = {};
+  if (memoG1)    memoByGroup.road  = memoG1;
+  if (memoIndiv) memoByGroup.indiv = memoIndiv;
+  if (memoUniv)  memoByGroup.univ  = memoUniv;
+  if (memoSegu)  memoByGroup.segu  = memoSegu;
+  if (etcText)   memoByGroup.sit   = etcText;
+  const content = [memoAll, etcText ? `[기타 문의] ${etcText}` : ''].filter(Boolean).join(' / ');
+
+  let touched = [];
+  try { touched = JSON.parse(localStorage.getItem('midasK_interest') || '[]') || []; } catch(e) { touched = []; }
+
   const payload = {
-    studentName:  nameEl.value.trim(),
-    schoolName:   schoolEl.value.trim(),
-    grade:        gradeEl.value,
-    parentPhone:  parentPhone,
-    studentPhone: studentPhone,
-    target:       target,
-    gradeInfo:    gradeInfo,
-    route:        Array.from(routeEls).map(el => el.value).join(', '),
-    services:     services,
-    memo:         memoAll,
+    source:       'brochure',
+    program_keys: Array.from(svcEls).map(el => el.value),
+    name:         nameEl.value.trim(),
+    phone:        parentPhone,
+    content:      content,
+    touched:      Array.isArray(touched) ? touched : [],
+    website:      (document.getElementById('website') || {}).value || '',
+    answers: {
+      schoolName:    schoolEl.value.trim(),
+      grade:         gradeEl.value,
+      studentPhone:  studentPhone,
+      target:        target,
+      gradeInfo:     gradeInfo,
+      route:         Array.from(routeEls).map(el => el.value).join(', '),
+      services:      services,
+      memo_by_group: memoByGroup,
+    },
   };
 
-  fetch(SCRIPT_URL, {
+  document.getElementById('sendFail').style.display = 'none';
+
+  fetch(INBOUND_URL, {
     method: 'POST',
-    mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
-  .then(() => {
+  .then(r => r.json().catch(() => ({ ok: false })).then(j => ({ ok: r.ok && j && j.ok, error: j && j.error })))
+  .then(res => {
+    if (!res.ok) return showSendFail(res.error);
+    try { localStorage.removeItem('midasK_formData'); } catch(e) {}
     document.getElementById('formArea').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   })
-  .catch(() => {
-    // no-cors라 에러가 와도 성공으로 처리
-    document.getElementById('formArea').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  .catch(() => showSendFail(''));
+}
+
+/* ── 전송 실패 — 성공처럼 보이지 않게, 전화·문자로 안내 ── */
+function showSendFail(why) {
+  saveFormData(); // 적은 것은 이 폰에 남겨 둔다(다시 열면 복원)
+  const box = document.getElementById('sendFail');
+  const head = why ? why : '신청이 전송되지 않았습니다.';
+  box.innerHTML = '<strong>' + head.replace(/</g, '&lt;') + '</strong><br>'
+    + '번거로우시겠지만 전화나 문자로 남겨 주시면 바로 연락드리겠습니다.<br>'
+    + '<a href="tel:' + OFFICE_TEL + '" style="font-weight:700;text-decoration:underline;color:inherit;">전화 ' + OFFICE_TEL + '</a>'
+    + ' &nbsp;·&nbsp; '
+    + '<a href="sms:' + OFFICE_SMS + '" style="font-weight:700;text-decoration:underline;color:inherit;">문자 ' + OFFICE_SMS + '</a>';
+  box.style.display = 'block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = '다시 신청하기';
+  btn.disabled = false;
+}
+
+/* ── 체크 목록 — 표준서랍에서 받아 맞춘다(못 받으면 이 파일 안 목록 그대로) ──
+   · 표준에 새로 선 상품은 그 묶음 끝에 칩을 더한다(이름은 표준 이름)
+   · 표준에 없는 칩은 숨긴다('기타 문의' 칩은 늘 둔다)
+   · 다른 곳으로 가는 상품(href — 예: 티칭)은 여기 그리지 않는다 */
+function chipHtml(key, name) {
+  return '<input type="checkbox" name="svc" id="s' + key + '" value="' + key + '">'
+    + '<label for="s' + key + '" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+    + String(name).replace(/</g, '&lt;') + '</label>';
+}
+function syncProgramsFromStandard() {
+  if (!window.fetch) return;
+  fetch(PROGRAMS_URL).then(r => r.json()).then(j => {
+    if (!j || !j.ok || !Array.isArray(j.groups)) return;
+    const std = {};
+    j.groups.forEach(g => (g.items || []).forEach(i => { std[i.key] = g.id; }));
+    if (!Object.keys(std).length) return;
+
+    // 표준에 없는 칩 숨기기
+    document.querySelectorAll('input[name="svc"]').forEach(el => {
+      if (el.value === 'etc' || std[el.value]) return;
+      el.checked = false;
+      if (el.parentElement) el.parentElement.style.display = 'none';
+    });
+
+    // 새 상품 더하기
+    let saved = [], interest = [];
+    try { saved = (JSON.parse(localStorage.getItem('midasK_formData') || '{}').svc) || []; } catch(e) {}
+    try { interest = JSON.parse(localStorage.getItem('midasK_interest') || '[]') || []; } catch(e) {}
+    const groupsEl = document.querySelectorAll('.svc-group');
+    j.groups.forEach(g => {
+      const at = GROUP_IDS.indexOf(g.id);
+      if (at < 0 || !groupsEl[at]) return;
+      const grid = groupsEl[at].querySelector('.svc-chip-grid');
+      if (!grid) return;
+      let added = false;
+      (g.items || []).forEach(i => {
+        if (i.href || document.querySelector('input[name="svc"][value="' + i.key + '"]')) return;
+        const box = document.createElement('div');
+        box.className = 'chip-item';
+        box.innerHTML = chipHtml(i.key, i.name);
+        const etcChip = grid.querySelector('input[value="etc"]');
+        if (etcChip) grid.insertBefore(box, etcChip.parentElement); else grid.appendChild(box);
+        const input = box.querySelector('input');
+        input.addEventListener('change', () => toggleGroupMemo(groupsEl[at]));
+        if (saved.indexOf(i.key) >= 0 || interest.indexOf(i.key) >= 0) {
+          input.checked = true;
+          toggleGroupMemo(groupsEl[at]);
+        }
+        added = true;
+      });
+      // 새 칩이 선 묶음은 원래 칩도 묶음 전체로 메모 칸을 판정(원래 판정은 원래 칩만 본다)
+      if (added) groupsEl[at].querySelectorAll('input[name="svc"]').forEach(el => el.addEventListener('change', () => toggleGroupMemo(groupsEl[at])));
+    });
+  }).catch(() => {});
+}
+function toggleGroupMemo(groupEl) {
+  const wrap = groupEl.querySelector('.group-etc-wrap');
+  if (!wrap) return;
+  const any = Array.from(groupEl.querySelectorAll('input[name="svc"]')).some(el => el.value !== 'etc' && el.checked);
+  wrap.classList.toggle('open', any);
 }
 
 /* ── 그룹별 textarea 자동 토글 ── */
@@ -1478,6 +1585,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupGroupToggle(['ssegu'],                    'etcG4');
   restoreFormData();
   applyInterestFromStorage();
+  syncProgramsFromStandard();
 });
 </script>
 </body>
