@@ -1099,10 +1099,9 @@ const OFFICE_SMS   = '010-6280-4410';
 const GROUP_IDS = ['road', 'indiv', 'univ', 'segu'];
 /* ── 직원 미리보기(리서치센터 호버창 · 2026-09-20) — 창구는 github.io 에서 온 것만 받으므로 호버창(출처 null)에서 보내면
    막혀서 「인터넷 연결이 잠시 불안정합니다」가 떴다(대표 캡처). 미리보기면 보내지 않고 미리보기임을 알린다.
-   판정: 주소에 ?staff=1 이 있거나(호버창이 붙임) · 출처가 null(호버창 sandbox — 브로슈어 탭에서 [상담 문의하기]로 넘어온 경우) */
+   판정: 주소에 ?staff=1 이 있을 때 **뿐**(호버창만 붙인다). 그 밖의 어떤 경로(면접 안내 · 문자 링크 · 세구자료실 · 새 탭)도 실전이다(대표 09-20 「어디에서든 다 통하게」) */
 function isStaffPreview() {
-  try { if (/(?:^|[?&])staff=1/.test(location.search)) return true; } catch (e) {}
-  try { return window.origin === 'null'; } catch (e) { return false; }
+  try { return /(?:^|[?&])staff=1/.test(location.search); } catch (e) { return false; }
 }
 
 /* ── 기타 문의 토글 ── */
