@@ -1097,11 +1097,7 @@ const OFFICE_TEL   = '053-782-0331';
 const OFFICE_SMS   = '010-6280-4410';
 /* 체크 칩 묶음 차례 = 표준서랍 묶음 id (학년전략 · 개별 · 대입 · 기타) */
 const GROUP_IDS = ['road', 'indiv', 'univ', 'segu'];
-/* ── 직원 미리보기(리서치센터 호버창 · 2026-09-20) — 창구는 github.io 에서 온 것만 받으므로 호버창(출처 null)에서 보내면
-   막혀서 「인터넷 연결이 잠시 불안정합니다」가 떴다(대표 캡처). 미리보기면 보내지 않고 미리보기임을 알린다.
-   판정: 주소에 ?staff=1 이 있을 때 **뿐**(호버창만 붙인다). 그 밖의 어떤 경로(면접 안내 · 문자 링크 · 세구자료실 · 새 탭)도 실전이다(대표 09-20 「어디에서든 다 통하게」) */
-function isStaffPreview() {
-  try { return /(?:^|[?&])staff=1/.test(location.search); } catch (e) { return false; }
+catch (e) { return false; }
 }
 
 /* ── 기타 문의 토글 ── */
@@ -1369,8 +1365,6 @@ function handleSubmit() {
 
   document.getElementById('sendFail').style.display = 'none';
 
-  if (isStaffPreview()) { showStaffPreview(); return; }
-
   /* 창구는 거절하지 않는다(무조건 받는다). 여기서 막히는 건 폰 인터넷 · 시스템 장애뿐 — 1초·3초 쉬고 두 번 더 */
   const body = JSON.stringify(payload);
   const trySend = (left) => fetch(INBOUND_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
@@ -1388,18 +1382,6 @@ function handleSubmit() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   })
   .catch(() => showSendFail());
-}
-
-/* ── 직원 미리보기 — 실제로 보내지 않는다 ── */
-function showStaffPreview() {
-  const box = document.getElementById('sendFail');
-  box.innerHTML = '<strong>직원 미리보기 화면입니다</strong><br>'
-    + '학부모가 보는 신청폼 그대로이지만, 여기서 누른 건 리서치센터로 들어가지 않습니다.';
-  box.style.display = 'block';
-  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  const btn = document.querySelector('.submit-btn');
-  btn.textContent = '직원 미리보기 — 보내지지 않습니다';
-  btn.disabled = false;
 }
 
 /* ── 끝내 못 닿았을 때(폰 인터넷 끊김 등) — 적은 건 폰에 두고 전화·문자 안내 ── */
@@ -1669,7 +1651,6 @@ document.addEventListener('DOMContentLoaded', function () {
   applyHashPick();
   buildSeenAsk();
   syncProgramsFromStandard();
-  if (isStaffPreview()) { var sb = document.querySelector('.submit-btn'); if (sb) sb.textContent = '직원 미리보기 — 보내지지 않습니다'; }
   document.addEventListener('change', function (e) { if (e.target && e.target.name === 'svc') buildSeenAsk(); });
 });
 </script>
