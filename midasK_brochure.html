@@ -1147,9 +1147,20 @@ function toggleCat(id, btn) {
 /* ════════════════════════
    바텀시트 열기 / 닫기
 ════════════════════════ */
+/* 열어 본 상세판 — 이 폰에만 적어 둔다(상품 키 · 시각만, 이름·번호 없음).
+   신청폼이 「둘러보신 프로그램 — 같이 문의하시겠어요?」로 물어보고, 리서치센터에도 같이 간다(2026-09-19) */
+function rememberSeen(id) {
+  try {
+    var seen = JSON.parse(localStorage.getItem('midasK_seen') || '[]') || [];
+    seen = seen.filter(function (x) { return x && x.k !== id; });
+    seen.push({ k: id, t: new Date().toISOString() });
+    localStorage.setItem('midasK_seen', JSON.stringify(seen.slice(-30)));
+  } catch (e) {}
+}
 function openBS(id) {
   const data = PROGRAMS[id];
   if (!data) return;
+  rememberSeen(id);
   document.getElementById('bsScroll').innerHTML = renderBS(data, id);
   document.getElementById('bsFooter').innerHTML = renderBSFooter(data, id);
   document.getElementById('bsScroll').scrollTop = 0;

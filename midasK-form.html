@@ -208,6 +208,11 @@ body::after{
   color:var(--ink-3);
   letter-spacing:-0.01em;
 }
+.seen-ask{margin:2px 0 16px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);}
+.seen-ask .q{font-size:12.5px;font-weight:700;opacity:.9;margin-bottom:8px;}
+.seen-ask .pills{display:flex;flex-wrap:wrap;gap:6px;}
+.seen-ask button{font:inherit;font-size:12.5px;font-weight:700;color:#fff;background:transparent;border:1px dashed rgba(255,255,255,0.45);border-radius:999px;padding:5px 11px;cursor:pointer;}
+.seen-ask button:active{opacity:.7;}
 .card-interest{
   font-size:11px;font-weight:600;
   background:var(--grad-1);
@@ -942,6 +947,8 @@ body::after{
         </div>
         <span class="card-req">복수 선택</span>
       </div>
+      <!-- ▶ 둘러보신 프로그램 — 열어 보기만 한 것은 체크하지 않고 물어본다 -->
+      <div class="seen-ask" id="seenAsk" style="display:none;"></div>
       <!-- ▶ 학년 전략 로드맵 -->
       <div class="svc-group">
         <div class="svc-group-label">학년 전략 로드맵</div>
@@ -1349,6 +1356,8 @@ function handleSubmit() {
       route:         Array.from(routeEls).map(el => el.value).join(', '),
       services:      services,
       memo_by_group: memoByGroup,
+      interest_keys: readKeys('midasK_interest'),
+      seen_keys:     readKeys('midasK_seen'),
     },
   };
 
@@ -1442,6 +1451,7 @@ function syncProgramsFromStandard() {
       // 새 칩이 선 묶음은 원래 칩도 묶음 전체로 메모 칸을 판정(원래 판정은 원래 칩만 본다)
       if (added) groupsEl[at].querySelectorAll('input[name="svc"]').forEach(el => el.addEventListener('change', () => toggleGroupMemo(groupsEl[at])));
     });
+    buildSeenAsk();
   }).catch(() => {});
 }
 function toggleGroupMemo(groupEl) {
@@ -1579,6 +1589,39 @@ function applyInterestFromStorage() {
   }
 }
 
+/* ── 폰에 적힌 상품 키 읽기 — 관심등록(midasK_interest: ['p03',…]) · 열어 본 것(midasK_seen: [{k,t},…]) ── */
+function readKeys(store) {
+  try {
+    var v = JSON.parse(localStorage.getItem(store) || '[]') || [];
+    return v.map(function (x) { return typeof x === 'string' ? x : (x && x.k); }).filter(function (k) { return typeof k === 'string'; }).slice(-30);
+  } catch (e) { return []; }
+}
+
+/* ── 둘러보신 프로그램 — 열어 보기만 했고 아직 체크 안 된 것을 물어본다(누르면 체크) ── */
+function buildSeenAsk() {
+  var box = document.getElementById('seenAsk');
+  if (!box) return;
+  var keys = readKeys('midasK_seen').map(function (k) { return k === 'c06' ? 'c05' : k; }).reverse(); // 최근 본 것 먼저
+  var pills = [], done = {};
+  keys.forEach(function (k) {
+    if (done[k]) return; done[k] = 1;
+    var el = document.querySelector('input[name="svc"][value="' + k + '"]');
+    if (!el || el.checked || (el.parentElement && el.parentElement.style.display === 'none')) return;
+    var lb = el.labels && el.labels[0] ? el.labels[0].textContent.trim() : k;
+    if (pills.length < 6) pills.push('<button type="button" data-k="' + k + '">+ ' + lb.replace(/</g, '&lt;') + '</button>');
+  });
+  if (!pills.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="q">둘러보신 프로그램 — 같이 문의하시겠어요?</div><div class="pills">' + pills.join('') + '</div>';
+  box.style.display = 'block';
+  box.querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.querySelector('input[name="svc"][value="' + b.getAttribute('data-k') + '"]');
+      if (el) { el.checked = true; el.dispatchEvent(new Event('change')); }
+      buildSeenAsk();
+    });
+  });
+}
+
 /* ── 주소 끝 #상품키 → 그 칩을 체크해서 연다 (예: 면접 안내 페이지 → #c03) ── */
 function applyHashPick() {
   var k = (location.hash || '').slice(1);
@@ -1601,7 +1644,9 @@ document.addEventListener('DOMContentLoaded', function () {
   restoreFormData();
   applyInterestFromStorage();
   applyHashPick();
+  buildSeenAsk();
   syncProgramsFromStandard();
+  document.addEventListener('change', function (e) { if (e.target && e.target.name === 'svc') buildSeenAsk(); });
 });
 </script>
 </body>
