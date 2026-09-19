@@ -967,7 +967,7 @@ body::after{
       <div class="svc-group">
         <div class="svc-group-label">개별 컨설팅</div>
         <div class="svc-chip-grid">
-          <div class="chip-item"><input type="checkbox" name="svc" id="sp01" value="p01"><label for="sp01" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특 기재전략</label></div>
+          <div class="chip-item"><input type="checkbox" name="svc" id="sp01" value="p01"><label for="sp01" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>생기부 기재전략</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sp02" value="p02"><label for="sp02" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>수행 전략</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sp03" value="p03"><label for="sp03" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특전략</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sp08" value="p08"><label for="sp08" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>현장 분석</label></div>
@@ -1282,11 +1282,11 @@ function handleSubmit() {
   const gradeInfo = [gpa, mock].filter(Boolean).join(' / ');
 
   const svcMap = {
-    'g1':   '고1 학생부 전략 컨설팅',
-    'g2':   '고2 학생부 전략 컨설팅',
-    'g3':   '고3 학생부 전략 컨설팅',
-    'p01':  '세특 기재 전략',
-    'p02':  '수행 전략',
+    'g1':   '고1 학생부 학년전략 컨설팅',
+    'g2':   '고2 학생부 학년전략 컨설팅',
+    'g3':   '고3 학생부 학년전략 컨설팅',
+    'p01':  '생기부 기재전략',
+    'p02':  '교과 수행 전략',
     'p03':  '세특전략 컨설팅',
     'p08':  '학생부 현장 분석',
     'p10':  '맞춤 & 진로 컨설팅',
@@ -1394,7 +1394,7 @@ function showSendFail() {
   box.style.display = 'block';
   box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   const btn = document.querySelector('.submit-btn');
-  btn.textContent = '다시 신청하기';
+  btn.textContent = '상담 문의 다시 남기기';
   btn.disabled = false;
 }
 
@@ -1556,12 +1556,15 @@ function applyInterestFromStorage() {
   try { raw = localStorage.getItem('midasK_interest') || ''; } catch(e) {}
   if (!raw) return;
 
-  var keys = JSON.parse(raw);
-  if (!keys || !keys.length) return;
+  var keys = [];
+  try { keys = JSON.parse(raw); } catch (e) { return; } // 망가진 값이면 건너뛴다(아래 해시·둘러본 것 초기화가 멈추지 않게)
+  if (!Array.isArray(keys) || !keys.length) return;
+  keys = keys.map(function (k) { return k === 'c06' ? 'c05' : k; }) // 자소서 기획·첨삭은 한 칩(2026-09-19) — 예전 폰의 옛 첨삭 관심등록
+    .filter(function (k, i, a) { return typeof k === 'string' && a.indexOf(k) === i; });
 
   var svcMap2 = {
     'g1':'고1 학생부전략','g2':'고2 학생부전략','g3':'고3 학생부전략',
-    'p01':'세특 기재전략','p02':'수행 전략','p03':'세특전략',
+    'p01':'생기부 기재전략','p02':'수행 전략','p03':'세특전략',
     'p08':'현장 분석','p10':'맞춤·진로','p05':'RPM',
     'p04':'학종 특강','p07':'교과·정시','p06':'비교과활동',
     'p09':'중3 얼리버드','c01':'수시 원서전략','c02':'정시 원서전략',

@@ -1308,7 +1308,7 @@ function renderBSFooter(d, id) {
   /* ★ 2026-09-19 대표 — 모든 상세판에 문 셋을 다 연다: 상담 문의(신청폼 · 그 상품 체크된 채로 → 리서치센터) | 전화 | 문자.
      원래 가던 곳(블로그 · 면접 안내 · 세특구원자)은 본문 끝 글자 링크로(renderBS). 규칙은 이 함수 하나 — 새 상품도 저절로 */
   var fillClass = (d.tagColor === 's') ? 'bs-cta segu-fill' : 'bs-cta fill';
-  var smsBody = encodeURIComponent('안녕하세요, 컨설팅 프로그램보고 문의 드립니다. \n[' + d.title + '] 에 관심있어요. \n상담 신청합니다.');
+  var smsBody = encodeURIComponent('안녕하세요, 컨설팅 프로그램 보고 문의드립니다. \n[' + d.title + ']에 관심 있어요. \n상담 문의드립니다.');
   let html = '<div class="bs-btns">';
   html += '<a href="midasK-form.html#' + id + '" onclick="goToForm()" class="' + fillClass + ' main">상담 문의하기 →</a>';
   html += '<a href="tel:053-782-0331" class="bs-cta outline">전화 상담</a>';
