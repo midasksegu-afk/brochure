@@ -834,7 +834,7 @@ body::after{
       <div class="card-head">
         <span class="card-num">01</span>
         <span class="card-title">학생 기본 정보</span>
-        <span class="card-req">필수</span>
+        <span class="card-req">이름 · 학년 필수</span>
       </div>
       <div class="field-row">
         <div class="field">
@@ -865,8 +865,8 @@ body::after{
         </div>
       </div>
       <div class="field">
-        <label>학교명</label>
-        <input type="text" id="schoolName" placeholder="○○고등학교" required>
+        <label>학교명 <span style="font-weight:400;opacity:.6">(선택)</span></label>
+        <input type="text" id="schoolName" placeholder="○○고등학교">
       </div>
     </div>
 
@@ -904,7 +904,7 @@ body::after{
       <div class="card-head">
         <span class="card-num">03</span>
         <span class="card-title">진로 · 학업</span>
-        <span class="card-req">필수</span>
+        <span class="card-req">선택</span>
       </div>
       <div class="field">
         <label>목표 대학 / 학과</label>
@@ -925,7 +925,7 @@ body::after{
       <div class="card-head">
         <span class="card-num">04</span>
         <span class="card-title">알게 된 경로</span>
-        <span class="card-req">필수</span>
+        <span class="card-req">선택</span>
       </div>
       <div class="route-grid">
         <div class="sel-item"><input type="checkbox" name="route" id="r1" value="성적을 부탁해 티처스"><label for="r1" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>성적을 부탁해 티처스</label></div>
@@ -1153,6 +1153,7 @@ function flashBox(el) {
   setTimeout(() => { el.style.outline = ''; el.style.outlineOffset = ''; }, 2600);
 }
 function flashError(el) {
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   el.style.borderColor = 'rgba(255,70,100,0.7)';
   el.style.boxShadow   = '0 0 0 4px rgba(255,70,100,0.12)';
   el.focus();
@@ -1161,6 +1162,7 @@ function flashError(el) {
 
 /* ── 전화번호 row 에러 하이라이트 ── */
 function flashPhoneError(ids) {
+  const first = document.getElementById(ids[0]); if (first) { first.scrollIntoView({ behavior: 'smooth', block: 'center' }); first.focus(); }
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -1240,14 +1242,15 @@ function handleSubmit() {
 
   const gradeEl = document.getElementById('grade');
   if (!gradeEl.value) {
+    gradeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     gradeEl.style.borderColor = 'rgba(255,70,100,0.7)';
     gradeEl.style.boxShadow   = '0 0 0 4px rgba(255,70,100,0.12)';
     setTimeout(() => { gradeEl.style.borderColor = ''; gradeEl.style.boxShadow = ''; }, 2200);
     showToast('⚠️ 학년을 선택해주세요.'); return;
   }
 
+  /* 필수는 넷뿐 — 이름 · 학년 · 보호자 번호 · 동의(대표 09-20). 학교 · 경로는 선택, 컨설팅을 안 고르면 기타 문의로 받는다 */
   const schoolEl = document.getElementById('schoolName');
-  if (!schoolEl.value.trim()) { flashError(schoolEl); showToast('⚠️ 학교명을 입력해주세요.'); return; }
 
   // 보호자 전화번호: 자릿수 정확히 확인
   const p1 = document.getElementById('p1').value.trim();
@@ -1265,16 +1268,9 @@ function handleSubmit() {
   }
 
   const svcEls = document.querySelectorAll('input[name="svc"]:checked');
-  if (!svcEls.length) {
-    document.querySelector('.svc-group').scrollIntoView({ behavior:'smooth', block:'center' });
-    showToast('⚠️ 희망 컨설팅을 1개 이상 선택해주세요.');
-    return;
-  }
-
-  /* 경로 · 동의 — 빠뜨리면 그 자리로 올려 주고 빨갛게(대표 09-20 「버튼이 작동 안 한다」: 토스트만 잠깐 떠서 뭐가 빠졌는지 모르고 눌렀다) */
   const routeEls = document.querySelectorAll('input[name="route"]:checked');
-  if (!routeEls.length) { flashBox(document.querySelector('input[name="route"]').closest('.card')); showToast('⚠️ 알게 된 경로를 선택해주세요.'); return; }
 
+  /* 빠뜨리면 그 자리로 올려 주고 빨갛게(대표 09-20 「버튼이 작동 안 한다」: 토스트만 잠깐 떠서 뭐가 빠졌는지 모르고 눌렀다) */
   if (!document.getElementById('agreeChk').checked) {
     flashBox(document.querySelector('.agree-wrap'));
     showToast('⚠️ 개인정보 수집 이용에 동의해주세요.');
