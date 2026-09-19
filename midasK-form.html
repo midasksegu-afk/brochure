@@ -1142,10 +1142,16 @@ function showToast(msg) {
   t._timer = setTimeout(() => {
     t.style.opacity = '0';
     t.style.transform = 'translateX(-50%) translateY(10px)';
-  }, 2800);
+  }, 3600);
 }
 
 /* ── 필드 에러 하이라이트 ── */
+function flashBox(el) {
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  el.style.outline = '2px solid rgba(255,70,100,0.8)'; el.style.outlineOffset = '4px'; el.style.borderRadius = el.style.borderRadius || '16px';
+  setTimeout(() => { el.style.outline = ''; el.style.outlineOffset = ''; }, 2600);
+}
 function flashError(el) {
   el.style.borderColor = 'rgba(255,70,100,0.7)';
   el.style.boxShadow   = '0 0 0 4px rgba(255,70,100,0.12)';
@@ -1265,10 +1271,12 @@ function handleSubmit() {
     return;
   }
 
+  /* 경로 · 동의 — 빠뜨리면 그 자리로 올려 주고 빨갛게(대표 09-20 「버튼이 작동 안 한다」: 토스트만 잠깐 떠서 뭐가 빠졌는지 모르고 눌렀다) */
   const routeEls = document.querySelectorAll('input[name="route"]:checked');
-  if (!routeEls.length) { showToast('⚠️ 알게 된 경로를 선택해주세요.'); return; }
+  if (!routeEls.length) { flashBox(document.querySelector('input[name="route"]').closest('.card')); showToast('⚠️ 알게 된 경로를 선택해주세요.'); return; }
 
   if (!document.getElementById('agreeChk').checked) {
+    flashBox(document.querySelector('.agree-wrap'));
     showToast('⚠️ 개인정보 수집 이용에 동의해주세요.');
     return;
   }
