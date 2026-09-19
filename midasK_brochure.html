@@ -545,6 +545,9 @@ body{
   background:#fff;color:var(--ink-2);
   border:1.5px solid var(--line);
 }
+.bs-cta.main{flex:1.6;}
+.bs-btns .bs-cta.outline{font-size:13px;padding:14px 6px;}
+.bs-more{display:inline-block;margin:2px 0 18px;font-size:13.5px;font-weight:700;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;}
 
 /* ════════════════════════════
    TEL / CTA (v20에서 그대로 유지)
@@ -1009,7 +1012,7 @@ body{
           <div class="cat-name">대입 전략 컨설팅</div>
           <div class="cat-sub">원서·면접·최종 합격 전략</div>
         </div>
-        <span class="cat-count">6개</span>
+        <span class="cat-count">5개</span>
         <div class="cat-arrow"><svg viewBox="0 0 16 16"><polyline points="3,5 8,11 13,5"/></svg></div>
       </button>
       <div class="cat-panel" id="cat-c">
@@ -1051,19 +1054,10 @@ body{
             <div class="prog-arr">›</div>
           </div>
           <div class="prog-item" onclick="openBS('c05')">
-            <div class="prog-num">기획</div>
+            <div class="prog-num">자소서</div>
             <div class="prog-body">
-              <div class="prog-name">자소서 기획</div>
-              <div class="prog-desc">AI가 아닌 학생의 활동 증거 장면 중심 구성</div>
-            </div>
-            <div class="prog-price">상담</div>
-            <div class="prog-arr">›</div>
-          </div>
-          <div class="prog-item" onclick="openBS('c06')">
-            <div class="prog-num">첨삭</div>
-            <div class="prog-body">
-              <div class="prog-name">자소서 첨삭</div>
-              <div class="prog-desc">대학 평가요소에 부합하는 나만의 심화 확장 스토리</div>
+              <div class="prog-name">자소서 기획 · 첨삭</div>
+              <div class="prog-desc">활동 증거 장면 중심 기획 · 나만의 심화 확장 스토리</div>
             </div>
             <div class="prog-price">상담</div>
             <div class="prog-arr">›</div>
@@ -1157,7 +1151,7 @@ function openBS(id) {
   const data = PROGRAMS[id];
   if (!data) return;
   document.getElementById('bsScroll').innerHTML = renderBS(data, id);
-  document.getElementById('bsFooter').innerHTML = renderBSFooter(data);
+  document.getElementById('bsFooter').innerHTML = renderBSFooter(data, id);
   document.getElementById('bsScroll').scrollTop = 0;
   /* 관심등록 버튼 초기 상태 복원 */
   var btn = document.querySelector('.bs-interest-btn');
@@ -1283,6 +1277,12 @@ function renderBS(d, id) {
     html += '</div>';
   }
 
+  /* 원래 가던 곳(블로그 · 면접 안내 · 세특구원자) — 버튼이 아니라 본문 끝 글자 링크(2026-09-19) */
+  if (d.ctaLink && d.ctaLink.indexOf('midasK-form.html') !== 0) {
+    html += '<a class="bs-more" href="' + d.ctaLink + '"' + (d.ctaTarget ? ' target="_blank" rel="noopener"' : '') + '>'
+      + (d.ctaLabel && d.ctaLabel.indexOf('바로가기') >= 0 ? d.ctaLabel.replace(/\s*→\s*$/, '') : '자세히 보기') + ' ↗</a>';
+  }
+
   /* 버튼은 bs-footer에 고정 — renderBSFooter 참조 */
   html += '<div style="height:8px;"></div>';
 
@@ -1293,20 +1293,16 @@ function renderBS(d, id) {
    바텀시트 고정 푸터 렌더러
    — CTA 버튼만 담당, SMS 코드 원본 그대로
 ════════════════════════ */
-function renderBSFooter(d) {
-  let html = '<div class="bs-btns">';
-  /* CTA 버튼 — 정상 코드 그대로, segu는 민트 버튼 */
+function renderBSFooter(d, id) {
+  /* ★ 2026-09-19 대표 — 모든 상세판에 문 셋을 다 연다: 상담 문의(신청폼 · 그 상품 체크된 채로 → 리서치센터) | 전화 | 문자.
+     원래 가던 곳(블로그 · 면접 안내 · 세특구원자)은 본문 끝 글자 링크로(renderBS). 규칙은 이 함수 하나 — 새 상품도 저절로 */
   var fillClass = (d.tagColor === 's') ? 'bs-cta segu-fill' : 'bs-cta fill';
-  if (d.ctaLink) {
-    html += '<a href="' + d.ctaLink + '"' + (d.ctaTarget ? ' target="_blank"' : '') + ' class="' + fillClass + '">' + d.ctaLabel + '</a>';
-  } else {
-    html += '<a href="' + d.ctaTel + '" class="' + fillClass + '">' + d.ctaLabel + '</a>';
-  }
-  /* ★ 공유 버튼 ★ */
-  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
-  /* ★ 문자 상담 SMS — 수신번호 고정, 문구만 d.title 동적 생성 ★ */
   var smsBody = encodeURIComponent('안녕하세요, 컨설팅 프로그램보고 문의 드립니다. \n[' + d.title + '] 에 관심있어요. \n상담 신청합니다.');
-  html += '<a href="sms:010-6280-4410?body=' + smsBody + '" class="bs-cta outline">문자 상담 ✉</a>';
+  let html = '<div class="bs-btns">';
+  html += '<a href="midasK-form.html#' + id + '" onclick="goToForm()" class="' + fillClass + ' main">상담 문의하기 →</a>';
+  html += '<a href="tel:053-782-0331" class="bs-cta outline">전화 상담</a>';
+  html += '<a href="sms:010-6280-4410?body=' + smsBody + '" class="bs-cta outline">문자 상담</a>';
+  html += '<button class="share-btn share-btn-bs" onclick="shareBrochure()" aria-label="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/></svg></button>';
   html += '</div>';
   return html;
 }
@@ -1608,16 +1604,12 @@ var PROGRAMS = {
   },
   c05: {
     tag:'대입 전략 · 비용 상담 후 안내', tagColor:'c',
-    title:'자소서 기획',
-    subtitle:'AI가 아닌, 학생의 활동 증거 장면을 중심으로 구성합니다.',
-    info:['비용은 상담 후 안내'],
-    ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
-  },
-  c06: {
-    tag:'대입 전략 · 비용 상담 후 안내', tagColor:'c',
-    title:'자소서 첨삭',
-    subtitle:'대학 평가요소에 부합하는 나만의 심화 확장 스토리를 작성합니다.',
-    info:['비용은 상담 후 안내'],
+    title:'자소서 기획 · 첨삭',
+    info:[
+      '기획 — AI가 아닌, 학생의 활동 증거 장면을 중심으로 구성합니다.',
+      '첨삭 — 대학 평가요소에 부합하는 나만의 심화 확장 스토리를 작성합니다.',
+      '비용은 상담 후 안내'
+    ],
     ctaLabel:'상담 예약하기 →', ctaLink:'midasK-form.html', ctaTarget:false,
   },
 
@@ -1660,6 +1652,7 @@ var PROGRAMS = {
    #cat-a·#cat-b·#cat-c → 그 묶음을 펼쳐서 거기까지 내려간다 (예: #cat-a 학년 전략 로드맵 — 세구자료실 카드) */
 (function () {
   var h = (location.hash || '').slice(1);
+  if (h === 'c06') h = 'c05'; // 자소서 기획·첨삭은 한 장(2026-09-19) — 옛 첨삭 주소도 여기로
   if (h && PROGRAMS[h]) setTimeout(function () { openBS(h); }, 350);
   var panel = h && h.indexOf('cat-') === 0 ? document.getElementById(h) : null;
   if (panel && panel.previousElementSibling && !panel.classList.contains('open')) setTimeout(function () {
