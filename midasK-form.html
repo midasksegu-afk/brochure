@@ -8,797 +8,260 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
+/* ─────────────────────────────────────────────────────────────
+   마이더스K 상담 문의 폼 — 밝은 리뉴얼 (2026-09-21)
+   리서치 폼(/v/f) 문법: 흰 바탕 · 헤어라인 · 먹. 퍼플은 「손이 가야 할 곳」 하나.
+   ★ 클래스 이름은 옛것을 그대로 쓴다 — HTML 뼈대·필드 id·스크립트 변경 0.
+   ───────────────────────────────────────────────────────────── */
 :root{
-  /* ── 다크 베이스 (브로슈어 히어로 톤) ── */
-  --bg:        #1A1A2E;
-  --bg-2:      #16213E;
-  --bg-3:      #0F3460;
-  --ink:       #FFFFFF;
-  --ink-2:     rgba(255,255,255,0.80);
-  --ink-3:     rgba(255,255,255,0.50);
-  --ink-4:     rgba(255,255,255,0.28);
-  --line:      rgba(255,255,255,0.12);
-  --line-2:    rgba(255,255,255,0.07);
-  --card:      rgba(255,255,255,0.07);
-  --card-solid:rgba(255,255,255,0.10);
-
-  /* Fusion accent gradient — 브로슈어와 동일 */
-  --grad-1: linear-gradient(120deg, #FFB89A 0%, #FF8FB1 35%, #B79CFF 68%, #7BC2FF 100%);
-  --grad-soft: linear-gradient(120deg, rgba(255,184,154,0.25) 0%, rgba(255,143,177,0.22) 35%, rgba(183,156,255,0.22) 68%, rgba(123,194,255,0.20) 100%);
-  --grad-mesh-1: radial-gradient(60% 50% at 12% 8%,  rgba(255,160,120,0.20) 0%, rgba(255,160,120,0) 70%);
-  --grad-mesh-2: radial-gradient(55% 45% at 95% 18%, rgba(160,120,255,0.18) 0%, rgba(160,120,255,0) 70%);
-  --grad-mesh-3: radial-gradient(70% 55% at 50% 95%, rgba(123,194,255,0.15) 0%, rgba(123,194,255,0) 70%);
-  --grad-mesh-4: radial-gradient(45% 40% at 80% 65%, rgba(255,143,177,0.12) 0%, rgba(255,143,177,0) 70%);
+  --ink:#141414; --sub:#6b6b6b; --dim:#a8a8a8; --line:#e8e8e8; --soft:#f4f4f4;
+  --pu:#7a5cd6;
+  --body:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;
+  --num:'Montserrat',-apple-system,sans-serif;
 }
-
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
-html,body{font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',sans-serif;}
-
-body{
-  min-height:100vh;
-  background:linear-gradient(160deg,#1A1A2E 0%,#16213E 60%,#0F3460 100%);
-  color:var(--ink);
-  padding-bottom:60px;
-  overflow-x:hidden;
-  position:relative;
-  letter-spacing:-0.01em;
+*{box-sizing:border-box;}
+html,body{
+  margin:0; padding:0;
+  background:#fff; color:var(--ink);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
 }
-
-/* Iridescent mesh background */
-body::before{
-  content:'';
-  position:fixed;
-  inset:-10%;
-  background:var(--grad-mesh-1),var(--grad-mesh-2),var(--grad-mesh-3),var(--grad-mesh-4);
-  filter:saturate(1.05);
-  pointer-events:none;
-  z-index:0;
-  animation:meshDrift 18s ease-in-out infinite alternate;
-}
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.55) 100%);
-  pointer-events:none;
-  z-index:0;
-}
-@keyframes meshDrift{
-  0%   { transform:translate3d(0,0,0) scale(1); }
-  100% { transform:translate3d(-2%,1.5%,0) scale(1.05); }
-}
+body{scrollbar-width:auto;scrollbar-color:#b3b3b3 #f1f1f1;}
+::-webkit-scrollbar{width:12px;}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:7px;}
+::-webkit-scrollbar-thumb{background:#b3b3b3;border-radius:7px;border:2px solid #f1f1f1;}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;padding:0;}
 
 .page-wrap{
-  position:relative;
-  z-index:1;
-  max-width:500px;
-  margin:0 auto;
-  padding:0 18px;
+  max-width:560px; margin:0 auto;
+  padding:22px 20px calc(50px + env(safe-area-inset-bottom,0px));
 }
 
-/* HERO */
-.hero{
-  padding:52px 6px 8px;
-  text-align:left;
-}
+/* ── 머리 — MK · 회사 | ● 티처스 한 줄 머리띠 ── */
+.hero{margin-bottom:0;}
+.hero-top-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.20);
-  border-radius:30px;
-  padding:10px 18px;
-  margin-bottom:0;
+  display:inline-flex;align-items:center;gap:9px;
+  border:1.5px solid var(--ink);border-radius:999px;
+  padding:6px 14px 6px 6px;max-width:100%;
+}
+.hero-eyebrow::before{
+  content:'MK';
+  font-family:var(--num);font-size:12px;font-weight:700;letter-spacing:.02em;
+  color:#fff;background:var(--ink);border-radius:999px;padding:5px 9px;flex:none;
+}
+.hero-eyebrow::after{
+  content:'마이더스K교육컨설팅';
+  font-size:13px;font-weight:800;color:var(--ink);white-space:nowrap;
+  order:-1;
 }
 .eyebrow-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--grad-1);
-  flex-shrink:0;
+  width:5px;height:5px;border-radius:50%;background:var(--pu);
+  display:inline-block;flex:none;margin-left:2px;
 }
-.eyebrow-sub{
-  font-size:11px;font-weight:600;
-  color:rgba(255,255,255,0.45);
-  letter-spacing:0.06em;
-}
-.eyebrow-sep{
-  color:rgba(255,255,255,0.25);
-  font-weight:300;margin:0 2px;
-}
-.eyebrow-main{
-  font-size:18px;font-weight:800;
-  letter-spacing:-0.03em;
-  background:var(--grad-1);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  white-space:nowrap;
-}
-.hero h1{
-  font-size:36px;
-  font-weight:800;
-  line-height:1.18;
-  letter-spacing:-0.04em;
-  margin-bottom:8px;
-  color:#fff;
-}
-.hero h1 .hl{
-  background:var(--grad-1);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.hero-sub{
-  font-size:14px;
-  font-weight:500;
-  color:rgba(255,255,255,0.50);
-  line-height:1.6;
-  letter-spacing:-0.01em;
-}
-
-/* 브로슈어 다시보기 버튼 */
-.hero-top-row{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:12px;
-}
+.eyebrow-sub{font-size:12.5px;font-weight:700;color:var(--sub);white-space:nowrap;}
+.eyebrow-sep{color:#d8d8d8;font-size:12px;}
+.eyebrow-main{font-size:12.5px;font-weight:800;color:var(--ink);white-space:nowrap;}
 .back-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  background:none;border:none;padding:0;
-  font-size:12px;font-weight:600;
-  color:rgba(255,255,255,0.40);
-  cursor:pointer;text-decoration:none;
-  font-family:inherit;
-  letter-spacing:-0.01em;
-  transition:color .18s ease;
-  -webkit-tap-highlight-color:transparent;
-  white-space:nowrap;
+  margin-left:auto;display:inline-flex;align-items:center;gap:4px;
+  font-size:12.5px;font-weight:600;color:var(--dim);
 }
-.back-btn:active{color:rgba(255,255,255,0.70);}
-.back-btn svg{flex-shrink:0;}
-.card{
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:24px;
-  padding:24px 22px;
-  margin-bottom:12px;
-  backdrop-filter:blur(28px) saturate(1.2);
-  -webkit-backdrop-filter:blur(28px) saturate(1.2);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.10) inset,
-    0 12px 32px -8px rgba(0,0,0,0.35);
-  animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;
+.back-btn:hover{color:var(--ink);}
+.hero h1{
+  margin:14px 0 0;font-size:28px;font-weight:800;
+  letter-spacing:-.02em;line-height:1.3;
 }
-.card:nth-child(1){animation-delay:.05s}
-.card:nth-child(2){animation-delay:.10s}
-.card:nth-child(3){animation-delay:.15s}
-.card:nth-child(4){animation-delay:.20s}
-.card:nth-child(5){animation-delay:.25s}
+.hero h1 .hl{color:var(--pu);}
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(14px);}
-  to  {opacity:1;transform:translateY(0);}
+/* 안내 박스 — 박스가 아니라 머리 아래 한 줄 */
+.notice-box{
+  margin-top:12px;padding-bottom:18px;
+  font-size:14px;line-height:1.65;color:var(--sub);
+  border-bottom:1px solid var(--ink);
 }
 
+/* ── 섹션 — 먹 라운드 칩(B안) + 헤어라인 ── */
+.card{margin-top:34px;background:none;border:0;padding:0;box-shadow:none;}
 .card-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+  display:flex;align-items:center;gap:0;
+  padding-bottom:10px;border-bottom:1px solid var(--line);
+}
+/* 번호+제목을 감싼 표시용 칩(.card-chip) — 기능과 무관 */
+.card-chip{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1.5px solid var(--ink);border-radius:999px;
+  padding:6px 15px 6px 6px;
 }
 .card-num{
-  font-size:11px;
-  font-weight:700;
-  color:rgba(255,255,255,0.9);
-  letter-spacing:0.08em;
-  background:var(--grad-soft);
-  border:1px solid rgba(255,255,255,0.15);
-  padding:5px 11px;
-  border-radius:30px;
-  position:relative;
+  font-family:var(--num);font-size:11.5px;font-weight:700;
+  color:#fff;background:var(--ink);border-radius:999px;padding:4px 8px;
 }
-.card-title{
-  font-size:17px;
-  font-weight:700;
-  color:var(--ink);
-  letter-spacing:-0.025em;
+.card-title{font-size:15.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink);}
+.card-req{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--dim);}
+.card-req.on{color:var(--pu);}
+
+/* ── 입력칸 ── */
+.field{margin-top:18px;}
+.field label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);}
+.field label .optional,.optional{
+  color:var(--dim);font-weight:600;font-size:12px;margin-left:5px;
 }
-.card-req{
-  margin-left:auto;
-  font-size:12px;
-  font-weight:500;
-  color:var(--ink-3);
-  letter-spacing:-0.01em;
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+input[type=text],input[type=tel],select,textarea,.field-select{
+  width:100%;margin-top:8px;
+  border:1.5px solid var(--line);border-radius:12px;
+  padding:13px;font-size:15.5px;font-family:inherit;
+  color:var(--ink);background:#fff;outline:none;
+  -webkit-appearance:none;appearance:none;
 }
-.seen-ask{margin:2px 0 16px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);}
-.seen-ask .q{font-size:12.5px;font-weight:700;opacity:.9;margin-bottom:8px;}
-.seen-ask .pills{display:flex;flex-wrap:wrap;gap:6px;}
-.seen-ask button{font:inherit;font-size:12.5px;font-weight:700;color:#fff;background:transparent;border:1px dashed rgba(255,255,255,0.45);border-radius:999px;padding:5px 11px;cursor:pointer;}
-.seen-ask button:active{opacity:.7;}
+input::placeholder,textarea::placeholder{color:#c9c9c9;}
+input:focus,select:focus,textarea:focus,.field-select:focus{border-color:var(--ink);}
+textarea{min-height:86px;resize:vertical;line-height:1.55;font-size:15px;}
+select,.field-select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%236b6b6b' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;
+}
+
+/* 전화 세 칸 */
+.phone-row{display:grid;grid-template-columns:1fr 12px 1fr 12px 1fr;align-items:center;margin-top:8px;}
+.p-seg{
+  margin-top:0 !important;text-align:center;
+  font-family:var(--num);font-size:15.5px;letter-spacing:.02em;
+}
+.phone-sep{text-align:center;color:var(--dim);}
+
+/* ── 고르는 것 — 알약 ── */
+.route-grid,.pills,.svc-chip-grid{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;
+}
+.sel-item,.chip-item{display:inline-block;}
+.sel-item input,.chip-item input{position:absolute;opacity:0;width:0;height:0;}
+.sel-label,.chip-label{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1.5px solid var(--line);border-radius:999px;
+  padding:9px 14px;font-size:13.5px;font-weight:600;
+  color:var(--sub);background:#fff;cursor:pointer;
+  transition:border-color .12s,background .12s,color .12s;
+}
+.sel-label:hover,.chip-label:hover{border-color:#cfcfcf;}
+.sel-chk-box,.chip-chk{
+  width:0;height:0;overflow:hidden;display:inline-block;
+}
+.sel-item input:checked + .sel-label,
+.chip-item input:checked + .chip-label{
+  background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700;
+}
+.sel-item input:checked + .sel-label .sel-chk-box,
+.chip-item input:checked + .chip-label .chip-chk{
+  width:auto;height:auto;overflow:visible;display:inline-flex;align-items:center;
+}
+.sel-item input:focus-visible + .sel-label,
+.chip-item input:focus-visible + .chip-label{outline:2px solid var(--ink);outline-offset:2px;}
+
+/* 관심 컨설팅 갈래 — 색점으로 가른다(시스템 팔레트와 같은 색) */
+.svc-group{margin-top:20px;}
+.svc-group-label{
+  font-size:12.5px;font-weight:800;color:var(--ink);
+  display:flex;align-items:center;gap:7px;
+}
+.svc-group-label::before{
+  content:'';width:8px;height:8px;border-radius:3px;display:inline-block;flex:none;
+  background:var(--pu);
+}
+.svc-group:nth-of-type(2) .svc-group-label::before{background:#e8833a;}
+.svc-group:nth-of-type(3) .svc-group-label::before{background:#2f9e6e;}
+.svc-group:nth-of-type(4) .svc-group-label::before{background:#3a7bd5;}
+.svc-group-label::after{content:none;}
+
+.group-etc-wrap,.etc-wrap{margin-top:0;}
+.etc-input{margin-top:10px;}
+.etc-count{
+  text-align:right;font-size:11.5px;color:var(--dim);
+  margin-top:5px;font-family:var(--num);
+}
+
+/* 브로슈어에서 넘어온 관심 프로그램 줄 */
 .card-interest{
-  font-size:11px;font-weight:600;
-  background:var(--grad-1);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  letter-spacing:-0.01em;margin-top:3px;
-  line-height:1.4;
+  margin-top:10px;font-size:12.5px;color:var(--sub);line-height:1.6;
+  background:var(--soft);border-radius:10px;padding:10px 12px;
+}
+.seen-ask{
+  margin-top:12px;font-size:13px;color:var(--sub);line-height:1.6;
+}
+.q{font-size:13.5px;font-weight:700;color:var(--ink);}
+
+/* 세특구원자 배너(있으면) */
+.seteuk-banner{
+  display:flex;align-items:center;gap:12px;margin-top:16px;
+  border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;
+  background:#fff;text-decoration:none;color:var(--ink);
+}
+.seteuk-banner:hover{border-color:var(--ink);}
+.seteuk-brand{font-size:14px;font-weight:800;}
+.seteuk-q{font-size:12.5px;color:var(--sub);line-height:1.6;}
+.seteuk-cta{
+  margin-left:auto;font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap;
 }
 
-/* FIELDS */
-.field{margin-bottom:14px;}
-.field:last-child{margin-bottom:0;}
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:500;
-  color:var(--ink-2);
-  margin-bottom:8px;
-  letter-spacing:-0.01em;
-}
-.field input{
-  width:100%;
-  padding:15px 16px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:14px;
-  font-size:16px;
-  font-weight:500;
-  color:#fff;
-  outline:none;
-  transition:all .2s ease;
-  -webkit-appearance:none;
-  font-family:inherit;
-  letter-spacing:-0.01em;
-}
-.field input::placeholder{
-  color:rgba(255,255,255,0.30);
-  font-weight:400;
-}
-.field input:focus{
-  border-color:rgba(183,156,255,0.7);
-  background:rgba(255,255,255,0.12);
-  box-shadow:0 0 0 4px rgba(183,156,255,0.15);
-}
-.field input:hover:not(:focus){
-  border-color:rgba(255,255,255,0.25);
-}
-/* 3칸 전화번호 입력 */
-.phone-row{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.phone-row .p-seg{
-  flex:1;
-  padding:15px 0;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:14px;
-  font-size:16px;
-  font-weight:500;
-  color:#fff;
-  outline:none;
-  transition:all .2s ease;
-  -webkit-appearance:none;
-  font-family:inherit;
-  letter-spacing:0.05em;
-  text-align:center;
-  width:0;
-  min-width:0;
-}
-.phone-row .p-seg::placeholder{
-  color:rgba(255,255,255,0.30);
-  font-weight:400;
-  letter-spacing:0;
-}
-.phone-row .p-seg:focus{
-  border-color:rgba(183,156,255,0.7);
-  background:rgba(255,255,255,0.12);
-  box-shadow:0 0 0 4px rgba(183,156,255,0.15);
-}
-.phone-sep{
-  font-size:18px;
-  font-weight:300;
-  color:rgba(255,255,255,0.40);
-  flex-shrink:0;
-  user-select:none;
-}
-/* SELECT 드롭다운 */
-.field-select{
-  width:100%;
-  padding:15px 40px 15px 16px;
-  background:rgba(255,255,255,0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:14px;
-  font-size:16px;
-  font-weight:500;
-  color:#fff;
-  outline:none;
-  transition:all .2s ease;
-  -webkit-appearance:none;
-  appearance:none;
-  font-family:inherit;
-  letter-spacing:-0.01em;
-  cursor:pointer;
-}
-.field-select:focus{
-  border-color:rgba(183,156,255,0.7);
-  background-color:rgba(255,255,255,0.12);
-  box-shadow:0 0 0 4px rgba(183,156,255,0.15);
-}
-.field-select option{color:#15151A;font-weight:500;background:#fff;}
-.field-select optgroup{color:#86868B;font-size:12px;font-weight:600;background:#fff;}
-.field-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px;
-}
-.field-row .field{margin-bottom:0;}
-.optional{
-  color:var(--ink-4);
-  font-weight:400;
-  letter-spacing:-0.01em;
-}
-
-/* ROUTE GRID */
-.route-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.sel-item{position:relative;}
-.sel-item input{
-  position:absolute;opacity:0;width:0;height:0;pointer-events:none;
-}
-.sel-label{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  padding:13px 14px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:14px;
-  cursor:pointer;
-  font-size:14px;
-  font-weight:600;
-  color:rgba(255,255,255,0.70);
-  text-align:left;
-  transition:all .18s ease;
-  letter-spacing:-0.02em;
-  width:100%;
-}
-.sel-label:active{transform:scale(0.97);}
-.sel-item input:checked + .sel-label{
-  background:rgba(255,255,255,0.12);
-  border-color:transparent;
-  color:#fff;
-  box-shadow:
-    0 0 0 2px transparent,
-    0 6px 18px -4px rgba(255,143,177,0.25);
-  background-image:linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10)),var(--grad-1);
-  background-origin:border-box;
-  background-clip:padding-box,border-box;
-  border:1.5px solid transparent;
-}
-
-/* SERVICE LIST */
-.svc-list{display:flex;flex-direction:column;gap:8px;}
-.svc-item{position:relative;}
-.svc-item input{
-  position:absolute;opacity:0;width:0;height:0;pointer-events:none;
-}
-.svc-label{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px 16px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.12);
-  border-radius:16px;
-  cursor:pointer;
-  transition:all .18s ease;
-}
-.svc-label:active{transform:scale(0.99);}
-.svc-check{
-  width:20px;height:20px;
-  border-radius:7px;
-  border:1.5px solid rgba(255,255,255,0.30);
-  flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .18s ease;
-  background:rgba(255,255,255,0.06);
-}
-.svc-check svg{opacity:0;transition:opacity .15s;}
-.svc-item input:checked + .svc-label{
-  background:rgba(255,255,255,0.10);
-  border-color:transparent;
-  background-image:linear-gradient(rgba(255,255,255,0.08),rgba(255,255,255,0.08)),var(--grad-1);
-  background-origin:border-box;
-  background-clip:padding-box,border-box;
-  border:1.5px solid transparent;
-  box-shadow:0 6px 18px -4px rgba(183,156,255,0.22);
-}
-.svc-item input:checked + .svc-label .svc-check{
-  background:var(--grad-1);
-  border-color:transparent;
-}
-.svc-item input:checked + .svc-label .svc-check svg{opacity:1;}
-.svc-badge{
-  font-size:10px;
-  font-weight:700;
-  color:rgba(255,255,255,0.80);
-  background:rgba(255,255,255,0.12);
-  padding:3px 8px;
-  border-radius:30px;
-  flex-shrink:0;
-  letter-spacing:0.05em;
-  border:1px solid rgba(255,255,255,0.15);
-}
-.svc-body{flex:1;}
-.svc-name{
-  font-size:14px;
-  font-weight:600;
-  color:#fff;
-  line-height:1.35;
-  margin-bottom:3px;
-  letter-spacing:-0.02em;
-}
-.svc-desc{
-  font-size:12px;
-  color:rgba(255,255,255,0.45);
-  font-weight:400;
-  line-height:1.45;
-  letter-spacing:-0.01em;
-}
-
-/* AGREE */
-.agree-wrap{margin-bottom:12px;animation:fadeUp .5s ease .3s both;}
+/* ── 동의 ── */
+.agree-wrap{margin-top:32px;}
 .agree-label{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  padding:16px;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:18px;
-  cursor:pointer;
-  transition:all .18s ease;
+  display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+  border:1.5px solid var(--line);border-radius:14px;padding:16px;
 }
-.agree-label:has(input:checked){
-  background-image:linear-gradient(rgba(255,255,255,0.08),rgba(255,255,255,0.08)),var(--grad-1);
-  background-origin:border-box;
-  background-clip:padding-box,border-box;
-  border:1.5px solid transparent;
-}
-.agree-label input{display:none;}
+.agree-label input{position:absolute;opacity:0;width:0;height:0;}
 .agree-check-box{
-  width:22px;height:22px;
-  border-radius:7px;
-  border:1.5px solid rgba(255,255,255,0.30);
-  flex-shrink:0;
-  margin-top:1px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .18s ease;
-  background:rgba(255,255,255,0.06);
+  width:22px;height:22px;border:1.5px solid #cfcfcf;border-radius:7px;flex:none;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
 }
-.agree-label:has(input:checked) .agree-check-box{
-  background:var(--grad-1);
-  border-color:transparent;
-}
-.agree-chk{opacity:0;transition:opacity .15s;}
-.agree-label:has(input:checked) .agree-chk{opacity:1;}
-.agree-text{
-  font-size:12px;
-  color:rgba(255,255,255,0.50);
-  line-height:1.65;
-  letter-spacing:-0.01em;
-}
-.agree-text strong{
-  display:block;
-  color:#fff;
-  font-weight:600;
-  margin-bottom:4px;
-  font-size:13px;
-}
+.agree-chk{opacity:0;}
+.agree-label input:checked ~ .agree-check-box{background:var(--ink);border-color:var(--ink);}
+.agree-label input:checked ~ .agree-check-box .agree-chk{opacity:1;}
+.agree-text{font-size:13px;line-height:1.6;color:var(--sub);}
+.agree-text strong{display:block;font-size:14px;color:var(--ink);margin-bottom:3px;font-weight:800;}
 
-/* TEL BANNER */
-.tel-banner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:18px 18px 18px 20px;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:20px;
-  margin-bottom:12px;
-  text-decoration:none;
-  color:inherit;
-  animation:fadeUp .5s ease .32s both;
-  backdrop-filter:blur(20px);
-  box-shadow:0 1px 0 rgba(255,255,255,0.08) inset;
-  transition:transform .15s ease;
-}
-.tel-banner:active{transform:scale(.99);}
-.tel-tag{
-  font-size:11px;
-  font-weight:600;
-  color:rgba(255,255,255,0.45);
-  letter-spacing:0.02em;
-  margin-bottom:4px;
-}
-.tel-num{
-  font-size:24px;
-  font-weight:800;
-  color:#fff;
-  letter-spacing:-0.03em;
-  font-feature-settings:"tnum";
-}
-.tel-arrow{
-  width:44px;height:44px;
-  background:var(--grad-1);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  box-shadow:0 6px 18px -2px rgba(255,143,177,0.4),0 0 0 1px rgba(255,255,255,0.4) inset;
-}
-
-/* SUBMIT */
+/* ── 보내기 · 전화 ── */
 .submit-btn{
-  width:100%;
-  padding:19px;
-  color:#fff;
-  border:none;
-  border-radius:18px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  letter-spacing:-0.02em;
-  position:relative;
-  overflow:hidden;
-  animation:fadeUp .5s ease .35s both;
-  background:var(--grad-1);
-  background-size:200% 200%;
-  background-position:0% 50%;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.35) inset,
-    0 -1px 0 rgba(0,0,0,0.05) inset,
-    0 10px 28px -6px rgba(255,143,177,0.5),
-    0 6px 16px -8px rgba(123,194,255,0.4);
-  transition:transform .15s ease, background-position .6s ease;
-  font-family:inherit;
-  margin-bottom:12px;
+  margin-top:22px;width:100%;
+  border:0;border-radius:14px;padding:17px;
+  font-size:16.5px;font-weight:800;
+  background:var(--pu);color:#fff;
 }
-.submit-btn:hover{background-position:100% 50%;}
-.submit-btn::after{
-  content:'';
-  position:absolute;
-  top:0;left:-100%;
-  width:50%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);
-  animation:shimmer 3s ease-in-out infinite;
+.submit-btn:disabled{background:var(--soft);color:var(--dim);cursor:default;}
+.tel-banner{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;border:1.5px solid var(--ink);border-radius:14px;
+  padding:15px 18px;text-decoration:none;color:var(--ink);
 }
-@keyframes shimmer{
-  0%{left:-100%;}
-  100%{left:200%;}
-}
-.submit-btn:active{transform:scale(0.985);}
+.tel-tag{font-size:11.5px;color:var(--dim);font-weight:700;}
+.tel-num{font-family:var(--num);font-size:19px;font-weight:700;margin-top:2px;letter-spacing:.01em;}
+.tel-arrow{display:flex;align-items:center;color:var(--ink);}
+.tel-arrow svg path{stroke:var(--ink);}
 
-/* SUCCESS */
+/* ── 완료 화면 ── */
 .success-screen{
   display:none;
-  text-align:center;
-  padding:80px 20px 40px;
-  animation:fadeUp .5s ease both;
+  max-width:560px;margin:0 auto;padding:60px 20px;
+  text-align:center;background:#fff;
 }
 .success-icon{
-  width:80px;height:80px;
-  background:var(--grad-1);
-  border-radius:50%;
-  margin:0 auto 26px;
+  width:64px;height:64px;border-radius:50%;
+  background:var(--ink);color:#fff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 18px 40px -10px rgba(255,143,177,0.5),0 0 0 8px rgba(255,255,255,0.6);
-  animation:pop .5s cubic-bezier(0.34,1.56,0.64,1) .2s both;
+  margin:0 auto 20px;
 }
-@keyframes pop{
-  from{transform:scale(0);opacity:0;}
-  to  {transform:scale(1);opacity:1;}
-}
-.success-screen h2{
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:10px;
-  letter-spacing:-0.03em;
-  color:var(--ink);
-}
-.success-screen p{
-  font-size:15px;
-  color:var(--ink-3);
-  line-height:1.65;
-  letter-spacing:-0.01em;
+.success-icon svg path{stroke:#fff;}
+
+@media(max-width:400px){
+  .hero-eyebrow{gap:7px;padding-left:5px;}
+  .hero-eyebrow::after{font-size:12px;}
+  .eyebrow-sub,.eyebrow-main{font-size:11.5px;}
+  .hero h1{font-size:25px;}
+  .field-row{grid-template-columns:1fr;}
 }
 
-/* 세특구원자 배너 */
-.seteuk-banner{
-  display:block;
-  margin-bottom:12px;
-  padding:20px 22px;
-  background:var(--card);
-  border:1px solid rgba(255,255,255,0.8);
-  border-radius:20px;
-  text-align:left;
-  text-decoration:none;
-  color:inherit;
-  backdrop-filter:blur(20px);
-  box-shadow:0 1px 0 rgba(255,255,255,0.8) inset, 0 6px 18px rgba(20,20,40,0.05);
-  transition:transform .15s ease;
-}
-.seteuk-banner:active{transform:scale(0.99);}
-.seteuk-q{
-  font-size:15px;
-  font-weight:800;
-  color:var(--ink);
-  margin-bottom:5px;
-  letter-spacing:-0.02em;
-  line-height:1.4;
-}
-.seteuk-brand{
-  font-size:13px;
-  font-weight:400;
-  color:var(--ink-3);
-  margin-bottom:14px;
-  letter-spacing:-0.01em;
-}
-.seteuk-cta{
-  display:inline-block;
-  font-size:13px;
-  font-weight:700;
-  color:#fff;
-  background:var(--grad-1);
-  padding:9px 18px;
-  border-radius:30px;
-  letter-spacing:-0.01em;
-}
-/* 안내 박스 */
-.notice-box{
-  background:linear-gradient(120deg,rgba(56,120,255,0.15),rgba(100,160,255,0.10));
-  border:1px solid rgba(100,160,255,0.25);
-  border-radius:14px;
-  padding:14px 16px;
-  margin-bottom:20px;
-  margin-top:0;
-  font-size:13px;
-  font-weight:600;
-  color:rgba(150,200,255,0.90);
-  line-height:1.6;
-  letter-spacing:-0.01em;
-}
-/* ── sel-label 체크박스 내장 ── */
-.sel-chk-box{
-  width:16px;height:16px;border-radius:5px;
-  border:1.5px solid rgba(255,255,255,0.30);
-  display:inline-flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-right:6px;
-  background:rgba(255,255,255,0.06);
-  transition:all .15s;
-}
-.sel-chk-box svg{opacity:0;transition:opacity .15s;}
-.sel-item input:checked + .sel-label .sel-chk-box{
-  background:var(--grad-1);border-color:transparent;
-}
-.sel-item input:checked + .sel-label .sel-chk-box svg{opacity:1;}
-
-/* ── 그룹 컨테이너 ── */
-.svc-group{
-  margin-bottom:16px;
-}
-.svc-group-label{
-  font-size:11px;font-weight:700;
-  color:rgba(255,255,255,0.40);
-  letter-spacing:0.08em;text-transform:uppercase;
-  margin-bottom:8px;
-  display:flex;align-items:center;gap:8px;
-}
-.svc-group-label::after{
-  content:'';flex:1;height:1px;
-  background:rgba(255,255,255,0.10);
-}
-
-/* ── 칩 그리드 ── */
-.svc-chip-grid{
-  display:flex;flex-wrap:wrap;gap:8px;
-  margin-bottom:0;
-}
-.chip-item{position:relative;}
-.chip-item input{position:absolute;opacity:0;width:0;height:0;pointer-events:none;}
-.chip-label{
-  display:inline-flex;align-items:center;
-  padding:10px 14px;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.13);
-  border-radius:30px;
-  font-size:13px;font-weight:600;
-  color:rgba(255,255,255,0.65);
-  cursor:pointer;
-  transition:all .18s ease;
-  white-space:nowrap;
-  letter-spacing:-0.02em;
-}
-.chip-label:active{transform:scale(0.96);}
-.chip-item input:checked + .chip-label{
-  background:rgba(255,255,255,0.12);
-  border-color:transparent;
-  color:#fff;
-  background-image:linear-gradient(rgba(255,255,255,0.10),rgba(255,255,255,0.10)),var(--grad-1);
-  background-origin:border-box;
-  background-clip:padding-box,border-box;
-  border:1.5px solid transparent;
-  box-shadow:0 4px 14px -4px rgba(183,156,255,0.30);
-}
-.chip-item input:checked + .chip-label .chip-chk svg{opacity:1;}
-.chip-chk{
-  width:14px;height:14px;border-radius:4px;
-  border:1.5px solid rgba(255,255,255,0.30);
-  display:inline-flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-right:6px;
-  background:rgba(255,255,255,0.06);
-  transition:all .15s;
-}
-.chip-chk svg{opacity:0;transition:opacity .15s;}
-.chip-item input:checked + .chip-label .chip-chk{
-  background:var(--grad-1);border-color:transparent;
-}
-.chip-full .chip-label{border-radius:14px;width:100%;}
-
-/* ── 그룹 textarea ── */
-.group-etc-wrap{
-  display:none;
-  margin-top:8px;
-  padding:12px 14px 14px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.10);
-  border-radius:14px;
-}
-.group-etc-wrap.open{display:block;}
-.etc-wrap{
-  display:none;
-  margin-top:8px;
-  padding:12px 14px 14px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.10);
-  border-radius:14px;
-}
-.etc-wrap.open{ display:block; }
-.etc-input{
-  width:100%;
-  min-height:80px;
-  padding:12px 14px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:12px;
-  font-size:14px;
-  font-weight:400;
-  color:#fff;
-  outline:none;
-  resize:none;
-  font-family:inherit;
-  line-height:1.6;
-  letter-spacing:-0.01em;
-  transition:all .2s;
-  -webkit-appearance:none;
-}
-.etc-input::placeholder{ color:rgba(255,255,255,0.30); }
-.etc-input:focus{
-  border-color:rgba(183,156,255,0.7);
-  background:rgba(255,255,255,0.12);
-  box-shadow:0 0 0 4px rgba(183,156,255,0.15);
-}
-.etc-count{
-  text-align:right;
-  font-size:11px;
-  font-weight:500;
-  color:rgba(255,255,255,0.35);
-  margin-top:6px;
-  letter-spacing:-0.01em;
-}
 </style>
 </head>
 <body>
@@ -809,7 +272,6 @@ body::after{
       <div class="hero-eyebrow">
         <span class="eyebrow-dot"></span>
         <span class="eyebrow-sub">성적을 부탁해</span>
-        <span class="eyebrow-sep">|</span>
         <span class="eyebrow-main">티처스 컨설턴트</span>
       </div>
       <button class="back-btn" onclick="goBackToBrochure()">
@@ -832,9 +294,8 @@ body::after{
     <!-- 01 학생 정보 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-num">01</span>
-        <span class="card-title">학생 기본 정보</span>
-        <span class="card-req">이름 · 학년 필수</span>
+        <span class="card-chip"><span class="card-num">01</span><span class="card-title">학생 기본 정보</span></span>
+        <span class="card-req on">이름 · 학년 필수</span>
       </div>
       <div class="field-row">
         <div class="field">
@@ -873,9 +334,8 @@ body::after{
     <!-- 02 연락처 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-num">02</span>
-        <span class="card-title">연락처</span>
-        <span class="card-req">필수</span>
+        <span class="card-chip"><span class="card-num">02</span><span class="card-title">연락처</span></span>
+        <span class="card-req on">필수</span>
       </div>
       <div class="field">
         <label>보호자 연락처</label>
@@ -902,8 +362,7 @@ body::after{
     <!-- 03 학업·목표 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-num">03</span>
-        <span class="card-title">진로 · 학업</span>
+        <span class="card-chip"><span class="card-num">03</span><span class="card-title">진로 · 학업</span></span>
         <span class="card-req">선택</span>
       </div>
       <div class="field">
@@ -923,8 +382,7 @@ body::after{
     <!-- 04 경로 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-num">04</span>
-        <span class="card-title">알게 된 경로</span>
+        <span class="card-chip"><span class="card-num">04</span><span class="card-title">알게 된 경로</span></span>
         <span class="card-req">선택</span>
       </div>
       <div class="route-grid">
@@ -940,13 +398,10 @@ body::after{
     <!-- 05 컨설팅 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-num">05</span>
-        <div>
-          <div class="card-title">희망 컨설팅 선택</div>
-          <div class="card-interest" id="interestLine" style="display:none;"></div>
-        </div>
+        <span class="card-chip"><span class="card-num">05</span><span class="card-title">희망 컨설팅 선택</span></span>
         <span class="card-req">복수 선택</span>
       </div>
+      <div class="card-interest" id="interestLine" style="display:none;"></div>
       <!-- ▶ 둘러보신 프로그램 — 열어 보기만 한 것은 체크하지 않고 물어본다 -->
       <div class="seen-ask" id="seenAsk" style="display:none;"></div>
       <!-- ▶ 학년 전략 로드맵 -->
@@ -1000,16 +455,11 @@ body::after{
         </div>
       </div>
 
-      <!-- ▶ 세특구원자 + 기타문의 -->
+      <!-- ▶ 기타문의 -->
       <div class="svc-group" style="margin-bottom:0;">
-        <div class="svc-group-label">기타</div>
+        <div class="svc-group-label">기타 문의</div>
         <div class="svc-chip-grid">
-          <div class="chip-item"><input type="checkbox" name="svc" id="ssegu" value="segu"><label for="ssegu" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>세특구원자</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="setc" value="etc" onchange="toggleEtc(this)"><label for="setc" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>기타 문의 / 1회 무료내방</label></div>
-        </div>
-        <div class="group-etc-wrap" id="etcG4">
-          <textarea class="etc-input" name="memo_segu" placeholder="세특구원자 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
-          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
         <div class="etc-wrap" id="etcWrap">
           <textarea id="etcText" class="etc-input" placeholder="문의 내용을 자유롭게 입력해주세요. 무료 내방 신청시 '1회 무료 상담 신청' 이라고 남겨주세요." maxlength="100" oninput="updateCount()"></textarea>
@@ -1647,7 +1097,6 @@ document.addEventListener('DOMContentLoaded', function () {
   setupGroupToggle(['sg1','sg2','sg3'],          'etcG1');
   setupGroupToggle(['sp01','sp02','sp03','sp08','sp10','sp05','sp04','sp07','sp06','sp09'], 'etcG2');
   setupGroupToggle(['sc01','sc02','sc03','sc04','sc05'], 'etcG3');
-  setupGroupToggle(['ssegu'],                    'etcG4');
   restoreFormData();
   applyInterestFromStorage();
   applyHashPick();
