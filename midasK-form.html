@@ -541,6 +541,24 @@ select,.field-select{
 /* 2026-09-19 — 구글 Apps Script 를 끊고 마이더스K 받는 창구로 보낸다(리서치센터로 바로 모인다).
    키·열쇠는 없다. 상품 키(value)는 절대 바꾸지 않는다 — 이미 나간 문자 링크와 이어져 있다. */
 const API_BASE     = 'https://midask-manage.vercel.app';
+/* ── 문자 링크 표시(rc) — 2026-10-14 · 마이더스K 문자 링크(/v/go/코드)가 ?rc=코드를 붙여 보낸다 ──
+   이 탭 안에서만 기억(sessionStorage · 3시간)하고 주소창에서는 지운다 — 주소를 복사해 남에게 보내도 표시가 따라가지 않게.
+   신청서를 낼 때 link_code 로 같이 보내면 리서치센터가 어느 학생 문자에서 왔는지 안다. 없으면 예전과 똑같이 동작한다. */
+var MK_RC = (function () {
+  var KEY = 'midasK_rc', MAX = 3 * 3600 * 1000;
+  try {
+    var u = new URL(location.href), c = u.searchParams.get('rc');
+    if (c && /^[A-Za-z0-9_-]{4,24}$/.test(c)) {
+      sessionStorage.setItem(KEY, JSON.stringify({ c: c, t: Date.now() }));
+      u.searchParams.delete('rc');
+      history.replaceState(history.state, '', u.toString());
+      return c;
+    }
+    var s = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    if (s && s.c && Date.now() - s.t < MAX) return s.c;
+  } catch (e) {}
+  return '';
+})();
 const INBOUND_URL  = API_BASE + '/api/research/inbound';
 const PROGRAMS_URL = API_BASE + '/api/research/programs';
 const OFFICE_TEL   = '053-782-0331';
@@ -801,6 +819,7 @@ function handleSubmit() {
     content:      content,
     touched:      Array.isArray(touched) ? touched : [],
     website:      (document.getElementById('website') || {}).value || '',
+    link_code:    MK_RC || undefined,   // 문자 링크로 왔으면 그 넘김 코드(2026-10-14) · 없으면 빠진다
     answers: {
       schoolName:    schoolEl.value.trim(),
       grade:         gradeEl.value,

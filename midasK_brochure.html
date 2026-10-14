@@ -1117,6 +1117,24 @@ body{
 </div>
 
 <script>
+/* ── 문자 링크 표시(rc) — 2026-10-14 · 마이더스K 문자 링크(/v/go/코드)가 ?rc=코드를 붙여 보낸다 ──
+   이 탭 안에서만 기억(sessionStorage · 3시간)하고 주소창에서는 지운다 — 주소를 복사해 남에게 보내도 표시가 따라가지 않게.
+   신청서를 낼 때 link_code 로 같이 보내면 리서치센터가 어느 학생 문자에서 왔는지 안다. 없으면 예전과 똑같이 동작한다. */
+var MK_RC = (function () {
+  var KEY = 'midasK_rc', MAX = 3 * 3600 * 1000;
+  try {
+    var u = new URL(location.href), c = u.searchParams.get('rc');
+    if (c && /^[A-Za-z0-9_-]{4,24}$/.test(c)) {
+      sessionStorage.setItem(KEY, JSON.stringify({ c: c, t: Date.now() }));
+      u.searchParams.delete('rc');
+      history.replaceState(history.state, '', u.toString());
+      return c;
+    }
+    var s = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    if (s && s.c && Date.now() - s.t < MAX) return s.c;
+  } catch (e) {}
+  return '';
+})();
 /* ════════════════════════
    관심등록
 ════════════════════════ */
