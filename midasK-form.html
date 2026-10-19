@@ -262,6 +262,42 @@ select,.field-select{
   .field-row{grid-template-columns:1fr;}
 }
 
+/* ── 관심 분야 네 칸 · 추가 정보 접이 (2026-10-19 간소화) ── */
+.req-star{color:var(--pu);font-weight:800;}
+.pick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
+.pick-item{position:relative;}
+.pick-item input{position:absolute;opacity:0;width:0;height:0;}
+.pick-label{
+  display:flex;align-items:center;gap:10px;height:100%;
+  border:1.5px solid var(--line);border-radius:12px;padding:15px 13px;
+  font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;line-height:1.35;
+  transition:border-color .12s,background .12s;
+}
+.pick-label:hover{border-color:#cfcfcf;}
+.pick-sub{font-weight:500;color:var(--sub);font-size:12px;white-space:nowrap;}
+.pick-dot{
+  width:20px;height:20px;border-radius:50%;flex:none;border:1.5px solid #cfcfcf;
+  display:flex;align-items:center;justify-content:center;
+}
+.pick-dot svg{opacity:0;width:10px;height:8px;}
+.pick-item input:checked + .pick-label{border-color:var(--pu);background:#f3effd;}
+.pick-item input:checked + .pick-label .pick-dot{background:var(--pu);border-color:var(--pu);}
+.pick-item input:checked + .pick-label .pick-dot svg{opacity:1;}
+.pick-item input:focus-visible + .pick-label{outline:2px solid var(--ink);outline-offset:2px;}
+.pick-hint{margin-top:10px;font-size:12.5px;color:var(--sub);}
+.more-box{margin-top:16px;border:1.5px solid var(--line);border-radius:12px;}
+.more-btn{width:100%;display:flex;align-items:center;gap:12px;padding:14px;text-align:left;}
+.more-plus{font-size:22px;line-height:1;width:20px;text-align:center;color:var(--ink);font-weight:400;}
+.more-txt b{font-size:14px;font-weight:800;}
+.more-txt small{display:block;font-size:11.5px;color:var(--dim);margin-top:3px;font-weight:500;}
+.more-chev{margin-left:auto;flex:none;transition:transform .2s;}
+.more-box.open .more-chev{transform:rotate(180deg);}
+.more-box.open .more-plus{color:var(--pu);}
+.more-body{display:none;padding:2px 14px 18px;border-top:1px solid var(--line);}
+.more-box.open .more-body{display:block;}
+.more-sec{margin-top:18px;}
+.more-lab{font-size:13.5px;font-weight:700;color:var(--ink);}
+@media(max-width:400px){.pick-label{padding:13px 11px;font-size:13.5px;}}
 </style>
 </head>
 <body>
@@ -291,21 +327,21 @@ select,.field-select{
 
   <div id="formArea">
 
-    <!-- 01 학생 정보 -->
+    <!-- 01 학생 기본 정보 — 필수는 이름 · 학년 · 보호자 연락처(+ 동의) 넷(대표 2026-10-19 간소화) -->
     <div class="card">
       <div class="card-head">
         <span class="card-chip"><span class="card-num">01</span><span class="card-title">학생 기본 정보</span></span>
-        <span class="card-req on">이름 · 학년 필수</span>
+        <span class="card-req on"><span class="req-star">*</span> 필수 입력</span>
       </div>
       <div class="field-row">
         <div class="field">
-          <label>학생 이름</label>
-          <input type="text" id="studentName" placeholder="홍길동" required>
+          <label>학생 이름 <span class="req-star">*</span></label>
+          <input type="text" id="studentName" placeholder="이름을 입력해 주세요" required>
         </div>
         <div class="field">
-          <label>학년</label>
+          <label>학년 <span class="req-star">*</span></label>
           <select id="grade" class="field-select">
-            <option value="" disabled selected>선택</option>
+            <option value="" disabled selected>학년 선택</option>
             <optgroup label="고등학생">
               <option value="고1">고1</option>
               <option value="고2">고2</option>
@@ -326,19 +362,11 @@ select,.field-select{
         </div>
       </div>
       <div class="field">
-        <label>학교명 <span style="font-weight:400;opacity:.6">(선택)</span></label>
-        <input type="text" id="schoolName" placeholder="○○고등학교">
-      </div>
-    </div>
-
-    <!-- 02 연락처 -->
-    <div class="card">
-      <div class="card-head">
-        <span class="card-chip"><span class="card-num">02</span><span class="card-title">연락처</span></span>
-        <span class="card-req on">필수</span>
+        <label>학교명 <span class="optional">(선택)</span></label>
+        <input type="text" id="schoolName" placeholder="학교명을 입력해 주세요">
       </div>
       <div class="field">
-        <label>보호자 연락처</label>
+        <label>보호자 연락처 <span class="req-star">*</span></label>
         <div class="phone-row" id="parentPhoneRow">
           <input class="p-seg" id="p1" type="tel" inputmode="numeric" maxlength="3" placeholder="010">
           <span class="phone-sep">-</span>
@@ -347,44 +375,70 @@ select,.field-select{
           <input class="p-seg" id="p3" type="tel" inputmode="numeric" maxlength="4" placeholder="0000">
         </div>
       </div>
-      <div class="field">
-        <label>학생 연락처&nbsp;<span class="optional">(선택)</span></label>
-        <div class="phone-row" id="studentPhoneRow">
-          <input class="p-seg" id="s1" type="tel" inputmode="numeric" maxlength="3" placeholder="010">
-          <span class="phone-sep">-</span>
-          <input class="p-seg" id="s2" type="tel" inputmode="numeric" maxlength="4" placeholder="0000">
-          <span class="phone-sep">-</span>
-          <input class="p-seg" id="s3" type="tel" inputmode="numeric" maxlength="4" placeholder="0000">
-        </div>
-      </div>
     </div>
 
-    <!-- 03 학업·목표 -->
+    <!-- 02 관심 분야 — 네 칸이 표준서랍 키로 이어진다(handleSubmit · INTEREST) -->
     <div class="card">
       <div class="card-head">
-        <span class="card-chip"><span class="card-num">03</span><span class="card-title">진로 · 학업</span></span>
-        <span class="card-req">선택</span>
+        <span class="card-chip"><span class="card-num">02</span><span class="card-title">관심 분야</span></span>
+        <span class="card-req">선택 · 복수 선택 가능</span>
       </div>
-      <div class="field">
-        <label>목표 대학 / 학과</label>
-        <input type="text" id="target" placeholder="예: 서울대학교 의예과" required>
+      <div class="pick-grid">
+        <div class="pick-item"><input type="checkbox" name="interest" id="i_road" value="road"><label for="i_road" class="pick-label"><span class="pick-dot"><svg width="12" height="10" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>생기부 로드맵 <span class="pick-sub">(학기/학년)</span></span></label></div>
+        <div class="pick-item"><input type="checkbox" name="interest" id="i_seteuk" value="seteuk"><label for="i_seteuk" class="pick-label"><span class="pick-dot"><svg width="12" height="10" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>세특전략 컨설팅 <span class="pick-sub">(회당)</span></span></label></div>
+        <div class="pick-item"><input type="checkbox" name="interest" id="i_admission" value="admission"><label for="i_admission" class="pick-label"><span class="pick-dot"><svg width="12" height="10" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>수시/정시/면접컨설팅</span></label></div>
+        <div class="pick-item"><input type="checkbox" name="interest" id="i_visit" value="visit"><label for="i_visit" class="pick-label"><span class="pick-dot"><svg width="12" height="10" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>무료 내방 후 결정</span></label></div>
       </div>
-      <div class="field">
-        <label>평균 내신등급</label>
-        <input type="text" id="gpa" placeholder="예: 1.5등급">
-      </div>
-      <div class="field">
-        <label>최근 모의고사 평균 백분위</label>
-        <input type="text" id="mock" placeholder="예: 95% (3월 전국 기준)">
-      </div>
+      <div class="pick-hint">상담을 통해 필요한 프로그램을 함께 안내해 드립니다.</div>
     </div>
 
-    <!-- 04 경로 -->
+    <!-- 03 문의 내용 -->
     <div class="card">
       <div class="card-head">
-        <span class="card-chip"><span class="card-num">04</span><span class="card-title">알게 된 경로</span></span>
+        <span class="card-chip"><span class="card-num">03</span><span class="card-title">문의 내용</span></span>
         <span class="card-req">선택</span>
       </div>
+      <textarea id="etcText" class="etc-input" placeholder="궁금한 점이 있다면 편하게 남겨주세요." maxlength="300" oninput="updateCount()"></textarea>
+      <div class="etc-count"><span id="etcCount">0</span> / 300자</div>
+
+      <div class="card-interest" id="interestLine" style="display:none;"></div>
+      <!-- ▶ 둘러보신 프로그램 — 열어 보기만 한 것은 체크하지 않고 물어본다(누르면 추가 정보가 펼쳐진다) -->
+      <div class="seen-ask" id="seenAsk" style="display:none;"></div>
+
+      <!-- ▶ 추가 정보 입력 — 접힌 채로 시작. 프로그램이 골라져 들어오면(#키 · 관심등록 · 저장본) 펼쳐서 연다 -->
+      <div class="more-box" id="moreBox">
+        <button type="button" class="more-btn" onclick="toggleMore()">
+          <span class="more-plus">+</span>
+          <span class="more-txt"><b>추가 정보 입력</b> <span class="optional">(선택)</span><small>학생 연락처 · 목표 · 성적 · 알게 된 경로 · 희망 프로그램</small></span>
+          <svg class="more-chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#6b6b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="more-body">
+          <div class="field">
+            <label>학생 연락처</label>
+            <div class="phone-row" id="studentPhoneRow">
+              <input class="p-seg" id="s1" type="tel" inputmode="numeric" maxlength="3" placeholder="010">
+              <span class="phone-sep">-</span>
+              <input class="p-seg" id="s2" type="tel" inputmode="numeric" maxlength="4" placeholder="0000">
+              <span class="phone-sep">-</span>
+              <input class="p-seg" id="s3" type="tel" inputmode="numeric" maxlength="4" placeholder="0000">
+            </div>
+          </div>
+          <div class="field">
+            <label>목표 대학 / 학과</label>
+            <input type="text" id="target" placeholder="예: 서울대학교 의예과">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>평균 내신등급</label>
+              <input type="text" id="gpa" placeholder="예: 1.5등급">
+            </div>
+            <div class="field">
+              <label>모의고사 평균 백분위</label>
+              <input type="text" id="mock" placeholder="예: 95% (3월 전국)">
+            </div>
+          </div>
+          <div class="more-sec">
+            <div class="more-lab">알게 된 경로</div>
       <div class="route-grid">
         <div class="sel-item"><input type="checkbox" name="route" id="r1" value="성적을 부탁해 티처스"><label for="r1" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>성적을 부탁해 티처스</label></div>
         <div class="sel-item"><input type="checkbox" name="route" id="r2" value="지인 추천"><label for="r2" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>지인 추천</label></div>
@@ -393,17 +447,9 @@ select,.field-select{
         <div class="sel-item"><input type="checkbox" name="route" id="r5" value="인터넷 검색"><label for="r5" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>인터넷 검색</label></div>
         <div class="sel-item"><input type="checkbox" name="route" id="r6" value="기존 상담"><label for="r6" class="sel-label"><span class="sel-chk-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>기존 상담</label></div>
       </div>
-    </div>
-
-    <!-- 05 컨설팅 -->
-    <div class="card">
-      <div class="card-head">
-        <span class="card-chip"><span class="card-num">05</span><span class="card-title">희망 컨설팅 선택</span></span>
-        <span class="card-req">복수 선택</span>
       </div>
-      <div class="card-interest" id="interestLine" style="display:none;"></div>
-      <!-- ▶ 둘러보신 프로그램 — 열어 보기만 한 것은 체크하지 않고 물어본다 -->
-      <div class="seen-ask" id="seenAsk" style="display:none;"></div>
+          <div class="more-sec">
+            <div class="more-lab">희망 프로그램 <span class="optional">(알고 계시면 골라 주세요)</span></div>
       <!-- ▶ 학년 전략 로드맵 -->
       <div class="svc-group">
         <div class="svc-group-label">학년 전략 로드맵</div>
@@ -411,10 +457,6 @@ select,.field-select{
           <div class="chip-item"><input type="checkbox" name="svc" id="sg1" value="g1"><label for="sg1" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고1 학생부 전략 로드맵</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sg2" value="g2"><label for="sg2" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고2 학생부 전략 로드맵</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sg3" value="g3"><label for="sg3" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>고3 학생부 전략 로드맵</label></div>
-        </div>
-        <div class="group-etc-wrap" id="etcG1">
-          <textarea class="etc-input" name="memo_g1" placeholder="학년전략 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
-          <div class="etc-count"><span>0</span> / 100자</div>
         </div>
       </div>
 
@@ -433,10 +475,6 @@ select,.field-select{
           <div class="chip-item"><input type="checkbox" name="svc" id="sp06" value="p06"><label for="sp06" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>비교과활동</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sp09" value="p09"><label for="sp09" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>중3 얼리버드</label></div>
         </div>
-        <div class="group-etc-wrap" id="etcG2">
-          <textarea class="etc-input" name="memo_indiv" placeholder="개별 컨설팅 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
-          <div class="etc-count"><span>0</span> / 100자</div>
-        </div>
       </div>
 
       <!-- ▶ 대입 전략 컨설팅 -->
@@ -449,21 +487,8 @@ select,.field-select{
           <div class="chip-item"><input type="checkbox" name="svc" id="sc04" value="c04"><label for="sc04" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>파이널패키지</label></div>
           <div class="chip-item"><input type="checkbox" name="svc" id="sc05" value="c05"><label for="sc05" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>자소서 기획·첨삭</label></div>
         </div>
-        <div class="group-etc-wrap" id="etcG3">
-          <textarea class="etc-input" name="memo_univ" placeholder="대입 전략 관련 문의사항을 입력해주세요. (선택)" maxlength="100" oninput="updateGroupCount(this)"></textarea>
-          <div class="etc-count"><span>0</span> / 100자</div>
-        </div>
       </div>
-
-      <!-- ▶ 기타문의 -->
-      <div class="svc-group" style="margin-bottom:0;">
-        <div class="svc-group-label">기타 문의</div>
-        <div class="svc-chip-grid">
-          <div class="chip-item"><input type="checkbox" name="svc" id="setc" value="etc" onchange="toggleEtc(this)"><label for="setc" class="chip-label"><span class="chip-chk"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>기타 문의 / 1회 무료내방</label></div>
-        </div>
-        <div class="etc-wrap" id="etcWrap">
-          <textarea id="etcText" class="etc-input" placeholder="문의 내용을 자유롭게 입력해주세요. 무료 내방 신청시 '1회 무료 상담 신청' 이라고 남겨주세요." maxlength="100" oninput="updateCount()"></textarea>
-          <div class="etc-count"><span id="etcCount">0</span> / 100자</div>
+          </div>
         </div>
       </div>
     </div>
@@ -478,7 +503,7 @@ select,.field-select{
           </svg>
         </div>
         <div class="agree-text">
-          <strong>[필수] 개인정보 수집 · 이용 동의</strong>
+          <strong>[필수] 개인정보 수집·이용에 동의합니다.</strong>
           입력하신 정보는 마이더스K 교육컨설팅의 무료 상담, 예약 접수, 컨설팅 안내 문자 등 고객관리 목적으로만 활용됩니다.
         </div>
       </label>
@@ -487,7 +512,7 @@ select,.field-select{
     <!-- 숨은 칸(로봇 거르기) — 사람은 못 보고 채우지 않는다. 지우지 마세요 -->
     <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
     <div id="sendFail" style="display:none;margin:0 0 14px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.28);font-size:14px;line-height:1.7;color:inherit;"></div>
-    <button class="submit-btn" onclick="handleSubmit()">상담 문의 남기기</button>
+    <button class="submit-btn" onclick="handleSubmit()">상담 신청하기</button>
 
     <!-- 전화 -->
     <a href="tel:053-782-0331" class="tel-banner">
@@ -565,19 +590,6 @@ const OFFICE_TEL   = '053-782-0331';
 const OFFICE_SMS   = '010-6280-4410';
 /* 체크 칩 묶음 차례 = 표준서랍 묶음 id (학년전략 · 개별 · 대입 · 기타) */
 const GROUP_IDS = ['road', 'indiv', 'univ', 'segu'];
-
-/* ── 기타 문의 토글 ── */
-function toggleEtc(checkbox) {
-  const wrap = document.getElementById('etcWrap');
-  if (checkbox.checked) {
-    wrap.classList.add('open');
-    document.getElementById('etcText').focus();
-  } else {
-    wrap.classList.remove('open');
-    document.getElementById('etcText').value = '';
-    document.getElementById('etcCount').textContent = '0';
-  }
-}
 
 function updateCount() {
   const len = document.getElementById('etcText').value.length;
@@ -736,6 +748,7 @@ function handleSubmit() {
   }
 
   const svcEls = document.querySelectorAll('input[name="svc"]:checked');
+  const interestEls = document.querySelectorAll('input[name="interest"]:checked');
   const routeEls = document.querySelectorAll('input[name="route"]:checked');
 
   /* 빠뜨리면 그 자리로 올려 주고 빨갛게(대표 09-20 「버튼이 작동 안 한다」: 토스트만 잠깐 떠서 뭐가 빠졌는지 모르고 눌렀다) */
@@ -773,47 +786,41 @@ function handleSubmit() {
     'c04':  '고3 파이널 패키지',
     'c05':  '자소서 기획 · 첨삭',
     'segu': '세특구원자',
-    'etc':  '기타 문의',
+    's-visit': '무료 내방 상담',
   };
 
-    const etcText = document.getElementById('etcText').value.trim();
-  const services = Array.from(svcEls).map(el => {
-    if (el.value === 'etc' && etcText) return `기타 문의: ${etcText}`;
-    return svcMap[el.value] || (el.labels && el.labels[0] ? el.labels[0].textContent.trim() : '') || el.value;
-  }).join(', ');
+  /* 관심 분야 네 칸 → 표준서랍 키(대표 2026-10-19).
+     로드맵은 학년으로 고1·고2·고3 키를 고른다(그 밖의 학년은 키 없이 관심 분야만) · 수시/정시/면접은 하나로 못 정해 키 없이 관심 분야만 */
+  const INTEREST = {
+    road:      { label: '생기부 로드맵(학기/학년)', key: ({ '고1': 'g1', '고2': 'g2', '고3': 'g3' })[gradeEl.value] || '' },
+    seteuk:    { label: '세특전략 컨설팅(회당)',   key: 'p03' },
+    admission: { label: '수시/정시/면접컨설팅',    key: '' },
+    visit:     { label: '무료 내방 후 결정',       key: 's-visit' },
+  };
+  const interestKeys = Array.from(interestEls).map(el => el.value).filter(v => INTEREST[v]);
+  const programKeys = Array.from(svcEls).map(el => el.value);
+  interestKeys.forEach(v => { const k = INTEREST[v].key; if (k && programKeys.indexOf(k) < 0) programKeys.push(k); });
 
-  /* 그룹별 메모 수집 */
-  const memoG1   = document.querySelector('[name="memo_g1"]')?.value.trim() || '';
-  const memoIndiv= document.querySelector('[name="memo_indiv"]')?.value.trim() || '';
-  const memoUniv = document.querySelector('[name="memo_univ"]')?.value.trim() || '';
-  const memoSegu = document.querySelector('[name="memo_segu"]')?.value.trim() || '';
-  const memoAll  = [
-    memoG1   ? `[학년전략] ${memoG1}`   : '',
-    memoIndiv? `[개별] ${memoIndiv}`     : '',
-    memoUniv ? `[대입전략] ${memoUniv}`  : '',
-    memoSegu ? `[세특구원자] ${memoSegu}`: '',
-  ].filter(Boolean).join(' / ');
+  const etcText = document.getElementById('etcText').value.trim();
+  const services = programKeys.map(k => {
+    const el = document.querySelector('input[name="svc"][value="' + k + '"]');
+    return svcMap[k] || (el && el.labels && el.labels[0] ? el.labels[0].textContent.trim() : '') || k;
+  }).join(', ');
 
   /* 버튼 로딩 상태 */
   const btn = document.querySelector('.submit-btn');
   btn.textContent = '보내는 중...';
   btn.disabled = true;
 
-  /* 받는 창구로 전송 — 이름=학생, 번호=보호자 휴대폰, 묶음별 메시지는 memo_by_group */
-  const memoByGroup = {};
-  if (memoG1)    memoByGroup.road  = memoG1;
-  if (memoIndiv) memoByGroup.indiv = memoIndiv;
-  if (memoUniv)  memoByGroup.univ  = memoUniv;
-  if (memoSegu)  memoByGroup.segu  = memoSegu;
-  if (etcText)   memoByGroup.sit   = etcText;
-  const content = [memoAll, etcText ? `[기타 문의] ${etcText}` : ''].filter(Boolean).join(' / ');
+  /* 받는 창구로 전송 — 이름=학생, 번호=보호자 휴대폰, 문의 내용은 한 칸(content) · 묶음별 메모 칸은 없앴다(2026-10-19) */
+  const content = etcText;
 
   let touched = [];
   try { touched = JSON.parse(localStorage.getItem('midasK_interest') || '[]') || []; } catch(e) { touched = []; }
 
   const payload = {
     source:       'brochure',
-    program_keys: Array.from(svcEls).map(el => el.value),
+    program_keys: programKeys,
     name:         nameEl.value.trim(),
     phone:        parentPhone,
     content:      content,
@@ -827,8 +834,8 @@ function handleSubmit() {
       target:        target,
       gradeInfo:     gradeInfo,
       route:         Array.from(routeEls).map(el => el.value).join(', '),
+      interest_field: interestKeys.map(v => INTEREST[v].label).join(' · '),
       services:      services,
-      memo_by_group: memoByGroup,
       interest_keys: readKeys('midasK_interest'),
       seen_keys:     readKeys('midasK_seen'),
     },
@@ -867,7 +874,7 @@ function showSendFail() {
   box.style.display = 'block';
   box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   const btn = document.querySelector('.submit-btn');
-  btn.textContent = '상담 문의 다시 남기기';
+  btn.textContent = '상담 다시 신청하기';
   btn.disabled = false;
 }
 
@@ -924,6 +931,7 @@ function syncProgramsFromStandard() {
       // 새 칩이 선 묶음은 원래 칩도 묶음 전체로 메모 칸을 판정(원래 판정은 원래 칩만 본다)
       if (added) groupsEl[at].querySelectorAll('input[name="svc"]').forEach(el => el.addEventListener('change', () => toggleGroupMemo(groupsEl[at])));
     });
+    openMoreIfPicked();
     buildSeenAsk();
   }).catch(() => {});
 }
@@ -972,7 +980,9 @@ function saveFormData() {
       gpa:     document.getElementById('gpa').value,
       mock:    document.getElementById('mock').value,
       route:   Array.from(document.querySelectorAll('input[name="route"]:checked')).map(function(e){return e.value;}),
-      svc:     Array.from(document.querySelectorAll('input[name="svc"]:checked')).map(function(e){return e.value;})
+      svc:     Array.from(document.querySelectorAll('input[name="svc"]:checked')).map(function(e){return e.value;}),
+      interest: Array.from(document.querySelectorAll('input[name="interest"]:checked')).map(function(e){return e.value;}),
+      memo:    document.getElementById('etcText').value
     };
     localStorage.setItem('midasK_formData', JSON.stringify(data));
   } catch(e) {}
@@ -1008,7 +1018,28 @@ function restoreFormData() {
         if (el) { el.checked = true; el.dispatchEvent(new Event('change')); }
       });
     }
+    if (d.interest && d.interest.length) {
+      d.interest.forEach(function(v) {
+        var el = document.querySelector('input[name="interest"][value="' + v + '"]');
+        if (el) el.checked = true;
+      });
+    }
+    if (d.memo) { document.getElementById('etcText').value = d.memo; updateCount(); }
+    if (d.s1 || d.target || d.gpa || d.mock || (d.route && d.route.length)) openMore();
   } catch(e) {}
+}
+
+/* ── 추가 정보 입력 — 접기 · 펼치기 ── */
+function toggleMore() {
+  var box = document.getElementById('moreBox');
+  if (box) box.classList.toggle('open');
+}
+function openMore() {
+  var box = document.getElementById('moreBox');
+  if (box) box.classList.add('open');
+}
+function openMoreIfPicked() {
+  if (document.querySelector('input[name="svc"]:checked')) openMore();
 }
 
 /* ── 브로슈어 다시보기 ── */
@@ -1092,7 +1123,7 @@ function buildSeenAsk() {
   box.querySelectorAll('button').forEach(function (b) {
     b.addEventListener('click', function () {
       var el = document.querySelector('input[name="svc"][value="' + b.getAttribute('data-k') + '"]');
-      if (el) { el.checked = true; el.dispatchEvent(new Event('change')); }
+      if (el) { el.checked = true; el.dispatchEvent(new Event('change')); openMore(); }
       buildSeenAsk();
     });
   });
@@ -1113,12 +1144,10 @@ function applyHashPick() {
 document.addEventListener('DOMContentLoaded', function () {
   setupPhoneRow(['p1','p2','p3'], [3, 4, 4]);
   setupPhoneRow(['s1','s2','s3'], [3, 4, 4]);
-  setupGroupToggle(['sg1','sg2','sg3'],          'etcG1');
-  setupGroupToggle(['sp01','sp02','sp03','sp08','sp10','sp05','sp04','sp07','sp06','sp09'], 'etcG2');
-  setupGroupToggle(['sc01','sc02','sc03','sc04','sc05'], 'etcG3');
   restoreFormData();
   applyInterestFromStorage();
   applyHashPick();
+  openMoreIfPicked(); // #키 · 관심등록 · 저장본으로 골라진 칩이 접힌 칸 안에 숨지 않게
   buildSeenAsk();
   syncProgramsFromStandard();
   document.addEventListener('change', function (e) { if (e.target && e.target.name === 'svc') buildSeenAsk(); });
