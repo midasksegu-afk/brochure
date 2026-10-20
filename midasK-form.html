@@ -585,6 +585,23 @@ var MK_RC = (function () {
   } catch (e) {}
   return '';
 })();
+/* ── 06 상담 신청폼 주소(t) — 2026-10-20 · 리서치센터 학생 전용 주소(/v/f/<토큰>)를 열면 ?t=<토큰> 을 붙여 여기로 온다 ──
+   rc 와 같이 이 탭 안에서만 기억(3시간) · 주소창에서는 지운다. 신청서를 낼 때 link_token 으로 보내면 리서치 관리 06 줄이 「냄」이 된다. */
+var MK_T = (function () {
+  var KEY = 'midasK_t', MAX = 3 * 3600 * 1000;
+  try {
+    var u = new URL(location.href), t = u.searchParams.get('t');
+    if (t && /^[A-Za-z0-9_-]{16,64}$/.test(t)) {
+      sessionStorage.setItem(KEY, JSON.stringify({ c: t, t: Date.now() }));
+      u.searchParams.delete('t');
+      history.replaceState(history.state, '', u.toString());
+      return t;
+    }
+    var s = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+    if (s && s.c && Date.now() - s.t < MAX) return s.c;
+  } catch (e) {}
+  return '';
+})();
 const INBOUND_URL  = API_BASE + '/api/research/inbound';
 const PROGRAMS_URL = API_BASE + '/api/research/programs';
 const OFFICE_TEL   = '053-782-0331';
@@ -828,6 +845,7 @@ function handleSubmit() {
     content:      content,
     touched:      Array.isArray(touched) ? touched : [],
     website:      (document.getElementById('website') || {}).value || '',
+    link_token:   MK_T || undefined,    // 06 상담 신청폼 주소로 왔으면 그 토큰(2026-10-20) · 없으면 빠진다
     link_code:    MK_RC || undefined,   // 문자 링크로 왔으면 그 넘김 코드(2026-10-14) · 없으면 빠진다
     answers: {
       schoolName:    schoolEl.value.trim(),
