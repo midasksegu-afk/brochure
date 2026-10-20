@@ -289,6 +289,7 @@ select,.field-select{
 .more-btn{width:100%;display:flex;align-items:center;gap:12px;padding:14px;text-align:left;}
 .more-plus{font-size:22px;line-height:1;width:20px;text-align:center;color:var(--ink);font-weight:400;}
 .more-txt b{font-size:14px;font-weight:800;}
+.more-txt .more-opt{font-size:14px;font-weight:800;color:var(--dim);margin-left:2px;}
 .more-txt small{display:block;font-size:11.5px;color:var(--dim);margin-top:3px;font-weight:500;}
 .more-chev{margin-left:auto;flex:none;transition:transform .2s;}
 .more-box.open .more-chev{transform:rotate(180deg);}
@@ -409,7 +410,7 @@ select,.field-select{
       <div class="more-box" id="moreBox">
         <button type="button" class="more-btn" onclick="toggleMore()">
           <span class="more-plus">+</span>
-          <span class="more-txt"><b>추가 정보 입력</b> <span class="optional">(선택)</span><small>학생 연락처 · 목표 · 성적 · 알게 된 경로 · 희망 프로그램</small></span>
+          <span class="more-txt"><b>추가 정보 입력</b> <span class="more-opt">(선택사항)</span><small>학생 연락처 · 목표 · 성적 · 알게 된 경로 · 희망 프로그램</small></span>
           <svg class="more-chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#6b6b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="more-body">
@@ -799,7 +800,8 @@ function handleSubmit() {
   };
   const interestKeys = Array.from(interestEls).map(el => el.value).filter(v => INTEREST[v]);
   const programKeys = Array.from(svcEls).map(el => el.value);
-  interestKeys.forEach(v => { const k = INTEREST[v].key; if (k && programKeys.indexOf(k) < 0) programKeys.push(k); });
+  /* 관심 분야는 상품 키로 바꿔 넣지 않는다(대표 2026-10-20 「신청 상품이 없는데 있는 척」) — interest_pick 으로 따로 보낸다.
+     신청 상품(program_keys · services)은 「추가 정보 입력」에서 직접 고른 칩만 */
 
   const etcText = document.getElementById('etcText').value.trim();
   const services = programKeys.map(k => {
@@ -835,6 +837,7 @@ function handleSubmit() {
       gradeInfo:     gradeInfo,
       route:         Array.from(routeEls).map(el => el.value).join(', '),
       interest_field: interestKeys.map(v => INTEREST[v].label).join(' · '),
+      interest_pick: interestKeys,
       services:      services,
       interest_keys: readKeys('midasK_interest'),
       seen_keys:     readKeys('midasK_seen'),
