@@ -1139,7 +1139,8 @@ function buildSeenAsk() {
     if (pills.length < 6) pills.push('<button type="button" data-k="' + k + '">+ ' + lb.replace(/</g, '&lt;') + '</button>');
   });
   if (!pills.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
-  box.innerHTML = '<div class="q">둘러보신 프로그램 — 같이 문의하시겠어요?</div><div class="pills">' + pills.join('') + '</div>';
+  // 제목 줄만 — 바로 밑이 「추가 정보 입력」이고 그 사이엔 아무것도 없다(대표 2026-10-22 · 프로그램 단추 「+ 고1 …」 삭제 · 되살리지 마라)
+  box.innerHTML = '<div class="q">둘러보신 프로그램 — 같이 문의하시겠어요?</div>';
   box.style.display = 'block';
   box.querySelectorAll('button').forEach(function (b) {
     b.addEventListener('click', function () {
